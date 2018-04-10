@@ -1,3 +1,9 @@
+# Editor and build-tool folders
+.idea
+out/
+*.iml
+.gradle
+
 # Compiled class file
 *.class
 
