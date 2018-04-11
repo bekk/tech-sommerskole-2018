@@ -2,9 +2,9 @@ package no.bekk.sommerskole.controllers;
 
 import no.bekk.sommerskole.database.UserRepository;
 import no.bekk.sommerskole.domain.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.inject.Inject;
 import java.util.List;
 
 @RestController
@@ -12,7 +12,7 @@ import java.util.List;
 public class UsersController {
     UserRepository userRepository;
 
-    @Autowired
+    @Inject
     public UsersController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }

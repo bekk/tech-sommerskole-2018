@@ -1,19 +1,19 @@
 package no.bekk.sommerskole.database;
 
 import no.bekk.sommerskole.domain.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import javax.inject.Inject;
 import java.util.List;
 
 @Repository
 public class UserRepository {
     NamedParameterJdbcTemplate jdbc;
 
-    @Autowired
+    @Inject
     public UserRepository(NamedParameterJdbcTemplate jdbc) {
         this.jdbc = jdbc;
     }
