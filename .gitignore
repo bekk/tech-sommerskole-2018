@@ -1,8 +1,10 @@
 # Editor and build-tool folders
 .idea
 out/
+target/
 *.iml
 .gradle
+test.db
 
 # Compiled class file
 *.class
