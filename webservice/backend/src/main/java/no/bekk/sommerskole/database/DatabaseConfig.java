@@ -2,7 +2,7 @@ package no.bekk.sommerskole.database;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.sqlite.SQLiteDataSource;
 
 import javax.sql.DataSource;
@@ -13,7 +13,7 @@ import java.sql.SQLException;
 @Configuration
 public class DatabaseConfig {
     @Bean
-    public JdbcTemplate jdbc(DataSource ds) {
-        return new JdbcTemplate(ds);
+    public NamedParameterJdbcTemplate jdbc(DataSource ds) {
+        return new NamedParameterJdbcTemplate(ds);
     }
 }

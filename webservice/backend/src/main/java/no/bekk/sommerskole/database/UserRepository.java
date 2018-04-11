@@ -3,17 +3,18 @@ package no.bekk.sommerskole.database;
 import no.bekk.sommerskole.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
 public class UserRepository {
-    JdbcTemplate jdbc;
+    NamedParameterJdbcTemplate jdbc;
 
     @Autowired
-    public UserRepository(JdbcTemplate jdbc) {
+    public UserRepository(NamedParameterJdbcTemplate jdbc) {
         this.jdbc = jdbc;
     }
 
@@ -22,14 +23,20 @@ public class UserRepository {
     }
 
     public User getUserById(int id) {
+        MapSqlParameterSource paramSource = new MapSqlParameterSource();
+        paramSource.addValue("id", id);
+
         return this.jdbc.queryForObject(
-                "SELECT * FROM Users WHERE id = ?",
-                new Object[] { id },
+                "SELECT * FROM Users WHERE id = :id",
+                paramSource,
                 (rs, rowNum) -> new User(rs.getInt("id"), rs.getString("name"))
         );
     }
 
     public void createUser(String name) {
-        this.jdbc.update("INSERT INTO Users (name) VALUES (?)", new Object[] { name });
+        MapSqlParameterSource paramSource = new MapSqlParameterSource();
+        paramSource.addValue("name", name);
+
+        this.jdbc.update("INSERT INTO Users (name) VALUES (:name)", paramSource);
     }
 }
