@@ -1,6 +1,8 @@
 package no.bekk.sommerskole.database;
 
 import no.bekk.sommerskole.domain.Beer;
+import no.bekk.sommerskole.domain.Brewery;
+import no.bekk.sommerskole.domain.Country;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -20,17 +22,36 @@ public class BeerRepository {
 
     public List<Beer> getBeer() {
         return jdbc.query(
-                "SELECT * FROM main.beers;",
+                "SELECT " +
+                        "beer.id AS beerId, " +
+                        "beer.title AS beerName, " +
+                        "beer.abv AS abv, " +
+                        "brewery.id AS breweryId, " +
+                        "brewery.title AS breweryName, " +
+                        "brewery.indie AS indie, " +
+                        "country.code AS countryCode, " +
+                        "country.title AS countryName " +
+                        "FROM main.beers AS beer " +
+                        "JOIN main.breweries AS brewery ON brewery.id = beer.brewery_id " +
+                        "JOIN main.countries AS country ON brewery.country_id = country.id " +
+                        "LIMIT 10;",
                BeerRepository::mapToBeer
         );
     }
 
     private static Beer mapToBeer(ResultSet rs, int rowNum) throws SQLException {
-        return new Beer(
-                rs.getInt("id"),
-                rs.getString("title"),
-                null,
-                rs.getFloat("abv")
-        );
+        return new Beer()
+                .setId(rs.getInt("beerId"))
+                .setName(rs.getString("beerName"))
+                .setAbv(rs.getFloat("abv"))
+                .setBrewery(new Brewery()
+                        .setId(rs.getInt("breweryId"))
+                        .setName(rs.getString("breweryName"))
+                        .setIndie(rs.getBoolean("indie"))
+                        .setCountry(new Country()
+                                .setCountryCode(rs.getString("countryCode"))
+                                .setName(rs.getString("countryName"))
+                        )
+                );
     }
 }
