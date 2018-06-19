@@ -25,7 +25,7 @@ public class BeerFilter {
     }
 
     public Boolean getSortDescending() {
-        return sortDescending;
+        return sortDescending == null ? new Boolean(false) : sortDescending;
     }
 
     public void setSortDescending(Boolean sortDescending) {
