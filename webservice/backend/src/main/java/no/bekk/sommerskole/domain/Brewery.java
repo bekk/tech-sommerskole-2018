@@ -4,7 +4,6 @@ public class Brewery {
     private int id;
     private String name;
     private boolean indie;
-    private Country country;
 
     public Brewery() {
     }
@@ -33,15 +32,6 @@ public class Brewery {
 
     public Brewery setIndie(boolean indie) {
         this.indie = indie;
-        return this;
-    }
-
-    public Country getCountry() {
-        return country;
-    }
-
-    public Brewery setCountry(Country country) {
-        this.country = country;
         return this;
     }
 }

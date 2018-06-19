@@ -4,7 +4,8 @@ public class Beer {
     private int id;
     private String name;
     private Brewery brewery;
-    private float abv;
+    private Float abv;
+    private Country country;
 
     public Beer() {
     }
@@ -42,6 +43,20 @@ public class Beer {
 
     public Beer setAbv(float abv) {
         this.abv = abv;
+        return this;
+    }
+
+    public Beer setAbv(Float abv) {
+        this.abv = abv;
+        return this;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public Beer setCountry(Country country) {
+        this.country = country;
         return this;
     }
 }
