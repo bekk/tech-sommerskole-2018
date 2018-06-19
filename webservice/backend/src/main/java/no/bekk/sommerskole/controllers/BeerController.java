@@ -2,7 +2,7 @@ package no.bekk.sommerskole.controllers;
 
 import no.bekk.sommerskole.database.BeerRepository;
 import no.bekk.sommerskole.domain.Beer;
-import no.bekk.sommerskole.domain.BeerFilter;
+import no.bekk.sommerskole.filter.BeerFilter;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;

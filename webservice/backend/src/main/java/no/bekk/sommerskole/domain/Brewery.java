@@ -3,7 +3,6 @@ package no.bekk.sommerskole.domain;
 public class Brewery {
     private int id;
     private String name;
-    private boolean indie;
 
     public Brewery() {
     }
@@ -23,15 +22,6 @@ public class Brewery {
 
     public Brewery setName(String name) {
         this.name = name;
-        return this;
-    }
-
-    public boolean isIndie() {
-        return indie;
-    }
-
-    public Brewery setIndie(boolean indie) {
-        this.indie = indie;
         return this;
     }
 }

@@ -1,7 +1,7 @@
 package no.bekk.sommerskole.database;
 
 import no.bekk.sommerskole.domain.Beer;
-import no.bekk.sommerskole.domain.BeerFilter;
+import no.bekk.sommerskole.filter.BeerFilter;
 import no.bekk.sommerskole.domain.Brewery;
 import no.bekk.sommerskole.domain.Country;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -28,8 +28,7 @@ public class BeerRepository {
                 .addValue("minAbv", filter.getMinAbv())
                 .addValue("maxAbv", filter.getMaxAbv())
                 .addValue("countries", filter.getCountries())
-                .addValue("limit", filter.getLimit())
-                .addValue("indie", filter.getIndie());
+                .addValue("limit", filter.getLimit());
 
         String query = "SELECT " +
                 "beer.id AS beerId, " +
@@ -37,7 +36,6 @@ public class BeerRepository {
                 "beer.abv AS abv, " +
                 "brewery.id AS breweryId, " +
                 "brewery.title AS breweryName, " +
-                "brewery.indie AS indie, " +
                 "country.code AS countryCode, " +
                 "country.title AS countryName " +
                 "FROM main.beers AS beer " +
@@ -47,7 +45,10 @@ public class BeerRepository {
                 "AND beer.abv < :maxAbv " +
                 (filter.getCountries().size() > 0 ? "AND country.code IN (:countries) " : "") +
                 (filter.getIndie() != null ? "AND brewery.indie=:indie " : "") +
+                (filter.getSortType() != null ? "ORDER BY " + filter.getSortType().sql + " " : "") +
+                (filter.getSortDescending() ? "DESC " : "ASC ") +
                 "LIMIT :limit;";
+
 
         return jdbc.query(query, parameterSource, BeerRepository::mapToBeer);
     }
@@ -67,8 +68,7 @@ public class BeerRepository {
         }
         return new Brewery()
                 .setId(rs.getInt("breweryId"))
-                .setName(rs.getString("breweryName"))
-                .setIndie(rs.getBoolean("indie"));
+                .setName(rs.getString("breweryName"));
     }
 
     private static Country mapToCountry(ResultSet rs) throws SQLException {
