@@ -9,9 +9,14 @@ function createLogger(selector){
 }
 
 async function fetchBeers(props){
-    const url = '/beer';
+    const url = new URL('/beer', document.location.href);
+    if (props.searchParams) {
+        Object.entries(props.searchParams).forEach(entry => {
+            url.searchParams.append(entry[0], entry[1]);
+        })
+    }
     try {
-        const response = await fetch(url);
+        const response = await fetch(url.href);
         if(!response.ok){
             props.error(`Fetching ${url} returned ${response.status}`);
             return;
@@ -39,7 +44,7 @@ function renderBeerTable(tableSelector, beers) {
     table.appendChild(headerRow);
     beers.forEach(beer => {
         const brewery = beer.brewery || {};
-        const country = brewery.country || {};
+        const country = beer.country || {};
         const row = document.createElement('tr');
         row.appendChild(buildCell(beer.name));
         row.appendChild(buildCell(brewery.name));
@@ -50,9 +55,20 @@ function renderBeerTable(tableSelector, beers) {
     })
 }
 
+function setUpFilters(props) {
+    const {errorLog, mainTableSelector} = props;
+    const indieCheckbox = document.querySelector('#filter_indie');
+    indieCheckbox.onchange = event => {
+        const checked = event.target.checked;
+        const searchParams = checked ? {indie: checked} : {};
+        fetchBeers({errorLog, searchParams})
+            .then(beers => renderBeerTable(mainTableSelector, beers));
+    }
+}
+
 async function init(mainTableSelector, errorConsoleSelector) {
     const errorLog = createLogger(errorConsoleSelector);
     const beers = await fetchBeers({errorLog});
     renderBeerTable(mainTableSelector, beers);
+    setUpFilters({errorLog, mainTableSelector});
 }
-
