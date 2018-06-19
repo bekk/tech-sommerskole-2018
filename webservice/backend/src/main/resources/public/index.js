@@ -2,7 +2,9 @@ function setupLogger(selector) {
     const error_console = document.querySelector(selector);
     return txt => {
         if (error_console) {
-            error_console.innerHTML = txt;
+            const p = document.createElement('p');
+            p.innerText = txt;
+            error_console.insertBefore(p, error_console.firstChild);
         }
         console.error(txt);
     };
@@ -24,6 +26,11 @@ function setUpFetcher({errorLog}) {
             .then(response => {
                 if (!response.ok) {
                     errorLog(`Fetching ${url} returned ${response.status}`);
+                    if (response.body) {
+                        const reader = response.body.getReader();
+                        const decoder = new TextDecoder('utf-8');
+                        reader.read().then(content => errorLog(decoder.decode(content.value)));
+                    }
                     return false;
                 }
                 return response.json();

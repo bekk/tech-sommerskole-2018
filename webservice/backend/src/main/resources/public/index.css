@@ -13,6 +13,10 @@ html {
     background-color: #777777;
 }
 
+#error_console p {
+    margin-top: .5em;
+}
+
 .beerTable {
     margin: 1em .5em 1em 2em;
     color: #000000;
