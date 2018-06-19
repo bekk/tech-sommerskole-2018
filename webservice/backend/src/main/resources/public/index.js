@@ -39,7 +39,7 @@ function renderBeerTable(tableSelector, beers) {
     table.appendChild(headerRow);
     beers.forEach(beer => {
         const brewery = beer.brewery || {};
-        const country = beer.country || {};
+        const country = brewery.country || {};
         const row = document.createElement('tr');
         row.appendChild(buildCell(beer.name));
         row.appendChild(buildCell(brewery.name));
