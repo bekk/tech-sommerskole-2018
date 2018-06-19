@@ -1,4 +1,4 @@
-package no.bekk.sommerskole.domain;
+package no.bekk.sommerskole.filter;
 
 
 import java.util.ArrayList;
@@ -12,6 +12,26 @@ public class BeerFilter {
     private List<String> countries = new ArrayList<>();
 
     private int limit = 10;
+
+    private SortType sortType;
+    private Boolean sortDescending;
+
+    public SortType getSortType() {
+        return sortType;
+    }
+
+    public void setSortType(SortType sortType) {
+        this.sortType = sortType;
+    }
+
+    public Boolean getSortDescending() {
+        return sortDescending;
+    }
+
+    public void setSortDescending(Boolean sortDescending) {
+        this.sortDescending = sortDescending;
+    }
+
 
     public BeerFilter() {
     }
