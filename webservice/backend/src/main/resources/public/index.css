@@ -1,3 +1,50 @@
+@import url("reset.css");
+
 html {
-    background-color: bisque;
+    background-color: #dddddd;
+}
+
+#error_console:not(:empty) {
+    color: red;
+    font-weight: bold;
+    padding: 2em;
+    border: .2em solid darkred;
+    margin: 2em;
+    background-color: #777777;
+}
+
+.beerTable {
+    margin: 1em .5em 1em 2em;
+    color: #000000;
+    font-size: 1.5em;
+}
+
+.beerTable th {
+    font-weight: bold;
+    background-color: #bbb;
+    text-align: center;
+    border-bottom: .2em solid #111;
+    padding: .2em;
+}
+
+.beerTable tr {
+
+}
+
+.beerTable tr:nth-child(odd) {
+    background-color: #ddd;
+}
+
+.beerTable td {
+    padding: .2em;
+}
+
+.mainHeader {
+    font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 3em;
+    text-align: center;
+    color: #000000;
+    margin-bottom: 1em;
+    margin-top: .2em;
 }
