@@ -9,42 +9,39 @@ public class Beer {
     public Beer() {
     }
 
-    public Beer(int id, String name, Brewery brewery, float abv) {
-        this.id = id;
-        this.name = name;
-        this.brewery = brewery;
-        this.abv = abv;
-    }
-
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public Beer setId(int id) {
         this.id = id;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public Beer setName(String name) {
         this.name = name;
+        return this;
     }
 
     public Brewery getBrewery() {
         return brewery;
     }
 
-    public void setBrewery(Brewery brewery) {
+    public Beer setBrewery(Brewery brewery) {
         this.brewery = brewery;
+        return this;
     }
 
     public float getAbv() {
         return abv;
     }
 
-    public void setAbv(float abv) {
+    public Beer setAbv(float abv) {
         this.abv = abv;
+        return this;
     }
 }
