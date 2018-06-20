@@ -1,9 +1,9 @@
 package no.bekk.sommerskole.database;
 
 import no.bekk.sommerskole.domain.Beer;
-import no.bekk.sommerskole.filter.BeerFilter;
 import no.bekk.sommerskole.domain.Brewery;
 import no.bekk.sommerskole.domain.Country;
+import no.bekk.sommerskole.filter.BeerFilter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -44,11 +44,8 @@ public class BeerRepository {
                 "WHERE beer.abv > :minAbv " +
                 "AND beer.abv < :maxAbv " +
                 (filter.getCountries().size() > 0 ? "AND country.code IN (:countries) " : "") +
-                (filter.getIndie() != null ? "AND brewery.indie=:indie " : "") +
-                (filter.getSortType() != null ? "ORDER BY " + filter.getSortType().sql + " " : "") +
-                (filter.getSortDescending() ? "DESC " : "ASC ") +
+                (filter.getSortType() != null ? "ORDER BY " + filter.getSortType().sql + (filter.getSortDescending() ? "DESC " : "ASC ") : "") +
                 "LIMIT :limit;";
-
 
         return jdbc.query(query, parameterSource, BeerRepository::mapToBeer);
     }

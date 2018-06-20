@@ -9,25 +9,31 @@
 </head>
 <body class="bubblyBackground">
 <h1 class="mainHeader">Ølliste</h1>
-<table id="main_table" class="beerTable">
 
-</table>
 <div class="tableFilters">
     <form>
         <fieldset>
-            <legend>Filter table:</legend>
+            <legend>Filter:</legend>
             <label>
                 Min abv (%):
-                <input type="number" id="filter_abv_min" min="0" max="100">
+                <input type="number" placeholder="0%" id="filter_abv_min" min="0" max="100">
             </label>
             <label>
                 Max abv (%):
-                <input type="number" id="filter_abv_max" min="0" max="100">
+                <input type="number" placeholder="100%" id="filter_abv_max" min="0" max="100">
+            </label>
+            <label>
+                Max number of rows:
+                <input type="number" placeholder="Max number of rows" step="25" min="1" max="300" id="filter_limit"
+                       value="10">
             </label>
         </fieldset>
     </form>
 </div>
 
+<table id="main_table" class="beerTable">
+
+</table>
 
 <div id="error_console"></div>
 </body>

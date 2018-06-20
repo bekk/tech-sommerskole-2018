@@ -78,6 +78,7 @@ function setUpFilters(props) {
     };
     setupTextBoxFilter('#filter_abv_min', 'minAbv');
     setupTextBoxFilter('#filter_abv_max', 'maxAbv');
+    setupTextBoxFilter('#filter_limit', 'limit');
 }
 
 async function init(mainTableSelector, errorConsoleSelector) {
