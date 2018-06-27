@@ -3,6 +3,7 @@ package no.bekk.sommerskole.domain;
 public class Country {
     private String countryCode;
     private String name;
+    private String continent;
 
     public Country() {
     }
@@ -22,6 +23,15 @@ public class Country {
 
     public Country setName(String name) {
         this.name = name;
+        return this;
+    }
+
+    public String getContinent() {
+        return continent;
+    }
+
+    public Country setContinent(String continent) {
+        this.continent = continent;
         return this;
     }
 }

@@ -10,32 +10,36 @@ function setupLogger(selector) {
     };
 }
 
+function fetchFromUrl({path, errorLog, params = {}}) {
+    const url = new URL(path, document.location.href);
+    Object.entries(params)
+        .filter(entry => typeof entry[1] !== 'undefined' && entry[1] !== '')
+        .forEach(entry => {
+            url.searchParams.append(entry[0], entry[1]);
+        });
+    return fetch(url.href)
+        .then(response => {
+            if (!response.ok) {
+                errorLog(`Fetching ${url} returned ${response.status}`);
+                if (response.body) {
+                    const reader = response.body.getReader();
+                    const decoder = new TextDecoder('utf-8');
+                    reader.read().then(content => errorLog(decoder.decode(content.value)));
+                }
+                return false;
+            }
+            return response.json();
+        })
+        .catch(error => errorLog(error));
+}
+
 function setUpFetcher({errorLog}) {
     const path = '/beer';
     let searchState = {};
     return function (params) {
         const {searchParams} = params || {};
-        const url = new URL(path, document.location.href);
         searchState = Object.assign(searchState, searchParams);
-        Object.entries(searchState)
-            .filter(entry => typeof entry[1] !== 'undefined' && entry[1] !== '')
-            .forEach(entry => {
-                url.searchParams.append(entry[0], entry[1]);
-            });
-        return fetch(url.href)
-            .then(response => {
-                if (!response.ok) {
-                    errorLog(`Fetching ${url} returned ${response.status}`);
-                    if (response.body) {
-                        const reader = response.body.getReader();
-                        const decoder = new TextDecoder('utf-8');
-                        reader.read().then(content => errorLog(decoder.decode(content.value)));
-                    }
-                    return false;
-                }
-                return response.json();
-            })
-            .catch(error => errorLog(error));
+        return fetchFromUrl({path, errorLog, params: searchState});
     }
 }
 
@@ -67,6 +71,36 @@ function setupRenderer(tableSelector) {
     }
 }
 
+async function setUpCountryFilter(props) {
+    const {errorLog, getBeers, renderBeers} = props;
+    const path = "/country";
+    const countries = await fetchFromUrl({path, errorLog});
+    const select = document.querySelector('#filter_country');
+    select.innerHTML = '';
+    countries.forEach(country => {
+        const item = document.createElement('option');
+        item.setAttribute('value', country.countryCode);
+        item.innerHTML = country.name;
+        select.appendChild(item);
+    });
+    const getSelectedItems = () => {
+        const result = [];
+        const options = select && select.options;
+        for (let i = 0; i < options.length; i++) {
+            const opt = options[i];
+
+            if (opt.selected) {
+                result.push(opt.value || opt.text);
+            }
+        }
+        return result;
+    };
+    select.onchange = () => {
+        getBeers({searchParams: {countries: getSelectedItems().join(',')}})
+            .then(beers => renderBeers(beers));
+    }
+}
+
 function setUpFilters(props) {
     const {renderBeers, getBeers} = props;
     const setupTextBoxFilter = (selector, name) => {
@@ -79,6 +113,7 @@ function setUpFilters(props) {
     setupTextBoxFilter('#filter_abv_min', 'minAbv');
     setupTextBoxFilter('#filter_abv_max', 'maxAbv');
     setupTextBoxFilter('#filter_limit', 'limit');
+    return setUpCountryFilter(props);
 }
 
 async function init(mainTableSelector, errorConsoleSelector) {
@@ -87,5 +122,5 @@ async function init(mainTableSelector, errorConsoleSelector) {
     const renderBeers = setupRenderer(mainTableSelector);
     const beers = await getBeers();
     renderBeers(beers);
-    setUpFilters({errorLog, renderBeers, getBeers});
+    await setUpFilters({errorLog, renderBeers, getBeers});
 }
