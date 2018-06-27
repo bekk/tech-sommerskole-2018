@@ -4,6 +4,13 @@ html {
     background-color: #dddddd;
 }
 
+.bubblyBackground {
+    background: url("background.png") no-repeat center center fixed;
+    background-size: cover;
+    -webkit-logical-height: -webkit-fill-available;
+    filter: blur(5px);
+}
+
 #error_console:not(:empty) {
     color: red;
     font-weight: bold;
@@ -32,11 +39,15 @@ html {
 }
 
 .beerTable tr {
-
+    background-blend-mode: multiply;
 }
 
 .beerTable tr:nth-child(odd) {
     background-color: #ddd;
+}
+
+.beerTable tr:nth-child(even) {
+    background-color: #aaa;
 }
 
 .beerTable td {
