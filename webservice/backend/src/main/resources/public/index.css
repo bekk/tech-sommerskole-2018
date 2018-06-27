@@ -8,7 +8,6 @@ html {
     background: url("background.png") no-repeat center center fixed;
     background-size: cover;
     -webkit-logical-height: -webkit-fill-available;
-    filter: blur(5px);
 }
 
 #error_console:not(:empty) {

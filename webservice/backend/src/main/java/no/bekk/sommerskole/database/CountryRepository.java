@@ -19,10 +19,11 @@ public class CountryRepository {
     }
 
     public List<Country> getCountries() {
-        String query = "SELECT countries.*, continents.title AS continent " +
-                "FROM countries " +
-                "LEFT JOIN continents ON countries.continent_id = continents.id " +
-                "ORDER BY countries.title ASC";
+        String query = "SELECT countries.code, countries.title, continents.title AS continent, COUNT(beers.id) AS beerCount\n" +
+                "FROM countries\n" +
+                "LEFT JOIN continents ON countries.continent_id = continents.id\n" +
+                "LEFT JOIN beers ON countries.id = beers.country_id\n" +
+                "GROUP BY countries.code, countries.title, continents.title";
         return jdbc.query(query, CountryRepository::mapToCountry);
     }
 
@@ -30,6 +31,7 @@ public class CountryRepository {
         return new Country()
                 .setCountryCode(rs.getString("code"))
                 .setName(rs.getString("title"))
-                .setContinent(rs.getString("continent"));
+                .setContinent(rs.getString("continent"))
+                .setNumberOfBeers(rs.getInt("beerCount"));
     }
 }

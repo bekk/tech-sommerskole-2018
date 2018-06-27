@@ -4,6 +4,7 @@ public class Country {
     private String countryCode;
     private String name;
     private String continent;
+    private int numberOfBeers;
 
     public Country() {
     }
@@ -32,6 +33,15 @@ public class Country {
 
     public Country setContinent(String continent) {
         this.continent = continent;
+        return this;
+    }
+
+    public int getNumberOfBeers() {
+        return numberOfBeers;
+    }
+
+    public Country setNumberOfBeers(int numberOfBeers) {
+        this.numberOfBeers = numberOfBeers;
         return this;
     }
 }

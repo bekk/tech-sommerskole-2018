@@ -72,17 +72,19 @@ function setupRenderer(tableSelector) {
 }
 
 async function setUpCountryFilter(props) {
-    const {errorLog, getBeers, renderBeers} = props;
+    const {errorLog, refreshBeers} = props;
     const path = "/country";
     const countries = await fetchFromUrl({path, errorLog});
     const select = document.querySelector('#filter_country');
     select.innerHTML = '';
-    countries.forEach(country => {
-        const item = document.createElement('option');
-        item.setAttribute('value', country.countryCode);
-        item.innerHTML = country.name;
-        select.appendChild(item);
-    });
+    countries
+        .filter(c => c.numberOfBeers > 0)
+        .forEach(country => {
+            const item = document.createElement('option');
+            item.setAttribute('value', country.countryCode);
+            item.innerHTML = country.name;
+            select.appendChild(item);
+        });
     const getSelectedItems = () => {
         const result = [];
         const options = select && select.options;
@@ -95,20 +97,13 @@ async function setUpCountryFilter(props) {
         }
         return result;
     };
-    select.onchange = () => {
-        getBeers({searchParams: {countries: getSelectedItems().join(',')}})
-            .then(beers => renderBeers(beers));
-    }
+    select.onchange = () => refreshBeers({countries: getSelectedItems().join(',')});
 }
 
 function setUpFilters(props) {
-    const {renderBeers, getBeers} = props;
     const setupTextBoxFilter = (selector, name) => {
         const box = document.querySelector(selector);
-        box.onchange = event => {
-            getBeers({searchParams: {[name]: event.target.value}})
-                .then(beers => renderBeers(beers));
-        }
+        box.onchange = event => props.refreshBeers({[name]: event.target.value});
     };
     setupTextBoxFilter('#filter_abv_min', 'minAbv');
     setupTextBoxFilter('#filter_abv_max', 'maxAbv');
@@ -120,7 +115,7 @@ async function init(mainTableSelector, errorConsoleSelector) {
     const errorLog = setupLogger(errorConsoleSelector);
     const getBeers = setUpFetcher({errorLog});
     const renderBeers = setupRenderer(mainTableSelector);
-    const beers = await getBeers();
-    renderBeers(beers);
-    await setUpFilters({errorLog, renderBeers, getBeers});
+    const refreshBeers = (searchParams) => getBeers({searchParams}).then(beers => renderBeers(beers));
+    refreshBeers();
+    await setUpFilters({errorLog, refreshBeers});
 }
