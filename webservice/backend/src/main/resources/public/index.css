@@ -11,12 +11,14 @@ html {
 }
 
 #error_console:not(:empty) {
-    color: red;
+    color: darkred;
     font-weight: bold;
     padding: 2em;
     border: .2em solid darkred;
     margin: 2em;
     background-color: #777777;
+    max-height: 40em;
+    overflow-y: auto;
 }
 
 #error_console p {
