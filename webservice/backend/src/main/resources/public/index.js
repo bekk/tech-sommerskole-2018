@@ -12,7 +12,7 @@ function setupLogger(selector) {
 
 function fetchFromUrl({path, errorLog, params}) {
     const url = new URL(path, document.location.href);
-    Object.entries(params)
+    Object.entries(params || {})
         .filter((entry) => typeof entry[1] !== 'undefined' && entry[1] !== '')
         .forEach(function (entry) {
             url.searchParams.append(entry[0], entry[1]);
@@ -35,27 +35,54 @@ function fetchFromUrl({path, errorLog, params}) {
 
 function setUpBeerFetcher({errorLog}) {
     const path = '/beer';
-    let searchState = {};
-    return function (params) {
-        const {searchParams} = params || {};
-        searchState = Object.assign(searchState, searchParams);
-        return fetchFromUrl({path, errorLog, params: searchState});
+    let queryState = {};
+    return function (query) {
+        if (query && typeof query === 'boolean') {
+            queryState = {};
+        } else {
+            const newQueryParams = query || {};
+            const sortOrder = {sortDescending: undefined};
+            if (queryState.sortType && queryState.sortType === newQueryParams.sortType) {
+                if (!queryState.sortDescending) {
+                    sortOrder.sortDescending = true;
+                }
+            }
+            queryState = Object.assign(queryState, newQueryParams, sortOrder);
+        }
+        return fetchFromUrl({path, errorLog, params: queryState});
     }
 }
 
-function setupRenderer(tableSelector) {
+function setupRenderer({tableSelector, sorter}) {
     const table = document.querySelector(tableSelector);
     return function (beers) {
         if (!beers) return;
         table.innerHTML = '';
         const headerRow = document.createElement("tr");
-        const buildCell = (txt, tag = 'td') => {
+        const buildCell = (content, tag = 'td') => {
             const node = document.createElement(tag);
-            node.innerText = txt || '';
+            const contentType = typeof content;
+            switch (contentType) {
+                case "string":
+                case "number":
+                    node.innerText = content;
+                    break;
+                case "undefined":
+                    node.innerText = '';
+                    break;
+                default:
+                    node.appendChild(content);
+                    break;
+            }
             return node;
         };
         ['Name', 'Brewery', 'ABV', 'Country'].forEach(hdr => {
-            headerRow.appendChild(buildCell(hdr, 'th'));
+            const link = document.createElement('a');
+            link.setAttribute('href', '#');
+            link.setAttribute('title', `Order by ${hdr}.`);
+            link.innerText = hdr;
+            link.onclick = () => sorter({sortType: hdr});
+            headerRow.appendChild(buildCell(link, 'th'));
         });
         table.appendChild(headerRow);
         beers.forEach(beer => {
@@ -72,10 +99,9 @@ function setupRenderer(tableSelector) {
 }
 
 async function setUpCountryFilter(props) {
-    const {errorLog, refreshBeers} = props;
-    const path = "/country";
+    const {selector, errorLog, refreshBeers, path} = props;
     const countries = await fetchFromUrl({path, errorLog});
-    const select = document.querySelector('#filter_country');
+    const select = document.querySelector(selector);
     const groupBy = (items, category) => items.reduce((acc, i) => {
         (acc[i[category]] = acc[i[category]] || []).push(i);
         return acc;
@@ -108,6 +134,12 @@ async function setUpCountryFilter(props) {
     select.onchange = () => refreshBeers({countries: getSelectedItems().join(',')});
 }
 
+function setupResetLink(linkSelector, formSelector, refresh) {
+    const resetLink = document.querySelector(linkSelector);
+    const form = document.querySelector(formSelector);
+    resetLink.onclick = () => refresh(true).then(() => form.reset());
+}
+
 function setUpFilters(props) {
     const setupTextBoxFilter = (selector, name) => {
         const box = document.querySelector(selector);
@@ -116,14 +148,19 @@ function setUpFilters(props) {
     setupTextBoxFilter('#filter_abv_min', 'minAbv');
     setupTextBoxFilter('#filter_abv_max', 'maxAbv');
     setupTextBoxFilter('#filter_limit', 'limit');
-    return setUpCountryFilter(props);
+    setupResetLink('#filter_reset', '#filter_form', props.refreshBeers);
+    return setUpCountryFilter({selector: '#filter_country', path: '/country', ...props});
 }
 
 async function init(mainTableSelector, errorConsoleSelector) {
+    let refreshBeers;
     const errorLog = setupLogger(errorConsoleSelector);
     const getBeers = setUpBeerFetcher({errorLog});
-    const renderBeers = setupRenderer(mainTableSelector);
-    const refreshBeers = (searchParams) => getBeers({searchParams}).then(beers => renderBeers(beers));
-    refreshBeers();
+    const renderBeers = setupRenderer({
+        tableSelector: mainTableSelector,
+        sorter: (sortParams) => refreshBeers(sortParams)
+    });
+    refreshBeers = (query) => getBeers(query).then(beers => renderBeers(beers));
+    refreshBeers(true);
     await setUpFilters({errorLog, refreshBeers});
 }
