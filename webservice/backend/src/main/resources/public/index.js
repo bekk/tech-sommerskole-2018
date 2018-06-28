@@ -76,12 +76,20 @@ function setupRenderer({tableSelector, sorter}) {
             }
             return node;
         };
-        ['Name', 'Brewery', 'ABV', 'Country'].forEach(hdr => {
+        const headers = [
+            ['Name','BEER_NAME'],
+            ['Brewery', 'BREWERY_NAME'],
+            ['ABV', 'ABV'],
+            ['Country', 'COUNTRY']
+        ];
+        headers.forEach(hdr => {
+            const title = hdr[0];
+            const sortKey = hdr[1];
             const link = document.createElement('a');
             link.setAttribute('href', '#');
-            link.setAttribute('title', `Order by ${hdr}.`);
-            link.innerText = hdr;
-            link.onclick = () => sorter({sortType: hdr});
+            link.setAttribute('title', `Order by ${title}.`);
+            link.innerText = title;
+            link.onclick = () => sorter({sortType: sortKey});
             headerRow.appendChild(buildCell(link, 'th'));
         });
         table.appendChild(headerRow);
