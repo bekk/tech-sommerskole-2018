@@ -1,5 +1,6 @@
 package no.bekk.sommerskole.database;
 
+import ca.krasnay.sqlbuilder.SelectBuilder;
 import no.bekk.sommerskole.domain.Country;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -19,12 +20,20 @@ public class CountryRepository {
     }
 
     public List<Country> getCountries() {
-        String query = "SELECT countries.code, countries.title, continents.title AS continent, COUNT(beers.id) AS beerCount\n" +
-                "FROM countries\n" +
-                "LEFT JOIN continents ON countries.continent_id = continents.id\n" +
-                "LEFT JOIN beers ON countries.id = beers.country_id\n" +
-                "GROUP BY countries.code, countries.title, continents.title\n" +
-                "ORDER BY countries.title";
+        String query = new SelectBuilder()
+                .column("countries.code")
+                .column("countries.title")
+                .column("continents.title AS continent")
+                .column("COUNT(beers.id) AS beerCount")
+                .from("countries")
+                .leftJoin("continents ON countries.continent_id = continents.id")
+                .leftJoin("beers ON countries.id = beers.country_id")
+                .groupBy("countries.code")
+                .groupBy("countries.title")
+                .groupBy("countries.title")
+                .orderBy("countries.title")
+                .toString();
+
         return jdbc.query(query, CountryRepository::mapToCountry);
     }
 

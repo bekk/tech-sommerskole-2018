@@ -51,11 +51,11 @@ public class BeerControllerTest {
 
     @Test
     public void shouldFilterByCountry() {
-        BeerFilter filter = new BeerFilter().setCountries(Arrays.asList("ENG", "NOR"));
+        BeerFilter filter = new BeerFilter().setCountries(Arrays.asList("ENG", "CAN"));
         List<Beer> beers = beerController.getBeer(filter);
 
+        assertThat(beers).extracting(beer -> beer.getCountry().getCountryCode()).contains("CAN");
         assertThat(beers).extracting(beer -> beer.getCountry().getCountryCode()).contains("ENG");
-        assertThat(beers).extracting(beer -> beer.getCountry().getCountryCode()).contains("NOR");
         assertThat(beers).allMatch(beer -> filter.getCountries().contains(beer.getCountry().getCountryCode()));
     }
 

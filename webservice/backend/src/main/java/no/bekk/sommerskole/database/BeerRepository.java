@@ -1,18 +1,14 @@
 package no.bekk.sommerskole.database;
 
+import ca.krasnay.sqlbuilder.SelectBuilder;
 import no.bekk.sommerskole.domain.Beer;
 import no.bekk.sommerskole.domain.BeerDetails;
-import no.bekk.sommerskole.domain.Brewery;
-import no.bekk.sommerskole.domain.Country;
 import no.bekk.sommerskole.filter.BeerFilter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.inject.Inject;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -29,23 +25,24 @@ public class BeerRepository {
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         parameterSource.addValue("id", id);
 
-        String query = "SELECT " +
-                "beer.id AS beerId, " +
-                "beer.title AS beerName, " +
-                "beer.abv AS abv, " +
-                "beer.kcal AS kcal, " +
-                "beer.ibu AS ibu, " +
-                "beer.web AS web, " +
-                "beer.updated_at AS updated_at, " +
-                "beer.created_at AS created_at, " +
-                "brewery.id AS breweryId, " +
-                "brewery.title AS breweryName, " +
-                "country.code AS countryCode, " +
-                "country.title AS countryName " +
-                "FROM main.beers AS beer " +
-                "LEFT OUTER JOIN main.breweries AS brewery ON brewery.id = beer.brewery_id " +
-                "LEFT OUTER JOIN main.countries AS country ON beer.country_id = country.id " +
-                "WHERE beer.id = :id";
+        String query = new SelectBuilder()
+                .column("beer.id AS beerId")
+                .column("beer.title AS beerName")
+                .column("beer.abv AS abv")
+                .column("beer.kcal AS kcal")
+                .column("beer.ibu AS ibu")
+                .column("beer.web AS web")
+                .column("beer.updated_at AS updated_at")
+                .column("beer.created_at AS created_at")
+                .column("brewery.id AS breweryId")
+                .column("brewery.title AS breweryName")
+                .column("country.code AS countryCode")
+                .column("country.title AS countryName")
+                .from("main.beers AS beer")
+                .leftJoin("main.breweries AS brewery ON brewery.id = beer.brewery_id")
+                .leftJoin("main.countries As country ON beer.country_id = country.id")
+                .where("beer.id = :id")
+                .toString();
 
         return jdbc.queryForObject(query, parameterSource, DBHelpers::mapToBeerDetails);
     }
@@ -58,23 +55,35 @@ public class BeerRepository {
                 .addValue("countries", filter.getCountries())
                 .addValue("limit", filter.getLimit());
 
-        String query = "SELECT " +
-                "beer.id AS beerId, " +
-                "beer.title AS beerName, " +
-                "beer.abv AS abv, " +
-                "brewery.id AS breweryId, " +
-                "brewery.title AS breweryName, " +
-                "country.code AS countryCode, " +
-                "country.title AS countryName " +
-                "FROM main.beers AS beer " +
-                "LEFT OUTER JOIN main.breweries AS brewery ON brewery.id = beer.brewery_id " +
-                "LEFT OUTER JOIN main.countries AS country ON beer.country_id = country.id " +
-                "WHERE beer.abv > :minAbv " +
-                "AND beer.abv < :maxAbv " +
-                (filter.getCountries().size() > 0 ? "AND country.code IN (:countries) " : "") +
-                (filter.getSortType() != null ? "ORDER BY " + filter.getSortType().sql + (filter.getSortDescending() ? " DESC " : " ASC ") : "") +
-                "LIMIT :limit;";
+        SelectBuilder selectBuilder = new SelectBuilder()
+                .column("beer.id AS beerId")
+                .column("beer.title AS beerName")
+                .column("beer.abv AS abv")
+                .column("brewery.id AS breweryId")
+                .column("brewery.title AS breweryName")
+                .column("country.code AS countryCode")
+                .column("country.title AS countryName")
+                .from("main.beers AS beer")
+                .leftJoin("main.breweries AS brewery ON brewery.id = beer.brewery_id")
+                .leftJoin("main.countries As country ON beer.country_id = country.id");
 
+        if (filter.getMaxAbv() != null) {
+            selectBuilder.where("beer.abv <= :maxAbv");
+        }
+
+        if (filter.getMinAbv() != null) {
+            selectBuilder.where("beer.abv >= :minAbv");
+        }
+
+        if (filter.getCountries().size() > 0) {
+            selectBuilder.where("country.code IN (:countries)");
+        }
+
+        if (filter.getSortType() != null) {
+            selectBuilder.orderBy(filter.getSortType().sql, filter.getSortAscending());
+        }
+
+        String query = selectBuilder.toString() + " LIMIT :limit";
         return jdbc.query(query, parameterSource, DBHelpers::mapToBeer);
     }
 }

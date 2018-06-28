@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BeerFilter {
-    private float minAbv = 0F;
-    private float maxAbv = 100F;
+    private Float minAbv;
+    private Float maxAbv;
 
     private List<String> countries = new ArrayList<>();
 
@@ -31,25 +31,30 @@ public class BeerFilter {
         return Boolean.TRUE.equals(sortDescending);
     }
 
+
+    public Boolean getSortAscending() {
+        return !getSortDescending();
+    }
+
     public BeerFilter setSortDescending(Boolean sortDescending) {
         this.sortDescending = sortDescending;
         return this;
     }
 
-    public float getMinAbv() {
+    public Float getMinAbv() {
         return minAbv;
     }
 
-    public BeerFilter setMinAbv(float minAbv) {
+    public BeerFilter setMinAbv(Float minAbv) {
         this.minAbv = minAbv;
         return this;
     }
 
-    public float getMaxAbv() {
+    public Float getMaxAbv() {
         return maxAbv;
     }
 
-    public BeerFilter setMaxAbv(float maxAbv) {
+    public BeerFilter setMaxAbv(Float maxAbv) {
         this.maxAbv = maxAbv;
         return this;
     }
