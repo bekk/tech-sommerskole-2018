@@ -1,5 +1,7 @@
 package no.bekk.sommerskole.domain;
 
+import java.util.Objects;
+
 public class Beer {
     private int id;
     private String name;
@@ -58,5 +60,33 @@ public class Beer {
     public Beer setCountry(Country country) {
         this.country = country;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "Beer{" +
+                ", name='" + name + '\'' +
+                ", brewery=" + brewery +
+                ", abv=" + abv +
+                ", country=" + country +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Beer beer = (Beer) o;
+        return getId() == beer.getId() &&
+                Objects.equals(getName(), beer.getName()) &&
+                Objects.equals(getBrewery(), beer.getBrewery()) &&
+                Objects.equals(getAbv(), beer.getAbv()) &&
+                Objects.equals(getCountry(), beer.getCountry());
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(getId(), getName(), getBrewery(), getAbv(), getCountry());
     }
 }

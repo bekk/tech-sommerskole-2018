@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BeerFilter {
-    private Boolean indie;
     private float minAbv = 0F;
     private float maxAbv = 100F;
 
@@ -16,32 +15,24 @@ public class BeerFilter {
     private SortType sortType;
     private Boolean sortDescending;
 
+    public BeerFilter() {
+    }
+
     public SortType getSortType() {
         return sortType;
     }
 
-    public void setSortType(SortType sortType) {
+    public BeerFilter setSortType(SortType sortType) {
         this.sortType = sortType;
+        return this;
     }
 
     public Boolean getSortDescending() {
-        return sortDescending == null ? new Boolean(false) : sortDescending;
+        return sortDescending;
     }
 
-    public void setSortDescending(Boolean sortDescending) {
+    public BeerFilter setSortDescending(Boolean sortDescending) {
         this.sortDescending = sortDescending;
-    }
-
-
-    public BeerFilter() {
-    }
-
-    public Boolean getIndie() {
-        return indie;
-    }
-
-    public BeerFilter setIndie(Boolean indie) {
-        this.indie = indie;
         return this;
     }
 

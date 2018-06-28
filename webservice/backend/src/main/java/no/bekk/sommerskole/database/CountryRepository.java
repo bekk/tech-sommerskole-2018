@@ -23,7 +23,8 @@ public class CountryRepository {
                 "FROM countries\n" +
                 "LEFT JOIN continents ON countries.continent_id = continents.id\n" +
                 "LEFT JOIN beers ON countries.id = beers.country_id\n" +
-                "GROUP BY countries.code, countries.title, continents.title";
+                "GROUP BY countries.code, countries.title, continents.title\n" +
+                "ORDER BY countries.title";
         return jdbc.query(query, CountryRepository::mapToCountry);
     }
 
