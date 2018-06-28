@@ -9,9 +9,41 @@
     </title>
 </head>
 <body class="bubblyBackground">
-<h1 class="mainHeader">Loading...</h1>
-    <p>Not implemented</p>
-    <a href="/" title="To beer list">Back</a>
+<h1 class="mainHeader" id="title_beerName">Loading...</h1>
+
+<section class="mainContent">
+    <div id="beer_brewery">
+        <span class="beer_label">Brewery: </span>
+        <span class="beer_info"></span>
+    </div>
+    <div id="beer_country">
+        <span class="beer_label">Country: </span>
+        <span class="beer_info"></span>
+    </div>
+    <div id="beer_ibu">
+        <span class="beer_label">IBU: </span>
+        <span class="beer_info"></span>
+    </div>
+    <div id="beer_abv">
+        <span class="beer_label">ABV: </span>
+        <span class="beer_info"></span>
+    </div>
+    <div id="beer_kcal">
+        <span class="beer_label">Calories: </span>
+        <span class="beer_info"></span>
+    </div>
+    <div id="beer_webPage">
+        <span class="beer_label">Web page: </span>
+        <span class="beer_info"></span>
+    </div>
+    <div id="beer_lastUpdate">
+        <span class="beer_label">Last updated: </span>
+        <span class="beer_info"></span>
+    </div>
+</section>
+<nav>
+    <a href="/" title="To beer list">&#x261c; Back</a>
+</nav>
 
 <div id="error_console"></div>
 <script type="module">

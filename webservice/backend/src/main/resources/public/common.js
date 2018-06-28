@@ -33,3 +33,20 @@ export function fetchFromUrl({path, errorLog, params}) {
         })
         .catch((error) => errorLog(error));
 }
+
+export function insertInNode(node, content) {
+    const contentType = typeof content;
+    switch (contentType) {
+        case "string":
+        case "number":
+            node.innerText = content;
+            break;
+        case "undefined":
+            node.innerText = '';
+            break;
+        default:
+            node.appendChild(content);
+            break;
+    }
+    return node;
+}

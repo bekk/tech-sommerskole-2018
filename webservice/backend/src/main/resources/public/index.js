@@ -1,4 +1,4 @@
-import {fetchFromUrl, setupLogger} from './common.js';
+import {fetchFromUrl, insertInNode, setupLogger} from './common.js';
 
 
 function setUpBeerFetcher({errorLog}) {
@@ -27,23 +27,7 @@ function setupRenderer({tableSelector, sorter}) {
         if (!beers) return;
         table.innerHTML = '';
         const headerRow = document.createElement("tr");
-        const buildCell = (content, tag = 'td') => {
-            const node = document.createElement(tag);
-            const contentType = typeof content;
-            switch (contentType) {
-                case "string":
-                case "number":
-                    node.innerText = content;
-                    break;
-                case "undefined":
-                    node.innerText = '';
-                    break;
-                default:
-                    node.appendChild(content);
-                    break;
-            }
-            return node;
-        };
+        const buildCell = (content, tag = 'td') => insertInNode(document.createElement(tag), content);
         const headers = [
             ['Name','BEER_NAME'],
             ['Brewery', 'BREWERY_NAME'],

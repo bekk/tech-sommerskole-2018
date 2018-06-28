@@ -1,1 +1,23 @@
 @import url("common.css");
+
+.beer_label {
+    color: var(--text-on-background-color);
+    font-style: italic;
+    text-align: right;
+    width: 30em;
+    margin-right: 2em;
+}
+
+.beer_info {
+    color: var(--text-on-background-color);
+    background-color: var(--light-background-color-transparent);
+    padding: .1em 1em .2em 1em;
+}
+
+.mainContent {
+    line-height: 1.5em;
+}
+
+nav {
+    margin-left: 10em;
+}
