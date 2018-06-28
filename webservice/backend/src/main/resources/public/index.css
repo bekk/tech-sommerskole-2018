@@ -1,15 +1,4 @@
-@import url("reset.css");
-
-html {
-    background-color: #dddddd;
-}
-
-span[role="button"]{
-    text-decoration: underline;
-}
-span[role="button"]:hover{
-    background: #aaaaaa;
-}
+@import url("common.css");
 
 .bubblyBackground {
     background: url("background.png") no-repeat center center fixed;
@@ -33,7 +22,7 @@ span[role="button"]:hover{
 }
 
 .beerTable {
-    margin: 1em .5em 1em 2em;
+    width: var(--width-max-content);
     color: #000000;
     font-size: 1.5em;
 }
@@ -47,7 +36,7 @@ span[role="button"]:hover{
 }
 
 .beerTable tr {
-    background-blend-mode: multiply;
+    background-color: var(--background-color);
 }
 
 .beerTable tr:nth-child(odd) {
@@ -62,12 +51,31 @@ span[role="button"]:hover{
     padding: .2em;
 }
 
-.mainHeader {
-    font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif;
-    font-weight: bold;
-    font-size: 3em;
-    text-align: center;
-    color: #000000;
-    margin-bottom: 1em;
-    margin-top: .2em;
+.filter_fieldset {
+    border: solid var(--border-color-light);
+    padding: 1rem;
+    margin-bottom: 2rem;
+    width: var(--width-max-content);
+    background-color: rgba(31, 31, 12, .5);
+    color: var(--text-on-background-color);
+}
+
+.filter_fieldset legend {
+    color: var(--text-on-background-color);
+    font-family: var(--header-font-family);
+    padding-left: .5rem;
+    padding-right: .5rem;
+    position: relative;
+}
+
+#filter_country_label {
+    position: absolute;
+    right: 1em;
+    max-height: 80%
+}
+
+#filter_country {
+    height: 40em;
+    color: var(--text-on-background-color);
+    background-color: rgba(31, 31, 12, .5);
 }
