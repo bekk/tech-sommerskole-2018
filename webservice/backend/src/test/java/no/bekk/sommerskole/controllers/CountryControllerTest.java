@@ -26,8 +26,6 @@ public class CountryControllerTest {
     @Test
     public void shouldReturnASortedListOfCountries() {
         List<Country> countries = countryController.getCountries();
-        List<Country> sortedCountries = countryController.getCountries();
-        sortedCountries.sort((c1, c2) -> c1.getName().compareToIgnoreCase(c2.getName()));
-        assertThat(countries.toArray()).containsExactly(sortedCountries.toArray());
+        assertThat(countries).extracting(Country::getName).isSorted();
     }
 }

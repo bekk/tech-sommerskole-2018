@@ -45,7 +45,7 @@ public class BeerRepository {
                 "WHERE beer.abv > :minAbv " +
                 "AND beer.abv < :maxAbv " +
                 (filter.getCountries().size() > 0 ? "AND country.code IN (:countries) " : "") +
-                (filter.getSortType() != null ? "ORDER BY " + filter.getSortType().sql + (filter.getSortDescending() ? "DESC " : "ASC ") : "") +
+                (filter.getSortType() != null ? "ORDER BY " + filter.getSortType().sql + (filter.getSortDescending() ? " DESC " : " ASC ") : "") +
                 "LIMIT :limit;";
 
         return jdbc.query(query, parameterSource, BeerRepository::mapToBeer);
