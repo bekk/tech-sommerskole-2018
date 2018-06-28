@@ -3,6 +3,7 @@ package no.bekk.sommerskole.controllers;
 import no.bekk.sommerskole.domain.Beer;
 import no.bekk.sommerskole.filter.BeerFilter;
 import no.bekk.sommerskole.filter.SortType;
+import org.assertj.core.api.iterable.Extractor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -84,5 +85,26 @@ public class BeerControllerTest {
         BeerFilter filter = new BeerFilter().setSortType(SortType.ABV).setSortDescending(true);
         List<Beer> beers = beerController.getBeer(filter);
         assertThat(beers).extracting(Beer::getAbv).isSortedAccordingTo(Comparator.reverseOrder());
+    }
+
+    @Test
+    public void shouldSortByBeerNameDescending() {
+        BeerFilter filter = new BeerFilter().setSortType(SortType.BEER_NAME).setSortDescending(true);
+        List<Beer> beers = beerController.getBeer(filter);
+        assertThat(beers).extracting(Beer::getName).isSortedAccordingTo(Comparator.reverseOrder());
+    }
+
+    @Test
+    public void shouldSortByBreweryAscending() {
+        BeerFilter filter = new BeerFilter().setSortType(SortType.BREWERY_NAME);
+        List<Beer> beers = beerController.getBeer(filter);
+        assertThat(beers).extracting(new BreweryExtractor()).isSorted();
+    }
+
+    private class BreweryExtractor implements Extractor<Beer, String> {
+        @Override
+        public String extract(Beer beer) {
+            return beer.getBrewery() == null ? "" : beer.getBrewery().getName();
+        }
     }
 }
