@@ -85,8 +85,8 @@ function setupRenderer({tableSelector, sorter}) {
         headers.forEach(hdr => {
             const title = hdr[0];
             const sortKey = hdr[1];
-            const link = document.createElement('a');
-            link.setAttribute('href', '#');
+            const link = document.createElement('span');
+            link.setAttribute('role', 'button');
             link.setAttribute('title', `Order by ${title}.`);
             link.innerText = title;
             link.onclick = () => sorter({sortType: sortKey});
@@ -97,7 +97,10 @@ function setupRenderer({tableSelector, sorter}) {
             const brewery = beer.brewery || {};
             const country = beer.country || {};
             const row = document.createElement('tr');
-            row.appendChild(buildCell(beer.name));
+            const detailsLink = document.createElement('a');
+            detailsLink.setAttribute('href', `/details.html?id=${beer.id}`);
+            detailsLink.innerText = beer.name;
+            row.appendChild(buildCell(detailsLink));
             row.appendChild(buildCell(brewery.name));
             row.appendChild(buildCell(beer.abv));
             row.appendChild(buildCell(country.name));

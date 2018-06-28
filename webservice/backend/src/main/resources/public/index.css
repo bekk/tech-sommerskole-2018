@@ -4,6 +4,13 @@ html {
     background-color: #dddddd;
 }
 
+span[role="button"]{
+    text-decoration: underline;
+}
+span[role="button"]:hover{
+    background: #aaaaaa;
+}
+
 .bubblyBackground {
     background: url("background.png") no-repeat center center fixed;
     background-size: cover;
