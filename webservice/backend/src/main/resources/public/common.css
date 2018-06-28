@@ -36,3 +36,24 @@ span[role="button"]:hover {
     margin: 1em 4em 2em 4em;
     width: 100%;
 }
+
+#error_console:not(:empty) {
+    color: darkred;
+    font-weight: bold;
+    padding: 2em;
+    border: .2em solid darkred;
+    margin: 2em;
+    background-color: #777777;
+    max-height: 40em;
+    overflow-y: auto;
+}
+
+#error_console p {
+    margin-top: .5em;
+}
+
+.bubblyBackground {
+    background: url("background.png") no-repeat center center fixed;
+    background-size: cover;
+    -webkit-logical-height: -webkit-fill-available;
+}

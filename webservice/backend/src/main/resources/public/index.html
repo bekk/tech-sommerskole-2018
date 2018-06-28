@@ -5,7 +5,6 @@
     <title>Beer catalogue</title>
     <link rel="shortcut icon" type="image/png" href="favicon.png">
     <link href="index.css" rel="stylesheet">
-    <script src="index.js" type="text/javascript"></script>
 </head>
 <body class="bubblyBackground">
 <h1 class="mainHeader">Beers of the world</h1>
@@ -43,7 +42,8 @@
 
 <div id="error_console"></div>
 </body>
-<script type="text/javascript">
+<script type="module">
+    import init from './index.js';
     init('#main_table', '#error_console');
 </script>
 </html>

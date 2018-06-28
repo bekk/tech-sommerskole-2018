@@ -1,37 +1,5 @@
-function setupLogger(selector) {
-    const error_console = document.querySelector(selector);
-    return function (txt) {
-        if (error_console) {
-            const p = document.createElement('p');
-            p.innerText = txt;
-            error_console.insertBefore(p, error_console.firstChild);
-        }
-        console.error(txt);
-    };
-}
+import {fetchFromUrl, setupLogger} from './common.js';
 
-function fetchFromUrl({path, errorLog, params}) {
-    const url = new URL(path, document.location.href);
-    Object.entries(params || {})
-        .filter((entry) => typeof entry[1] !== 'undefined' && entry[1] !== '')
-        .forEach(function (entry) {
-            url.searchParams.append(entry[0], entry[1]);
-        });
-    return fetch(url.href)
-        .then(function (response) {
-            if (!response.ok) {
-                errorLog(`Fetching ${url} returned ${response.status}`);
-                if (response.body) {
-                    const reader = response.body.getReader();
-                    const decoder = new TextDecoder('utf-8');
-                    reader.read().then((content) => errorLog(decoder.decode(content.value)));
-                }
-                return false;
-            }
-            return response.json();
-        })
-        .catch((error) => errorLog(error));
-}
 
 function setUpBeerFetcher({errorLog}) {
     const path = '/beer';
@@ -163,7 +131,7 @@ function setUpFilters(props) {
     return setUpCountryFilter({selector: '#filter_country', path: '/country', ...props});
 }
 
-async function init(mainTableSelector, errorConsoleSelector) {
+export default async function init(mainTableSelector, errorConsoleSelector) {
     let refreshBeers;
     const errorLog = setupLogger(errorConsoleSelector);
     const getBeers = setUpBeerFetcher({errorLog});

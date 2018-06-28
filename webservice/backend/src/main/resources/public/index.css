@@ -1,25 +1,5 @@
 @import url("common.css");
 
-.bubblyBackground {
-    background: url("background.png") no-repeat center center fixed;
-    background-size: cover;
-    -webkit-logical-height: -webkit-fill-available;
-}
-
-#error_console:not(:empty) {
-    color: darkred;
-    font-weight: bold;
-    padding: 2em;
-    border: .2em solid darkred;
-    margin: 2em;
-    background-color: #777777;
-    max-height: 40em;
-    overflow-y: auto;
-}
-
-#error_console p {
-    margin-top: .5em;
-}
 
 .beerTable {
     width: var(--width-max-content);
