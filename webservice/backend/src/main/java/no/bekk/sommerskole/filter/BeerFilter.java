@@ -28,7 +28,7 @@ public class BeerFilter {
     }
 
     public Boolean getSortDescending() {
-        return sortDescending;
+        return Boolean.TRUE.equals(sortDescending);
     }
 
     public BeerFilter setSortDescending(Boolean sortDescending) {

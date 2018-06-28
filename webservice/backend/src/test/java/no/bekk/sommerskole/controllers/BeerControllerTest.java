@@ -2,6 +2,7 @@ package no.bekk.sommerskole.controllers;
 
 import no.bekk.sommerskole.domain.Beer;
 import no.bekk.sommerskole.filter.BeerFilter;
+import no.bekk.sommerskole.filter.SortType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.inject.Inject;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -54,5 +56,33 @@ public class BeerControllerTest {
         assertThat(beers).extracting(beer -> beer.getCountry().getCountryCode()).contains("ENG");
         assertThat(beers).extracting(beer -> beer.getCountry().getCountryCode()).contains("NOR");
         assertThat(beers).allMatch(beer -> filter.getCountries().contains(beer.getCountry().getCountryCode()));
+    }
+
+    @Test
+    public void shouldSortByAbvAscending() {
+        BeerFilter filter = new BeerFilter().setSortType(SortType.ABV);
+        List<Beer> beers = beerController.getBeer(filter);
+        assertThat(beers).extracting(Beer::getAbv).isSorted();
+    }
+
+    @Test
+    public void shouldSortByBeerNameAscending() {
+        BeerFilter filter = new BeerFilter().setSortType(SortType.BEER_NAME);
+        List<Beer> beers = beerController.getBeer(filter);
+        assertThat(beers).extracting(Beer::getName).isSorted();
+    }
+
+    @Test
+    public void shouldSortByCountryAscending() {
+        BeerFilter filter = new BeerFilter().setSortType(SortType.COUNTRY);
+        List<Beer> beers = beerController.getBeer(filter);
+        assertThat(beers).extracting(beer -> beer.getCountry().getName()).isSorted();
+    }
+
+    @Test
+    public void shouldSortByAbvDescending() {
+        BeerFilter filter = new BeerFilter().setSortType(SortType.ABV).setSortDescending(true);
+        List<Beer> beers = beerController.getBeer(filter);
+        assertThat(beers).extracting(Beer::getAbv).isSortedAccordingTo(Comparator.reverseOrder());
     }
 }
