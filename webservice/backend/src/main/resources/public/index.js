@@ -78,7 +78,7 @@ async function setUpCountryFilter(props) {
     const select = document.querySelector('#filter_country');
     select.innerHTML = '';
     countries
-        .filter(c => c.numberOfBeers > 0)
+        .filter(c => typeof c.numberOfBeers === 'undefined' || c.numberOfBeers > 0)
         .forEach(country => {
             const item = document.createElement('option');
             item.setAttribute('value', country.countryCode);
