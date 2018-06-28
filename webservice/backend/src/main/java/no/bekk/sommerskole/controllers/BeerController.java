@@ -2,11 +2,9 @@ package no.bekk.sommerskole.controllers;
 
 import no.bekk.sommerskole.database.BeerRepository;
 import no.bekk.sommerskole.domain.Beer;
+import no.bekk.sommerskole.domain.BeerDetails;
 import no.bekk.sommerskole.filter.BeerFilter;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -24,5 +22,10 @@ public class BeerController {
     @GetMapping
     public List<Beer> getBeer(@ModelAttribute BeerFilter beerFilter) {
         return beerRepository.getBeer(beerFilter);
+    }
+
+    @GetMapping("/{id}")
+    public BeerDetails getBeerDetails(@PathVariable("id") String id) {
+        return beerRepository.getBeerDetails(id);
     }
 }
