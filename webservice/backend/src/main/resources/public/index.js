@@ -33,7 +33,7 @@ function fetchFromUrl({path, errorLog, params = {}}) {
         .catch(error => errorLog(error));
 }
 
-function setUpFetcher({errorLog}) {
+function setUpBeerFetcher({errorLog}) {
     const path = '/beer';
     let searchState = {};
     return function (params) {
@@ -76,15 +76,23 @@ async function setUpCountryFilter(props) {
     const path = "/country";
     const countries = await fetchFromUrl({path, errorLog});
     const select = document.querySelector('#filter_country');
+    const groupBy = (items, category) => items.reduce((acc, i) => {
+        (acc[i[category]] = acc[i[category]] || []).push(i);
+        return acc;
+    }, {});
     select.innerHTML = '';
-    countries
-        .filter(c => typeof c.numberOfBeers === 'undefined' || c.numberOfBeers > 0)
-        .forEach(country => {
+    const countriesWithBeers = countries.filter(c => typeof c.numberOfBeers === 'undefined' || c.numberOfBeers > 0);
+    Object.entries(groupBy(countriesWithBeers, 'continent')).forEach(continent => {
+        const group = document.createElement('optgroup');
+        group.setAttribute('label', continent[0]);
+        continent[1].forEach(country => {
             const item = document.createElement('option');
             item.setAttribute('value', country.countryCode);
             item.innerHTML = country.name;
-            select.appendChild(item);
+            group.appendChild(item);
         });
+        select.appendChild(group);
+    });
     const getSelectedItems = () => {
         const result = [];
         const options = select && select.options;
@@ -113,7 +121,7 @@ function setUpFilters(props) {
 
 async function init(mainTableSelector, errorConsoleSelector) {
     const errorLog = setupLogger(errorConsoleSelector);
-    const getBeers = setUpFetcher({errorLog});
+    const getBeers = setUpBeerFetcher({errorLog});
     const renderBeers = setupRenderer(mainTableSelector);
     const refreshBeers = (searchParams) => getBeers({searchParams}).then(beers => renderBeers(beers));
     refreshBeers();
