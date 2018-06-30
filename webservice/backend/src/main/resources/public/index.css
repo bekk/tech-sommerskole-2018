@@ -30,12 +30,16 @@
     background-color: #ddd;
 }
 
-.beerTable tr:nth-child(even) {
-    background-color: #aaa;
-}
-
 .beerTable td {
     padding: .2em;
+}
+
+.beerTable tr td:first-child {
+    padding-left: 1em;
+}
+
+.beerTable tr td:last-child {
+    padding-right: 1em;
 }
 
 .filter_fieldset {
@@ -44,6 +48,7 @@
     margin-bottom: 2rem;
     width: var(--width-max-content);
     color: var(--text-on-background-color);
+    position: relative;
 }
 
 .filter_fieldset legend {
@@ -64,7 +69,7 @@
     font-family: var(--header-font-family);
     color: var(--label-text-color);
     position: relative;
-    bottom: 1.4em;
+    bottom: 1.2em;
     flex: 1;
 }
 
@@ -73,17 +78,21 @@
     height: 1.2em;
     position: absolute;
     left: 0;
-    top: 1em;
+    top: 1.4em;
 }
 
 #filter_country_label {
     position: absolute;
-    right: 1em;
-    max-height: 80%
+    right: -5em;
+    top: 9em;
 }
 
 #filter_country {
-    height: 40em;
+    height: 100vh;
+    top: 2em;
+    width: 7rem;
     color: var(--text-on-background-color);
-    background-color: rgba(31, 31, 12, .5);
+    background-color: transparent;
+    border: none;
+    position: absolute;
 }
