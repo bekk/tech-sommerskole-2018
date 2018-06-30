@@ -2,7 +2,9 @@ import {fetchFromUrl, insertInNode, setupLogger} from './common.js';
 
 function writeToOrRemoveInfoNode(selector, content) {
     const node = document.querySelector(selector);
-    if (!node) return false;
+    if (!node) {
+        return false;
+    }
     if (!content) {
         node.remove();
     } else {

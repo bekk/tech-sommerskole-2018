@@ -18,34 +18,39 @@ function setUpBeerFetcher({errorLog}) {
             queryState = Object.assign(queryState, newQueryParams, sortOrder);
         }
         return fetchFromUrl({path, errorLog, params: queryState});
-    }
+    };
 }
 
 function setupRenderer({tableSelector, sorter}) {
     const table = document.querySelector(tableSelector);
     return function (beers) {
-        if (!beers) return;
+        if (!beers) {
+            return;
+        }
         table.innerHTML = '';
         const headerRow = document.createElement("tr");
         const buildCell = (content, tag = 'td') => insertInNode(document.createElement(tag), content);
         const headers = [
-            ['Name','BEER_NAME'],
-            ['Brewery', 'BREWERY_NAME'],
-            ['ABV', 'ABV'],
-            ['Country', 'COUNTRY']
+            ['Name', 'BEER_NAME', 'column_wide'],
+            ['Brewery', 'BREWERY_NAME', 'column_wide'],
+            ['ABV', 'ABV', 'column_narrow'],
+            ['Country', 'COUNTRY', 'column_medium']
         ];
-        headers.forEach(hdr => {
+        headers.forEach(function (hdr) {
             const title = hdr[0];
             const sortKey = hdr[1];
+            const className = hdr[2];
             const link = document.createElement('span');
             link.setAttribute('role', 'button');
             link.setAttribute('title', `Order by ${title}.`);
             link.innerText = title;
             link.onclick = () => sorter({sortType: sortKey});
-            headerRow.appendChild(buildCell(link, 'th'));
+            const cell = buildCell(link, 'th');
+            cell.setAttribute('class', className);
+            headerRow.appendChild(cell);
         });
         table.appendChild(headerRow);
-        beers.forEach(beer => {
+        beers.forEach(function (beer) {
             const brewery = beer.brewery || {};
             const country = beer.country || {};
             const row = document.createElement('tr');
@@ -57,15 +62,18 @@ function setupRenderer({tableSelector, sorter}) {
             row.appendChild(buildCell(beer.abv));
             row.appendChild(buildCell(country.name));
             table.appendChild(row);
-        })
-    }
+        });
+    };
 }
 
 async function setUpCountryFilter(props) {
     const {selector, errorLog, refreshBeers, path} = props;
-    const countries = await fetchFromUrl({path, errorLog});
     const select = document.querySelector(selector);
-    const groupBy = (items, category) => items.reduce((acc, i) => {
+    if (!select) {
+        return;
+    }
+    const countries = await fetchFromUrl({path, errorLog});
+    const groupBy = (items, category) => items.reduce(function (acc, i) {
         (acc[i[category]] = acc[i[category]] || []).push(i);
         return acc;
     }, {});
@@ -106,6 +114,9 @@ function setupResetLink(linkSelector, formSelector, refresh) {
 function setUpFilters(props) {
     const setupTextBoxFilter = (selector, name) => {
         const box = document.querySelector(selector);
+        if (!box) {
+            return;
+        }
         box.onchange = event => props.refreshBeers({[name]: event.target.value});
     };
     setupTextBoxFilter('#filter_abv_min', 'minAbv');

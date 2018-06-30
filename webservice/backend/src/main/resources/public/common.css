@@ -1,13 +1,15 @@
 @import url("reset.css");
 
 :root {
-    --header-font-color: #431b05;
+    --header-font-color: #331807;
     --header-font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif;
-    --background-color: #1f1f12;
+    --background-color: rgba(204, 207, 204, 0.72);
     --border-color-light: #aaa;
-    --width-max-content: calc(100% - 400px);
+    --width-max-content: calc(100% - 10rem);
     --text-on-background-color: #dddddd;
     --light-background-color-transparent: rgba(31, 31, 12, .5);
+    --label-text-color: #626262;
+    font-size: 14pt;
 }
 
 html {
@@ -25,16 +27,19 @@ span[role="button"]:hover {
 .mainHeader {
     font-family: var(--header-font-family);
     font-weight: bold;
-    font-size: 6em;
+    font-size: 3em;
     text-align: center;
     color: var(--header-font-color);
     margin-bottom: 1em;
-    padding-top: 1em;
+    padding-top: .1em;
 }
 
 .mainContent {
-    margin: 1em 4em 2em 4em;
-    width: 100%;
+    margin: 1rem;
+    padding: 1rem;
+    width: calc(100% - 4rem);
+    height: calc(100% - 4rem);
+    background-color: var(--background-color);
 }
 
 #error_console:not(:empty) {
@@ -55,5 +60,12 @@ span[role="button"]:hover {
 .bubblyBackground {
     background: url("background.png") no-repeat center center fixed;
     background-size: cover;
-    -webkit-logical-height: -webkit-fill-available;
+}
+
+.navigation_links {
+    width: 100%;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    margin-left: 3em;
+    font-size: 2em;
 }

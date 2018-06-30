@@ -7,37 +7,41 @@
     <link href="index.css" rel="stylesheet">
 </head>
 <body class="bubblyBackground">
-<h1 class="mainHeader">Beers of the world</h1>
 
 <section class="mainContent">
+    <h1 class="mainHeader">Beers of the world</h1>
     <div class="tableFilters">
         <form id="filter_form">
             <fieldset class="filter_fieldset">
                 <legend>Filter: (<span role="button" id="filter_reset">Reset</span>)</legend>
-                <label>
-                    Min abv (%):
-                    <input type="number" placeholder="0%" id="filter_abv_min" min="0" max="100">
-                </label>
-                <label>
-                    Max abv (%):
-                    <input type="number" placeholder="100%" id="filter_abv_max" min="0" max="100">
-                </label>
-                <label>
-                    Max number of rows:
-                    <input type="number" placeholder="Max number of rows" step="25" min="1" max="300" id="filter_limit"
-                           value="10">
-                </label>
-                <label id="filter_country_label">
+                <div class="labelGroup">
+                    <label class="filter_label">
+                        Min abv (%):
+                        <input type="number" placeholder="0%" id="filter_abv_min" min="0" max="100">
+                    </label>
+                    <label class="filter_label">
+                        Max abv (%):
+                        <input type="number" placeholder="100%" id="filter_abv_max" min="0" max="100">
+                    </label>
+                    <label class="filter_label">
+                        Max number of rows:
+                        <input type="number" placeholder="Max number of rows" step="25" min="1" max="300"
+                               id="filter_limit"
+                               value="10">
+                    </label>
+                </div>
+                <label id="filter_country_label" class="filter_label">
                     Country:
                     <select id="filter_country" multiple="multiple"></select>
                 </label>
             </fieldset>
         </form>
     </div>
+    <div class="beerTable_wrapper">
+        <table id="main_table" class="beerTable">
 
-    <table id="main_table" class="beerTable">
-
-    </table>
+        </table>
+    </div>
 </section>
 
 <div id="error_console"></div>

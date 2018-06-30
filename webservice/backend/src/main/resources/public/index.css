@@ -1,10 +1,17 @@
 @import url("common.css");
 
+.beerTable_wrapper {
+    width: var(--width-max-content);
+    position: relative;
+    padding: 1rem;
+    border: solid var(--border-color-light);
+    min-height: 100vh;
+}
 
 .beerTable {
-    width: var(--width-max-content);
+    width: 100%;
     color: #000000;
-    font-size: 1.5em;
+    table-layout: fixed;
 }
 
 .beerTable th {
@@ -36,16 +43,37 @@
     padding: 1rem;
     margin-bottom: 2rem;
     width: var(--width-max-content);
-    background-color: rgba(31, 31, 12, .5);
     color: var(--text-on-background-color);
 }
 
 .filter_fieldset legend {
-    color: var(--text-on-background-color);
+    color: var(--header-font-color);
     font-family: var(--header-font-family);
+    font-weight: bold;
     padding-left: .5rem;
     padding-right: .5rem;
+}
+
+.labelGroup {
+    width: 100%;
+    display: flex;
+}
+
+.filter_label {
+    font-size: .7em;
+    font-family: var(--header-font-family);
+    color: var(--label-text-color);
     position: relative;
+    bottom: 1.4em;
+    flex: 1;
+}
+
+.filter_fieldset input {
+    width: 6em;
+    height: 1.2em;
+    position: absolute;
+    left: 0;
+    top: 1em;
 }
 
 #filter_country_label {
