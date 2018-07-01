@@ -1,19 +1,40 @@
 @import url("common.css");
 
+
+.mainContent {
+    line-height: 1.5em;
+}
+
+.beer_info_group{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-left: 5em;
+    margin-right: 5em;
+}
+
+.beer_info_wrapper{
+    font-size: 1.5em;
+    width: 30em;
+    position: relative;
+}
+
 .beer_label {
-    color: var(--text-on-background-color);
+    color: var(--label-text-color);
     font-style: italic;
     text-align: right;
-    width: 30em;
-    margin-right: 2em;
+    width: 10em;
+    margin-right: .2em;
+    display: inline-block;
 }
 
 .beer_info {
     color: var(--text-on-background-color);
-    background-color: var(--light-background-color-transparent);
-    padding: .1em 1em .2em 1em;
 }
 
-.mainContent {
-    line-height: 1.5em;
+.navigation_links {
+    width: 100%;
+    padding: 1rem 3rem 1rem 3rem;
+    font-size: 2em;
 }
