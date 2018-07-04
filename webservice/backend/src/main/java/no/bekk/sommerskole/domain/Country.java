@@ -4,11 +4,21 @@ import java.util.Objects;
 
 public class Country {
     private String countryCode;
+    private String key;
     private String name;
     private String continent;
     private int numberOfBeers;
 
     public Country() {
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public Country setKey(String key) {
+        this.key = key;
+        return this;
     }
 
     public String getCountryCode() {
@@ -68,4 +78,5 @@ public class Country {
 
         return Objects.hash(getCountryCode(), getName(), getContinent(), getNumberOfBeers());
     }
+
 }

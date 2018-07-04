@@ -23,6 +23,7 @@ public class CountryRepository {
         String query = new SelectBuilder()
                 .column("countries.code")
                 .column("countries.title")
+                .column("countries.key")
                 .column("continents.title AS continent")
                 .column("COUNT(beers.id) AS beerCount")
                 .from("countries")
@@ -40,6 +41,7 @@ public class CountryRepository {
     private static Country mapToCountry(ResultSet rs, int rowNum) throws SQLException {
         return new Country()
                 .setCountryCode(rs.getString("code"))
+                .setKey(rs.getString("key"))
                 .setName(rs.getString("title"))
                 .setContinent(rs.getString("continent"))
                 .setNumberOfBeers(rs.getInt("beerCount"));

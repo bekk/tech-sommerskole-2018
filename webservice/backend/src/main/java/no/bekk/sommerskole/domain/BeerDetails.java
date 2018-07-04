@@ -1,5 +1,7 @@
 package no.bekk.sommerskole.domain;
 
+import no.bekk.sommerskole.logic.ImageSelector;
+
 import java.time.LocalDateTime;
 
 public class BeerDetails {
@@ -13,6 +15,7 @@ public class BeerDetails {
     private Float kcal;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private String image;
 
     public BeerDetails() {
     }
@@ -22,6 +25,7 @@ public class BeerDetails {
     }
 
     public BeerDetails setId(int id) {
+        this.image = ImageSelector.getRandomBeerImage(id);
         this.id = id;
         return this;
     }
@@ -110,5 +114,9 @@ public class BeerDetails {
     public BeerDetails setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
         return this;
+    }
+
+    public String getImage() {
+        return image;
     }
 }

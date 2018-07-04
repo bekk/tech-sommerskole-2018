@@ -68,8 +68,13 @@ span[role="button"]:hover {
     background-color: var(--light-background-color-transparent);
 }
 
+
 .bubblyBackground {
-    background: url("background.png") no-repeat center center fixed;
+    background: url("images/background.png") no-repeat center center fixed;
     background-size: cover;
 }
 
+.percentage:not(:empty)::after {
+    content: "%";
+    color: var(--label-text-color);
+}

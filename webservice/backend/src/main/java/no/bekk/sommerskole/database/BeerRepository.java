@@ -38,6 +38,7 @@ public class BeerRepository {
                 .column("brewery.title AS breweryName")
                 .column("country.code AS countryCode")
                 .column("country.title AS countryName")
+                .column("country.key AS countryKey")
                 .from("main.beers AS beer")
                 .leftJoin("main.breweries AS brewery ON brewery.id = beer.brewery_id")
                 .leftJoin("main.countries As country ON beer.country_id = country.id")
@@ -63,6 +64,7 @@ public class BeerRepository {
                 .column("brewery.title AS breweryName")
                 .column("country.code AS countryCode")
                 .column("country.title AS countryName")
+                .column("country.key AS countryKey")
                 .from("main.beers AS beer")
                 .leftJoin("main.breweries AS brewery ON brewery.id = beer.brewery_id")
                 .leftJoin("main.countries As country ON beer.country_id = country.id");

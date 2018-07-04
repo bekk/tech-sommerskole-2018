@@ -41,12 +41,17 @@ class DBHelpers {
                 .setName(rs.getString("breweryName"));
     }
 
+    static Brewery mapToBreweries(ResultSet rs, int rowNum) throws SQLException {
+        return mapToBrewery(rs);
+    }
+
     static Country mapToCountry(ResultSet rs) throws SQLException {
         if (rs.getString("countryCode") == null) {
             return null;
         }
         return new Country()
                 .setCountryCode(rs.getString("countryCode"))
+                .setKey(rs.getString("countryKey"))
                 .setName(rs.getString("countryName"));
     }
 

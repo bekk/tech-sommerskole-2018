@@ -11,12 +11,13 @@
 <body class="bubblyBackground">
 
 <section class="mainContent">
-    <h1 class="mainHeader">
-        <span id="title_beerName">Loading...</span>
-        <img src="#" alt="country flag" name="country flag" class="country_flag" id="country_flag" hidden="hidden">
-    </h1>
-    <img src="#" alt="" name="beer image" id="beer_image" class="beer_image_main" hidden="hidden">
+    <h1 class="mainHeader" id="title_beerName">Loading...</h1>
     <div class="beer_info_group">
+        <div id="beer_name" class="beer_info_wrapper">
+            <label class="beer_label">Name:
+                <input type="text" name="name"/>
+            </label>
+        </div>
         <div id="beer_brewery" class="beer_info_wrapper">
             <span class="beer_label">Brewery: </span>
             <span class="beer_info"></span>
@@ -31,7 +32,7 @@
         </div>
         <div id="beer_abv" class="beer_info_wrapper">
             <span class="beer_label">ABV: </span>
-            <span class="beer_info percentage"></span>
+            <span class="beer_info"></span>
         </div>
         <div id="beer_kcal" class="beer_info_wrapper">
             <span class="beer_label">Calories: </span>
@@ -49,12 +50,11 @@
 </section>
 <nav class="navigation_links" id="footer">
     <a href="/" title="To beer list">&#x261C; Back</a>
-    <a href="/edit.html" hidden="hidden" id="link_edit">&#x270E; Edit beer</a>
 </nav>
 
 <div id="error_console"></div>
 <script type="module">
-    import init from './details.js';
+    import init from './edit.js';
 
     init('#error_console');
 </script>

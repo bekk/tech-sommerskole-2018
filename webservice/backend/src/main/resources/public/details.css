@@ -33,6 +33,18 @@
     color: var(--text-on-background-color);
 }
 
+.beer_image_main {
+    max-width: 30vw;
+    border: 1px solid var(--border-color-light);
+    float: right;
+}
+
+.country_flag {
+    display: inline-block;
+    max-height: 32px;
+    font-size: 0;
+}
+
 .navigation_links {
     width: 100%;
     padding: 1rem 3rem 1rem 3rem;
