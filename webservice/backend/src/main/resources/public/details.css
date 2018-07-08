@@ -37,6 +37,8 @@
     max-width: 30vw;
     border: 1px solid var(--border-color-light);
     float: right;
+    margin-left: 1em;
+    margin-bottom: 1em;
 }
 
 .country_flag {

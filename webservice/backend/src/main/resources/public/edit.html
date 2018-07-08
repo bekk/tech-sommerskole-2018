@@ -13,39 +13,47 @@
 <section class="mainContent">
     <h1 class="mainHeader" id="title_beerName">Loading...</h1>
     <div class="beer_info_group">
-        <div id="beer_name" class="beer_info_wrapper">
-            <label class="beer_label">Name:
-                <input type="text" name="name"/>
-            </label>
-        </div>
-        <div id="beer_brewery" class="beer_info_wrapper">
-            <span class="beer_label">Brewery: </span>
-            <span class="beer_info"></span>
-        </div>
-        <div id="beer_country" class="beer_info_wrapper">
-            <span class="beer_label">Country: </span>
-            <span class="beer_info"></span>
-        </div>
-        <div id="beer_ibu" class="beer_info_wrapper">
-            <span class="beer_label">IBU: </span>
-            <span class="beer_info"></span>
-        </div>
-        <div id="beer_abv" class="beer_info_wrapper">
-            <span class="beer_label">ABV: </span>
-            <span class="beer_info"></span>
-        </div>
-        <div id="beer_kcal" class="beer_info_wrapper">
-            <span class="beer_label">Calories: </span>
-            <span class="beer_info"></span>
-        </div>
-        <div id="beer_webPage" class="beer_info_wrapper">
-            <span class="beer_label">Web page: </span>
-            <span class="beer_info"></span>
-        </div>
-        <div id="beer_lastUpdate" class="beer_info_wrapper">
-            <span class="beer_label">Last updated: </span>
-            <span class="beer_info"></span>
-        </div>
+        <form id="main_form" action="/beer" method="post">
+            <input name="id" type="hidden">
+            <div id="beer_name" class="beer_info_wrapper">
+                <label class="beer_label">Name:
+                    <input type="text" name="name"/>
+                </label>
+            </div>
+            <div id="beer_brewery" class="beer_info_wrapper">
+                <label class="beer_label">Brewery:
+                    <select name="brewery""></select>
+                </label>
+            </div>
+            <div id="beer_country" class="beer_info_wrapper">
+                <label class="beer_label">Country:
+                    <select name="country""></select>
+                </label>
+            </div>
+            <div id="beer_ibu" class="beer_info_wrapper">
+                <label class="beer_label">IBU:
+                    <input name="ibu" type="number" min="0">
+                </label>
+            </div>
+            <div id="beer_abv" class="beer_info_wrapper">
+                <label class="beer_label">ABV:
+                    <input name="abv" type="number" min="0" max="100">
+                    %
+                </label>
+            </div>
+            <div id="beer_kcal" class="beer_info_wrapper">
+                <label class="beer_label">Calories:
+                    <input name="kcal" type="number">
+                </label>
+            </div>
+            <div id="beer_webPage" class="beer_info_wrapper">
+                <label class="beer_label">Web page:
+                    <input name="webpage" type="url">
+                </label>
+            </div>
+            <button type="reset">Reset</button>
+            <button type="submit">Submit</button>
+        </form>
     </div>
 </section>
 <nav class="navigation_links" id="footer">

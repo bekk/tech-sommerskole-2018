@@ -1,4 +1,4 @@
-import {fetchFromUrl, insertInNode, setupLogger} from './common.js';
+import {fetchFromUrl, insertInNode, setHeadingAndPageTitleTooBeerName, setupLogger} from './common.js';
 
 function writeToOrRemoveInfoNode(selector, content) {
     const node = document.querySelector(selector);
@@ -63,8 +63,6 @@ function writeInfo(beer) {
     if (!beer) {
         return false;
     }
-    const title = document.querySelector('#title_beerName');
-    title.innerText = document.title = beer.name;
     writeToOrRemoveInfoNode('#beer_brewery', (beer.brewery || {}).name);
     writeToOrRemoveInfoNode('#beer_country', (beer.country || {}).name);
     writeToOrRemoveInfoNode('#beer_ibu', beer.ibu);
@@ -123,7 +121,7 @@ export default async function init(errorConsoleSelector) {
         return false;
     }
     const beer = await fetchFromUrl({path: `/beer/${id}`, errorLog});
-
+    setHeadingAndPageTitleTooBeerName(beer, '#title_beerName');
     writeInfo(beer);
     updateEditLink(id);
     await getAndRenderWikiContent(beer, "#wikipedia_content", errorLog);

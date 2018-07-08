@@ -50,3 +50,14 @@ export function insertInNode(node, content) {
     }
     return node;
 }
+
+export function setHeadingAndPageTitleTooBeerName(beer, headingSelector = '#title_beerName') {
+    if (!beer) {
+        return false;
+    }
+    const heading = document.querySelector(headingSelector);
+    if (heading) {
+        heading.innerText = beer.name;
+    }
+    document.title = beer.name;
+}
