@@ -27,6 +27,38 @@ function updateImage(selector, src, alt) {
     return image;
 }
 
+async function fetchWikipedia(beer, errorLog) {
+    const apiAddress = 'https://en.wikipedia.org/w/api.php';
+    const searchUrl = new URL(apiAddress);
+    const searchParams = searchUrl.searchParams;
+    searchParams.append('action', 'query');
+    searchParams.append('list', 'search');
+    searchParams.append('utf8', '');
+    searchParams.append('format', 'json');
+    searchParams.append('origin', '*');
+    searchParams.append('srsearch', `beer ${beer.name}`);
+    const fetchParams = {
+        headers: {
+            Accept: 'application/json',
+            'Api-User-Agent': 'beer-catalogue1.0'
+        }
+    };
+    const searchResult = await fetchFromUrl({urlObject: searchUrl, fetchParams, errorLog});
+    if (!searchResult.query || !searchResult.query.search) {
+        return false;
+    }
+    const firstHit = searchResult.query.search[0];
+    const {pageid} = firstHit;
+    const parseUrl = new URL(apiAddress);
+    const parseParams = parseUrl.searchParams;
+    parseParams.append('action', 'parse');
+    parseParams.append('format', 'json');
+    parseParams.append('origin', '*');
+    parseParams.append('pageid', pageid);
+    const details = await fetchFromUrl({urlObject: parseUrl, fetchParams, errorLog});
+    return (details || {}).parse;
+}
+
 function writeInfo(beer) {
     if (!beer) {
         return false;
@@ -64,6 +96,24 @@ function updateEditLink(id) {
     link.removeAttribute('hidden');
 }
 
+async function getAndRenderWikiContent(beer, selector, errorLog) {
+    const node = document.querySelector(selector);
+    if (!node) {
+        return false;
+    }
+    const content = await fetchWikipedia(beer, errorLog);
+    if (!content) {
+        node.remove();
+        return false;
+    }
+    const contentText = content.text['*'];
+    const replacePattern = /href="(\/[^"]+)"/g;
+    const textWithQualifiedUrls = contentText.replace(
+        replacePattern,
+        (_, relativeUrl) => `href="${new URL(relativeUrl, 'https://en.wikipedia.org')}"`);
+    node.innerHTML = textWithQualifiedUrls;
+}
+
 export default async function init(errorConsoleSelector) {
     const errorLog = setupLogger(errorConsoleSelector);
     const searchParams = new URLSearchParams(document.location.search);
@@ -76,4 +126,5 @@ export default async function init(errorConsoleSelector) {
 
     writeInfo(beer);
     updateEditLink(id);
+    await getAndRenderWikiContent(beer, "#wikipedia_content", errorLog);
 }

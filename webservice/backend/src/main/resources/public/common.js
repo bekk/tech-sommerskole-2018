@@ -11,14 +11,14 @@ export function setupLogger(selector) {
 }
 
 
-export function fetchFromUrl({path, errorLog, params}) {
-    const url = new URL(path, document.location.href);
+export function fetchFromUrl({path, errorLog, params, urlObject, fetchParams}) {
+    const url = urlObject || new URL(path, document.location.href);
     Object.entries(params || {})
         .filter((entry) => typeof entry[1] !== 'undefined' && entry[1] !== '')
         .forEach(function (entry) {
             url.searchParams.append(entry[0], entry[1]);
         });
-    return fetch(url.href)
+    return fetch(url.href, fetchParams)
         .then(function (response) {
             if (!response.ok) {
                 errorLog(`Fetching ${url} returned ${response.status}`);

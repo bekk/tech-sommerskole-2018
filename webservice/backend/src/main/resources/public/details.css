@@ -45,6 +45,11 @@
     font-size: 0;
 }
 
+#wikipedia_content {
+    padding: 2rem;
+    font-size: smaller;
+}
+
 .navigation_links {
     width: 100%;
     padding: 1rem 3rem 1rem 3rem;
