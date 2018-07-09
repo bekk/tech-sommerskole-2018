@@ -59,7 +59,11 @@ class CalculatorTest {
         return Stream.of(
             new testInput(0, new int[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, "Gutter game"),
             new testInput(20, new int[]{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}, "One pin down in each roll"),
-            new testInput(29, new int[]{9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}, "Spare in first roll, one pin down in each other roll, (score = 10 + 1 + 18 = 29)")
+            new testInput(29, new int[]{9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}, "Spare in first roll, one pin down in each other roll, (score = 10 + 1 + 18 = 29)"),
+            new testInput(29, new int[]{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9,1}, "Spare in last roll, one pin down in each other roll, (score = 18 + 10 + 1 = 29)"),
+            new testInput(30, new int[]{10,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}, "Strike in first roll, one pin down in each other roll, (score = 10 + 1 + 1 + 18 = 30)"),
+            new testInput(30, new int[]{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,10,1,1}, "Strike in last roll, one pin down in each other roll, (score = 18 + 10 + 1 + 1 = 30"),
+            new testInput(300, new int[]{10,10,10,10,10,10,10,10,10,10,10,10}, "Golden game = all strikes (score = 300)")
         ).map(input -> DynamicTest.dynamicTest(input.displayName, () -> input.Assert()));
     }
 
