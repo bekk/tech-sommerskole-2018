@@ -4,6 +4,7 @@
     <meta charset="UTF-8"/>
     <link rel="shortcut icon" type="image/png" href="images/favicon.png">
     <link href="details.css" rel="stylesheet">
+    <link href="edit.css" rel="stylesheet">
     <title>
         Details
     </title>
@@ -17,41 +18,40 @@
             <input name="id" type="hidden">
             <div id="beer_name" class="beer_info_wrapper">
                 <label class="beer_label">Name:
-                    <input type="text" name="name"/>
+                    <input type="text" name="name" class="beer_form_element"/>
                 </label>
             </div>
             <div id="beer_brewery" class="beer_info_wrapper">
                 <label class="beer_label">Brewery:
-                    <select name="brewery""></select>
+                    <select name="brewery" class="beer_form_element"></select>
                 </label>
             </div>
             <div id="beer_country" class="beer_info_wrapper">
                 <label class="beer_label">Country:
-                    <select name="country""></select>
+                    <select name="country" class="beer_form_element"></select>
                 </label>
             </div>
             <div id="beer_ibu" class="beer_info_wrapper">
                 <label class="beer_label">IBU:
-                    <input name="ibu" type="number" min="0">
+                    <input name="ibu" type="number" min="0" class="beer_form_element">
                 </label>
             </div>
             <div id="beer_abv" class="beer_info_wrapper">
-                <label class="beer_label">ABV:
-                    <input name="abv" type="number" min="0" max="100">
-                    %
+                <label class="beer_label">ABV (%):
+                    <input name="abv" type="number" min="0" max="100" class="beer_form_element">
                 </label>
             </div>
             <div id="beer_kcal" class="beer_info_wrapper">
                 <label class="beer_label">Calories:
-                    <input name="kcal" type="number">
+                    <input name="kcal" type="number" class="beer_form_element">
                 </label>
             </div>
             <div id="beer_webPage" class="beer_info_wrapper">
                 <label class="beer_label">Web page:
-                    <input name="webpage" type="url">
+                    <input name="webpage" type="url" class="beer_form_element">
                 </label>
             </div>
-            <button type="reset">Reset</button>
+            <button type="reset">Clear</button>
             <button type="submit">Submit</button>
         </form>
     </div>

@@ -1,0 +1,40 @@
+@import url("common.css");
+
+.beer_info_wrapper {
+    position: relative;
+    height: 2.5em;
+}
+
+.beer_label {
+    color: var(--label-text-color);
+    font-style: italic;
+    text-align: right;
+    position: absolute;
+    right: calc(100% - 10em);
+    top: .2em;
+}
+
+.beer_form_element {
+    width: 50vw;
+    font-size: 1.2em;
+    position: absolute;
+    left: 10em;
+    top: -0.2em;
+    background: var(--input-grafient);
+    border-radius: 3px;
+    padding-left: .4em;
+}
+
+.beer_info_group {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80vw;
+}
+
+.beer_info_group button {
+    font-size: 3em;
+    margin-left: 1em;
+    background: var(--input-grafient);
+    border-radius: .2em;
+
+}
