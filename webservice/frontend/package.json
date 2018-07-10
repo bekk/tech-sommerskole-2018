@@ -1,0 +1,26 @@
+{
+  "name": "beer-catalogue",
+  "version": "1.0.0",
+  "description": "Beer catalogue application",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "keywords": [
+    "beer"
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "npm": "^6.1.0"
+  },
+  "devDependencies": {
+    "clean-webpack-plugin": "^0.1.19",
+    "copy-webpack-plugin": "^4.5.2",
+    "css-loader": "^1.0.0",
+    "file-loader": "^1.1.11",
+    "style-loader": "^0.21.0",
+    "webpack": "^4.15.1",
+    "webpack-cli": "^3.0.8"
+  }
+}
