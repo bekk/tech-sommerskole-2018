@@ -10,6 +10,10 @@ module.exports = {
     path: path.resolve(__dirname, 'dist')
   },
   devtool: 'source-map',
+  devServer: {
+    contentBase: './dist',
+    port: 8081
+  },
   plugins: [
     new CopyWebpackPlugin(['static']),
     new CleanWebpackPlugin(['dist'])
