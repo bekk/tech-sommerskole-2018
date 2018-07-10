@@ -1,4 +1,4 @@
-import './index.css';
+import './index.less';
 
 function component() {
     var element = document.createElement('div');

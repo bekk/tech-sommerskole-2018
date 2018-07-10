@@ -24,6 +24,14 @@ module.exports = {
             ]
         },
         {
+            test: /\.less$/,
+            use: [
+                'style-loader',
+                'css-loader',
+                'less-loader'
+            ]
+        },
+        {
             test: /\.(png|svg|jpg|gif)$/,
             use: [
                 'file-loader'
