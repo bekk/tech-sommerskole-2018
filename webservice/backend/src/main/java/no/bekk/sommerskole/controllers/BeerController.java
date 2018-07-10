@@ -3,6 +3,7 @@ package no.bekk.sommerskole.controllers;
 import no.bekk.sommerskole.database.BeerRepository;
 import no.bekk.sommerskole.domain.Beer;
 import no.bekk.sommerskole.domain.BeerDetails;
+import no.bekk.sommerskole.domain.BeerDetailsForm;
 import no.bekk.sommerskole.filter.BeerFilter;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,11 @@ public class BeerController {
     @GetMapping("/{id}")
     public BeerDetails getBeerDetails(@PathVariable("id") String id) {
         return beerRepository.getBeerDetails(id);
+    }
+
+    @PostMapping
+    public void postBeerDetails(@ModelAttribute BeerDetailsForm beerDetailsForm){
+        beerRepository.setBeerDetails(beerDetailsForm);
     }
 }
 

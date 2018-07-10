@@ -3,6 +3,7 @@ package no.bekk.sommerskole.database;
 import ca.krasnay.sqlbuilder.SelectBuilder;
 import no.bekk.sommerskole.domain.Beer;
 import no.bekk.sommerskole.domain.BeerDetails;
+import no.bekk.sommerskole.domain.BeerDetailsForm;
 import no.bekk.sommerskole.filter.BeerFilter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -11,9 +12,12 @@ import org.springframework.stereotype.Repository;
 import javax.inject.Inject;
 import java.util.List;
 
+import static no.bekk.sommerskole.database.SQLQueries.UPDATE_BEER_DETAILS_QUERY;
+
 
 @Repository
 public class BeerRepository {
+
     NamedParameterJdbcTemplate jdbc;
 
     @Inject
@@ -87,6 +91,26 @@ public class BeerRepository {
 
         String query = selectBuilder.toString() + " LIMIT :limit";
         return jdbc.query(query, parameterSource, DBHelpers::mapToBeer);
+    }
+
+    public void setBeerDetails(BeerDetailsForm details) {
+        MapSqlParameterSource parameterSource = beerDetailsParamSource(details);
+
+        String query = UPDATE_BEER_DETAILS_QUERY;
+
+        jdbc.update(query, parameterSource);
+    }
+
+    private MapSqlParameterSource beerDetailsParamSource(BeerDetailsForm details) {
+        return new MapSqlParameterSource()
+                    .addValue("id", details.getId())
+                    .addValue("name", details.getName())
+                    .addValue("breweryId", details.getBrewery())
+                    .addValue("countryCode", details.getCountry())
+                    .addValue("ibu", details.getIbu())
+                    .addValue("abv", details.getAbv())
+                    .addValue("kcal", details.getKcal())
+                    .addValue("webpage", details.getWebpage());
     }
 }
 
