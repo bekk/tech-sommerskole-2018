@@ -1,8 +1,10 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
 import './index.less';
 
-function component() {
-    var element = document.createElement('div');
-    element.innerHTML = ['Hello', 'BEKK!'].join(' ');
-    return element;
-}  
-document.body.appendChild(component());
+const title = 'Hello Bekk!';
+ReactDOM.render(
+    <div>{title}</div>,
+    document.querySelector('#app'));
+
+module.hot.accept();

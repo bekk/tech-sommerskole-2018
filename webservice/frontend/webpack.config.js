@@ -1,10 +1,14 @@
+const webpack = require('webpack');
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.js',
+  entry: [
+      './src/index.js',
+      'react-hot-loader/patch'
+  ],
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist')
@@ -12,14 +16,24 @@ module.exports = {
   devtool: 'source-map',
   devServer: {
     contentBase: './dist',
-    port: 8081
+    port: 8081,
+    hot: true
+  },
+  resolve: {
+    extensions: ['*', '.js', '.jsx']
   },
   plugins: [
     new CopyWebpackPlugin(['static']),
-    new CleanWebpackPlugin(['dist'])
+    new CleanWebpackPlugin(['dist']),
+    new webpack.HotModuleReplacementPlugin()
   ],
   module: {
       rules: [
+        {
+            test: /\.(js|jsx)$/,
+            exclude: /node_modules/,
+            use: ['babel-loader']
+        },
         {
             test: /\.css$/,
             use: [
