@@ -20,6 +20,7 @@ public class BeerController {
         this.beerRepository = beerRepository;
     }
 
+    @CrossOrigin(origins = "http://localhost:8081")
     @GetMapping
     public List<Beer> getBeer(@ModelAttribute BeerFilter beerFilter) {
         return beerRepository.getBeer(beerFilter);

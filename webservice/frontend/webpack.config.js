@@ -6,8 +6,9 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
   mode: 'development',
   entry: [
-      './src/index.js',
-      'react-hot-loader/patch'
+    'babel-polyfill',
+    './src/index.js',
+    'react-hot-loader/patch'
   ],
   output: {
     filename: '[name].bundle.js',
@@ -20,7 +21,11 @@ module.exports = {
     hot: true
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx']
+    extensions: ['*', '.js', '.jsx'],
+    alias: {
+        config: path.join(__dirname, 'src/config/dev.js'),
+      },
+    modules: ['src', 'node_modules']
   },
   plugins: [
     new CopyWebpackPlugin(['static']),
