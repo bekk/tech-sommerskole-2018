@@ -48,6 +48,9 @@ async function fetchWikipedia(beer, errorLog) {
         return false;
     }
     const firstHit = searchResult.query.search[0];
+    if (!firstHit) {
+        return false;
+    }
     const {pageid} = firstHit;
     const parseUrl = new URL(apiAddress);
     const parseParams = parseUrl.searchParams;
