@@ -1,16 +1,17 @@
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
+  mode: 'development',
   entry: './src/index.js',
   output: {
-    filename: 'main.js',
+    filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
   plugins: [
-    new CleanWebpackPlugin(['dist'], { 
-        exlude: ['index.html', 'static/']
-    })
+    new CopyWebpackPlugin(['static']),
+    new CleanWebpackPlugin(['dist'])
   ],
   module: {
       rules: [
