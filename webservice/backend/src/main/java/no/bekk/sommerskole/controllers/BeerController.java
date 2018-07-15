@@ -26,6 +26,7 @@ public class BeerController {
         return beerRepository.getBeer(beerFilter);
     }
 
+    @CrossOrigin(origins = "http://localhost:8081")
     @GetMapping("/{id}")
     public BeerDetails getBeerDetails(@PathVariable("id") String id) {
         return beerRepository.getBeerDetails(id);

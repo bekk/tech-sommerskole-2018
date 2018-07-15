@@ -3,6 +3,7 @@ import { logError } from 'utils/errorBroker';
 
 const queryService = async function() {
     const url = new URL('beer', config.webSvcBaseUrl);
+    url.searchParams.append('limit', 100000);
     const response = await fetch(url.href);
     if(!response.ok){
         logError(`Fetching ${url} returned ${response.status}`);

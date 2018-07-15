@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import 'reset-css';
 import './index.less';
 
 const title = 'Hallo Bekk!';
