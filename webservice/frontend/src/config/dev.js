@@ -1,3 +1,3 @@
 export default {
-    webSvcBaseUrl: 'http://localhost:8080',
+  webSvcBaseUrl: 'http://localhost:8080',
 };
