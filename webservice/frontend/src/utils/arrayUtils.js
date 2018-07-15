@@ -1,4 +1,4 @@
-export const compareByProperty = ({ getKey, reverse = false }) => (a, b) => {
+export const compareByKey = ({ getKey, reverse = false }) => (a, b) => {
   let result = 0;
   const keyA = getKey(a);
   const keyB = getKey(b);

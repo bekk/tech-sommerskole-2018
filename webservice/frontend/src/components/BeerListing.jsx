@@ -1,7 +1,7 @@
 import React from 'react';
 import BeerTable from 'components/BeerTable';
 import { getBeers } from 'apiClient/beerRepository';
-import { compareByProperty } from 'utils/arrayUtils';
+import { compareByKey } from 'utils/arrayUtils';
 
 class BeerListing extends React.Component{
   constructor(props) {
@@ -9,7 +9,7 @@ class BeerListing extends React.Component{
     this.state = {beers: [], sortColumn: null, sortDirection: null };
   }
   sorting({ getKey, column, direction }){
-    const orderBy = compareByProperty({ getKey, reverse: direction === 'desc' });
+    const orderBy = compareByKey({ getKey, reverse: direction === 'desc' });
     const beers = this.state.beers.sort(orderBy);
     this.setState({ beers, sortColumn: column, sortDirection: direction });
   }

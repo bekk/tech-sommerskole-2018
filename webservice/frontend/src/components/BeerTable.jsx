@@ -1,7 +1,7 @@
 import React from 'react';
 import './beerTable.less';
 
-const buildRow = beer => (
+const TableRow = ({ beer }) => (
     <tr key={beer.id}>
         <td>{beer.name}</td>
         <td>{(beer.brewery || {}).name}</td>
@@ -10,7 +10,7 @@ const buildRow = beer => (
     </tr>
 );
 
-const tableHeader = ({ title, onSort, getKey, sortColumn, sortDirection }) => {
+const TableHeader = ({ title, onSort, getKey, sortColumn, sortDirection }) => {
   const isSorted = sortColumn === title;
   const direction = isSorted && sortDirection;
   const onClick = () => {
@@ -36,15 +36,16 @@ const tableHeader = ({ title, onSort, getKey, sortColumn, sortDirection }) => {
 
 const BeerTable = ({ beers, onSort, sortDirection, sortColumn }) => {
     if (!beers) return null;
-    const tableRows = beers.map(buildRow);
+    const tableRows = beers.map(beer => <TableRow beer={beer}/>);
+    const headerProps = { onSort, sortColumn, sortDirection };
     return (
         <table>
             <thead>
                 <tr>
-                    {tableHeader({title: 'Name', onSort, getKey: beer => beer.name, sortColumn, sortDirection })}
-                    {tableHeader({title: 'Brewery', onSort, getKey: beer => (beer.brewery || {}).name, sortColumn, sortDirection })}
-                    {tableHeader({title: 'ABV', onSort, getKey: beer => beer.abv, sortColumn, sortDirection })}
-                    {tableHeader({title: 'Country', onSort, getKey: beer => (beer.country || {}).name, sortColumn, sortDirection })}
+                  <TableHeader title="Name" getKey={beer => beer.name} {...headerProps} />
+                  <TableHeader title="Brewery" getKey={beer => (beer.brewery || {}).name} {...headerProps} />
+                  <TableHeader title="ABV" getKey={beer => beer.abv} {...headerProps} />
+                  <TableHeader title="Country" getKey={beer => (beer.country || {}).name} {...headerProps} />
                 </tr>
             </thead>
             <tbody>
