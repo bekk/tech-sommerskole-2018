@@ -19,6 +19,7 @@ module.exports = {
     contentBase: './dist',
     port: 8081,
     hot: true,
+    historyApiFallback: true,
   },
   resolve: {
     extensions: ['*', '.js', '.jsx'],

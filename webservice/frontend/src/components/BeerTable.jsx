@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { keys, getKey } from 'utils/beerUtils';
 import './beerTable.less';
 
@@ -31,7 +32,9 @@ const TableHeader = ({
 const TableRow = ({ beer }) => (
   <tr>
     <td>
-      {getKey(keys.NAME)(beer)}
+      <Link to={`/beer/${beer.id}`}>
+        {getKey(keys.NAME)(beer)}
+      </Link>
     </td>
     <td>
       {getKey(keys.BREWERY)(beer)}
