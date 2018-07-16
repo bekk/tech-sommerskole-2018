@@ -1,32 +1,15 @@
 import React from 'react';
+import { keys, getKey } from 'utils/beerUtils';
 import './beerTable.less';
 
-const TableRow = ({ beer }) => (
-  <tr>
-    <td>
-      {beer.name}
-    </td>
-    <td>
-      {(beer.brewery || {}).name}
-    </td>
-    <td>
-      {beer.abv}
-    </td>
-    <td>
-      {(beer.country || {}).name}
-    </td>
-  </tr>
-);
-
 const TableHeader = ({
-  title, onSort, getKey, sortColumn, sortDirection,
+  property, onSort, sortColumn, sortDirection,
 }) => {
-  const isSorted = sortColumn === title;
+  const isSorted = sortColumn === property;
   const direction = isSorted && sortDirection;
   const onClick = () => {
     onSort({
-      getKey,
-      column: title,
+      column: property,
       direction: direction === 'asc' ? 'desc' : 'asc',
     });
   };
@@ -36,14 +19,31 @@ const TableHeader = ({
       <span
         className={className}
         role="button"
-        title={`sort by ${title}`}
+        title={`sort by ${property}`}
         onClick={onClick}
       >
-        {title}
+        {property}
       </span>
     </th>
   );
 };
+
+const TableRow = ({ beer }) => (
+  <tr>
+    <td>
+      {getKey(keys.NAME)(beer)}
+    </td>
+    <td>
+      {getKey(keys.BREWERY)(beer)}
+    </td>
+    <td>
+      {getKey(keys.ABV)(beer)}
+    </td>
+    <td>
+      {getKey(keys.COUNTRY)(beer)}
+    </td>
+  </tr>
+);
 
 const BeerTable = ({
   beers, onSort, sortDirection, sortColumn,
@@ -55,10 +55,10 @@ const BeerTable = ({
     <table>
       <thead>
         <tr>
-          <TableHeader title="Name" getKey={beer => beer.name} {...headerProps} />
-          <TableHeader title="Brewery" getKey={beer => (beer.brewery || {}).name} {...headerProps} />
-          <TableHeader title="ABV" getKey={beer => beer.abv} {...headerProps} />
-          <TableHeader title="Country" getKey={beer => (beer.country || {}).name} {...headerProps} />
+          <TableHeader property={keys.NAME} {...headerProps} />
+          <TableHeader property={keys.BREWERY} {...headerProps} />
+          <TableHeader property={keys.ABV} {...headerProps} />
+          <TableHeader property={keys.COUNTRY} {...headerProps} />
         </tr>
       </thead>
       <tbody>

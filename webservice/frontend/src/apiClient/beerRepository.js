@@ -1,6 +1,8 @@
 import config from 'config';
 import { logError } from 'utils/errorBroker';
 
+let beers;
+
 const queryService = async function () {
   const url = new URL('beer', config.webSvcBaseUrl);
   url.searchParams.append('limit', 100000);
@@ -17,4 +19,9 @@ const queryService = async function () {
   return response.json();
 };
 
-export const getBeers = queryService;
+export const getBeers = async () => {
+  if (!beers) {
+    beers = await queryService();
+  }
+  return beers;
+};
