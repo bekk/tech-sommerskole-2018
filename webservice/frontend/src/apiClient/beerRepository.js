@@ -19,9 +19,9 @@ const queryService = async function () {
   return response.json();
 };
 
-export const getBeers = async () => {
-  if (!beers) {
-    beers = await queryService();
-  }
+export const refresh = async () => {
+  beers = await queryService();
   return beers;
 };
+
+export const getBeers = async () => beers || refresh().catch(logError);

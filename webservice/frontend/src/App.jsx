@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Index from 'pages/Index';
+import ErrorPanel from 'components/ErrorPanel';
 
 const App = () => (
   <Router>
@@ -13,6 +14,7 @@ const App = () => (
       <Route exact path="/">
         <Index />
       </Route>
+      <ErrorPanel />
     </React.Fragment>
   </Router>
 );
