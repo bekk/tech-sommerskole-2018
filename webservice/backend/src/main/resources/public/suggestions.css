@@ -1,0 +1,27 @@
+@import url("index.css");
+
+.filter_fieldset input {
+    position: relative;
+    width: 16em;
+    top: 0.4em;
+}
+
+.filter_label {
+    max-width: 31%;
+    display: flex;
+    flex-direction: column;
+}
+
+#filter_country_label {
+    right: -11em;
+    top: 10em;
+}
+
+#filter_country_label input {
+    width: 7rem;
+    margin-top: 1em;
+}
+
+#filter_country {
+    top: 3em;
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png">
+    <link href="suggestions.css" rel="stylesheet">
+    <title>
+        Suggestions
+    </title>
+</head>
+<body class="bubblyBackground">
+
+<section class="mainContent">
+    <h1 class="mainHeader">Suggestions</h1>
+    <div class="tableFilters">
+        <form id="filter_form">
+            <fieldset class="filter_fieldset">
+                <legend>Preferences: (<span role="button" id="filter_reset">Reset</span>)</legend>
+                <div class="labelGroup">
+                    <label class="filter_label">
+                        Abv (%):
+                        <input type="range" min="0" max="1" step="0.01" value=".5" placeholder="importance"
+                               name="abv_importance"/>
+                        <input type="number" placeholder="desired value" name="abv_desired" min="0" max="100"/>
+                    </label>
+                    <label class="filter_label">
+                        Kcal:
+                        <input type="range" min="0" max="1" step="0.01" value=".5" placeholder="importance"
+                               name="kcal_importance"/>
+                        <input type="number" placeholder="desired value" name="kcal_desired" min="0" max="1000"/>
+                    </label>
+                    <label class="filter_label">
+                        City:
+                        <input type="range" min="0" max="1" step="0.01" value=".5" placeholder="importance"
+                               name="city_importance"/>
+                        <input type="text" placeholder="desired value" name="city_desired"/>
+                    </label>
+                </div>
+                <label id="filter_country_label" class="filter_label">
+                    Country:
+                    <input type="range" min="0" max="1" step="0.01" value=".5" placeholder="importance"
+                           name="country_importance"/>
+                    <select id="filter_country" name="country_desired" multiple="multiple"></select>
+                </label>
+            </fieldset>
+        </form>
+    </div>
+    <div class="beerTable_wrapper">
+        <table id="main_table" class="beerTable">
+        </table>
+    </div>
+</section>
+<nav class="navigation_links" id="footer">
+    <a href="/" title="To beer list">&#x261C; Back</a>
+</nav>
+
+<div id="error_console"></div>
+<script type="module">
+    import init from './suggestions.js';
+
+    init('#main_table', '#filter_form', '#error_console');
+</script>
+</body>
+</html>

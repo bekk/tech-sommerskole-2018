@@ -21,13 +21,13 @@ function setUpBeerFetcher({errorLog}) {
     };
 }
 
-function setupRenderer({tableSelector, sorter}) {
+export function setupTableRenderer({tableSelector, sorter}) {
     const table = document.querySelector(tableSelector);
     return function (beers) {
+        table.innerHTML = '';
         if (!beers) {
             return;
         }
-        table.innerHTML = '';
         const headerRow = document.createElement("tr");
         const buildCell = (content, tag = 'td') => insertInNode(document.createElement(tag), content);
         const headers = [
@@ -66,7 +66,7 @@ function setupRenderer({tableSelector, sorter}) {
     };
 }
 
-async function setUpCountryFilter(props) {
+export async function setupCountryFilter(props) {
     const {selector, errorLog, refreshBeers, path} = props;
     const select = document.querySelector(selector);
     if (!select) {
@@ -103,12 +103,13 @@ async function setUpCountryFilter(props) {
         return result;
     };
     select.onchange = () => refreshBeers({countries: getSelectedItems().join(',')});
+    return getSelectedItems;
 }
 
-function setupResetLink(linkSelector, formSelector, refresh) {
+export function setupResetLink(linkSelector, formSelector, refresh) {
     const resetLink = document.querySelector(linkSelector);
     const form = document.querySelector(formSelector);
-    resetLink.onclick = () => refresh(true).then(() => form.reset());
+    resetLink.onclick = () => Promise.resolve(refresh(true)).then(() => form.reset());
 }
 
 function setUpFilters(props) {
@@ -123,14 +124,14 @@ function setUpFilters(props) {
     setupTextBoxFilter('#filter_abv_max', 'maxAbv');
     setupTextBoxFilter('#filter_limit', 'limit');
     setupResetLink('#filter_reset', '#filter_form', props.refreshBeers);
-    return setUpCountryFilter({selector: '#filter_country', path: '/country', ...props});
+    return setupCountryFilter({selector: '#filter_country', path: '/country', ...props});
 }
 
 export default async function init(mainTableSelector, errorConsoleSelector) {
     let refreshBeers;
     const errorLog = setupLogger(errorConsoleSelector);
     const getBeers = setUpBeerFetcher({errorLog});
-    const renderBeers = setupRenderer({
+    const renderBeers = setupTableRenderer({
         tableSelector: mainTableSelector,
         sorter: (sortParams) => refreshBeers(sortParams)
     });
