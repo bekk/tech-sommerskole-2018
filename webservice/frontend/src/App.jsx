@@ -7,9 +7,9 @@ import ErrorPanel from 'components/ErrorPanel';
 const App = () => (
   <Router>
     <React.Fragment>
-      <nav>
-        <Link to="/">
-          {'List'}
+      <nav className="main_menu">
+        <Link to="/" className="main_menu_link link_home">
+          {'Home'}
         </Link>
       </nav>
       <Route exact path="/" component={Index} />
