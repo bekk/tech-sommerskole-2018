@@ -8,6 +8,8 @@ import no.bekk.sommerskole.filter.BeerFilter;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -33,8 +35,9 @@ public class BeerController {
     }
 
     @PostMapping
-    public void postBeerDetails(@ModelAttribute BeerDetailsForm beerDetailsForm){
+    public void postBeerDetails(@ModelAttribute BeerDetailsForm beerDetailsForm, HttpServletResponse response) throws IOException {
         beerRepository.setBeerDetails(beerDetailsForm);
+        response.sendRedirect("/details.html?id=" + beerDetailsForm.getId());
     }
 }
 

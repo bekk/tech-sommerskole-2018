@@ -62,6 +62,15 @@ async function fetchWikipedia(beer, errorLog) {
     return (details || {}).parse;
 }
 
+function getCountryFlagUrl(country) {
+    if (!country) return false;
+    let key = country.key;
+    if (key === 'en' || key === 'sc' || key === 'wa' || key === 'nd') {
+        key = 'gb';
+    }
+    return `http://www.countryflags.io/${key}/flat/64.png`;
+}
+
 function writeInfo(beer) {
     if (!beer) {
         return false;
@@ -81,8 +90,10 @@ function writeInfo(beer) {
         webPage.innerText = beer.webpage;
     }
     updateImage('#beer_image', beer.image, beer.title);
-    const flagUrl = beer.country && `http://www.countryflags.io/${beer.country.key}/flat/64.png`;
-    updateImage('#country_flag', flagUrl, `Flag of ${beer.country.name}`);
+    const flagUrl = getCountryFlagUrl(beer.country);
+    if (flagUrl) {
+        updateImage('#country_flag', flagUrl, `Flag of ${beer.country.name}`);
+    }
     writeToOrRemoveInfoNode('#beer_webPage', webPage);
     if(beer.messages){
         const messageContainer = document.querySelector('messages');
