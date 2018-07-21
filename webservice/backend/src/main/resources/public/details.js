@@ -84,6 +84,17 @@ function writeInfo(beer) {
     const flagUrl = beer.country && `http://www.countryflags.io/${beer.country.key}/flat/64.png`;
     updateImage('#country_flag', flagUrl, `Flag of ${beer.country.name}`);
     writeToOrRemoveInfoNode('#beer_webPage', webPage);
+    if(beer.messages){
+        const messageContainer = document.querySelector('messages');
+        const ul = document.createElement('ul');
+        beer.messages.forEach(msg => {
+            const li = document.createElement('li');
+            li.setAttribute('class', 'message_item');
+            li.innerHTML = msg;
+            ul.appendChild(li);
+        })
+        messageContainer.appendChild(ul);
+    }
 }
 
 function updateEditLink(id) {

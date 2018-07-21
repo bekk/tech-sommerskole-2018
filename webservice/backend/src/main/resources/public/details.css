@@ -41,6 +41,26 @@
     max-height: 64px;
 }
 
+.message_list ul {
+    padding-top: 1em;
+    list-style: none;
+    margin-left: 0;
+    padding-left: 1em;
+}
+
+.message_item {
+    margin-bottom: .5em;
+    position: relative;
+}
+
+.message_item:before {
+    content: "🗨";
+    position: absolute;
+    left: -1em;
+    color: var(--label-text-color);
+    font-size: 1.2em;
+}
+
 #wikipedia_content {
     padding: 2rem;
     font-size: smaller;
