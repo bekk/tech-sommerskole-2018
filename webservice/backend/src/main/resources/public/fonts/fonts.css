@@ -1,0 +1,54 @@
+@font-face {
+    font-family: "Cardo regular";
+    src: url("cardo-regular-webfont.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Cardo italic";
+    src: url("cardo-italic-webfont.woff2") format("woff2");
+    font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+    font-family: "Cardo bold";
+    src: url("cardo-bold-webfont.woff2") format("woff2");
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Roboto black";
+    src: url("roboto-black-webfont.woff2") format("woff2");
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Roboto bold";
+    src: url("roboto-bold-webfont.woff2") format("woff2");
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Roboto medium";
+    src: url("roboto-medium-webfont.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Roboto light";
+    src: url("roboto-light-webfont.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Roboto thin";
+    src: url("roboto-thin-webfont.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Alfaslabone";
+    src: url("alfaslabone-regular-webfont.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+}

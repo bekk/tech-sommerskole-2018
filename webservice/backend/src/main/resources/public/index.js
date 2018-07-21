@@ -28,7 +28,9 @@ export function setupTableRenderer({tableSelector, sorter}) {
         if (!beers) {
             return;
         }
-        const headerRow = document.createElement("tr");
+        const colGroup = document.createElement('colgroup');
+        table.appendChild(colGroup);
+        const headerRow = document.createElement('tr');
         const buildCell = (content, tag = 'td') => insertInNode(document.createElement(tag), content);
         const headers = [
             ['Name', 'BEER_NAME', 'column_wide'],
@@ -46,8 +48,10 @@ export function setupTableRenderer({tableSelector, sorter}) {
             link.innerText = title;
             link.onclick = () => sorter({sortType: sortKey});
             const cell = buildCell(link, 'th');
-            cell.setAttribute('class', className);
             headerRow.appendChild(cell);
+            const col = document.createElement('col');
+            col.setAttribute('class', className);
+            colGroup.appendChild(col);
         });
         table.appendChild(headerRow);
         beers.forEach(function (beer) {
@@ -55,12 +59,15 @@ export function setupTableRenderer({tableSelector, sorter}) {
             const country = beer.country || {};
             const row = document.createElement('tr');
             const detailsLink = document.createElement('a');
-            detailsLink.setAttribute('href', `/details.html?id=${beer.id}`);
+            const detailsLinkHref = `/details.html?id=${beer.id}`;
+            detailsLink.setAttribute('href', detailsLinkHref);
             detailsLink.innerText = beer.name;
             row.appendChild(buildCell(detailsLink));
             row.appendChild(buildCell(brewery.name));
             row.appendChild(buildCell(beer.abv));
             row.appendChild(buildCell(country.name));
+            row.setAttribute('role', 'link');
+            row.onclick = () => window.open(detailsLinkHref);
             table.appendChild(row);
         });
     };

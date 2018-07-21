@@ -4,13 +4,13 @@ import { keys, getKey } from 'utils/beerUtils';
 import './beerTable.less';
 
 const TableHeader = ({
-  property, onSort, sortColumn, sortDirection,
+  column, onSort, sortColumn, sortDirection,
 }) => {
-  const isSorted = sortColumn === property;
+  const isSorted = sortColumn === column;
   const direction = isSorted && sortDirection;
   const onClick = () => {
     onSort({
-      column: property,
+      column,
       direction: direction === 'asc' ? 'desc' : 'asc',
     });
   };
@@ -20,10 +20,10 @@ const TableHeader = ({
       <span
         className={className}
         role="button"
-        title={`sort by ${property}`}
+        title={`sort by ${column}`}
         onClick={onClick}
       >
-        {property}
+        {column}
       </span>
     </th>
   );
@@ -58,10 +58,10 @@ const BeerTable = ({
     <table>
       <thead>
         <tr>
-          <TableHeader property={keys.NAME} {...headerProps} />
-          <TableHeader property={keys.BREWERY} {...headerProps} />
-          <TableHeader property={keys.ABV} {...headerProps} />
-          <TableHeader property={keys.COUNTRY} {...headerProps} />
+          <TableHeader column={keys.NAME} {...headerProps} />
+          <TableHeader column={keys.BREWERY} {...headerProps} />
+          <TableHeader column={keys.ABV} {...headerProps} />
+          <TableHeader column={keys.COUNTRY} {...headerProps} />
         </tr>
       </thead>
       <tbody>

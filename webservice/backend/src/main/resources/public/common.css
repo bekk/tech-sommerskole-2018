@@ -1,54 +1,58 @@
 @import url("reset.css");
+@import url("fonts/fonts.css");
 
 :root {
-    --header-font-color: #331807;
-    --header-font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif;
-    --background-color: rgba(204, 207, 204, 0.72);
-    --border-color-light: #aaa;
-    --width-max-content: calc(100% - 10rem);
-    --text-on-background-color: #2c2c2c;
-    --light-background-color-transparent: rgba(31, 31, 12, .5);
+    --background-color: #DDD;
+    --error_message_color: #431b05;
+    --mainContent-side-margin: 60px;
     --label-text-color: #626262;
-    --input-grafient: linear-gradient(144deg, rgba(246, 246, 255, 1) 0%, rgba(255, 255, 230, 1) 100%);
-    font-size: 14pt;
+    --background-menu-color: #9b99dd;
+    --background-button-hover: #aeb8b8;
+
+    --font-body-text: "Cardo regular", Serif;
+    --font-main-header: "Alfaslabone", sans-serif;
+    --font-buttons: "Roboto medium", sans-serif;
+    --font-labels: "Cardo italic", sans-serif;
 }
 
 html {
-    background-color: var(--background-color);
-}
-
-span[role="button"] {
-    text-decoration: underline;
-}
-
-span[role="button"]:hover {
-    background: #aaaaaa;
-}
-
-.mainHeader {
-    font-family: var(--header-font-family);
-    font-weight: bold;
-    font-size: 3em;
-    text-align: center;
-    color: var(--header-font-color);
-    margin-bottom: 1em;
-    padding-top: .1em;
+    font-size: 18px;
+    font-family: var(--font-body-text);
 }
 
 .mainContent {
-    margin: 1rem;
-    padding: 1rem;
-    width: calc(100% - 4rem);
-    height: calc(100% - 4rem);
-    background-color: var(--background-color);
+    margin: 10px var(--mainContent-side-margin) 10px var(--mainContent-side-margin);
+    padding-bottom: 2em;
 }
 
+@media screen and (max-width: 700px) {
+    :root {
+        --mainContent-side-margin: 10px;
+    }
+    html {
+        font-size: 14px;
+    }
+    .mainContent {
+        margin-top: 4px;
+        margin-bottom: 4px;
+    }
+}
+
+.mainHeader {
+    font-family: var(--font-main-header);
+    font-size: 5em;
+    line-height: .6em;
+    margin: 4rem 5rem 3rem 5rem;
+    text-align: center;
+}
+
+
 #error_console:not(:empty) {
-    color: darkred;
+    color: var(--error_message_color);
     font-weight: bold;
     padding: 2em;
     border: .2em solid darkred;
-    margin: 2em;
+    margin: 2em var(--mainContent-side-margin) 2em var(--mainContent-side-margin);
     background-color: var(--background-color);
     max-height: 40em;
     overflow-y: auto;
@@ -61,21 +65,49 @@ span[role="button"]:hover {
 #footer{
     position: fixed;
     width: 100%;
+    height: 1em;
     bottom: 0;
-    background-color: var(--background-color);
+    padding: .2em 3em .2em 3em;
+    background-color: var(--background-menu-color);
+    transition: height .1s ease-in-out;
 }
 
 #footer:hover{
-    background-color: var(--light-background-color-transparent);
+    height: 2em;
 }
 
+#footer a {
+    font-family: var(--font-buttons);
+    text-decoration: none;
+    border-bottom: 1px solid var(--label-text-color);
+    position: relative;
+    padding: .2em .4em;
+    transition: border-top-color 1s;
+    transition: top .2s;
+}
 
-.bubblyBackground {
-    background: url("images/background.png") no-repeat center center fixed;
-    background-size: cover;
+#footer:hover a {
+    border: 1px solid var(--label-text-color);
+    transition: background-color .5s;
+    top: .5em;
+}
+
+#footer:hover a:hover {
+    background-color: var(--background-button-hover);
 }
 
 .percentage:not(:empty)::after {
     content: "%";
     color: var(--label-text-color);
+}
+
+[role=button] {
+    cursor: pointer;
+}
+
+.earth_background {
+    background-image: url(earth.png);
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-attachment: fixed;
 }
