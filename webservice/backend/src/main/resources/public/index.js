@@ -60,13 +60,12 @@ export function setupTableRenderer({tableSelector, sorter}) {
             const row = document.createElement('tr');
             const detailsLink = document.createElement('a');
             const detailsLinkHref = `/details.html?id=${beer.id}`;
-            detailsLink.setAttribute('href', detailsLinkHref);
-            detailsLink.innerText = beer.name;
-            row.appendChild(buildCell(detailsLink));
+            row.appendChild(buildCell(beer.name));
             row.appendChild(buildCell(brewery.name));
             row.appendChild(buildCell(beer.abv));
             row.appendChild(buildCell(country.name));
             row.setAttribute('role', 'link');
+            row.setAttribute('tabindex', '1');
             row.onclick = () => window.open(detailsLinkHref);
             table.appendChild(row);
         });

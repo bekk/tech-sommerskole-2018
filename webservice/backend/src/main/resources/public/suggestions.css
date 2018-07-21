@@ -1,9 +1,13 @@
 @import url("index.css");
 
+.filter_fieldset {
+    height: fit-content;
+}
+
 .filter_fieldset input {
     position: relative;
-    width: 16em;
     top: 0.4em;
+    width: 90%;
 }
 
 .filter_label {
@@ -14,12 +18,11 @@
 
 #filter_country_label {
     right: -11em;
-    top: 10em;
+    top: 14em;
 }
 
 #filter_country_label input {
     width: 7rem;
-    margin-top: 1em;
 }
 
 #filter_country {

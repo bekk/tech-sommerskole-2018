@@ -55,6 +55,7 @@
 
 .beerTable tr:hover {
     background-color: var(--row-color-2);
+    cursor: pointer;
 }
 
 .beerTable a {
