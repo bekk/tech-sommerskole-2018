@@ -1,9 +1,27 @@
 import {fetchFromUrl, insertInNode, setupLogger} from './common.js';
 
+function getOrSetQueryStateFromLocalStorage(errorLog, state){
+    const storagekey = 'beer_table_query_state';
+    if(!localStorage) return false;
+    if(state){
+        localStorage.setItem(storagekey, JSON.stringify(state));
+    }
+    else {
+        try {
+            const stored = localStorage.getItem(storagekey);
+            return stored && JSON.parse(stored);
+        }
+        catch(error)
+        {
+            errorLog(error);
+            return false;
+        }
+    }
+}
 
 function setUpBeerFetcher({errorLog}) {
     const path = '/beer';
-    let queryState = {};
+    let queryState = getOrSetQueryStateFromLocalStorage(errorLog) || {};
     return function (query) {
         if (query && typeof query === 'boolean') {
             queryState = {};
@@ -16,6 +34,7 @@ function setUpBeerFetcher({errorLog}) {
                 }
             }
             queryState = Object.assign(queryState, newQueryParams, sortOrder);
+            getOrSetQueryStateFromLocalStorage(errorLog, queryState);
         }
         return fetchFromUrl({path, errorLog, params: queryState})
             .then(beers => ({beers, query: queryState}));
@@ -64,13 +83,16 @@ export function setupTableRenderer({tableSelector, sorter}) {
             const row = document.createElement('tr');
             const detailsLink = document.createElement('a');
             const detailsLinkHref = `/details.html?id=${beer.id}`;
-            row.appendChild(buildCell(beer.name));
+            const a = document.createElement('a');
+            a.setAttribute('href', detailsLinkHref);
+            a.innerHTML = beer.name;
+            row.appendChild(buildCell(a));
             row.appendChild(buildCell(brewery.name));
             row.appendChild(buildCell(beer.abv));
             row.appendChild(buildCell(country.name));
             row.setAttribute('role', 'link');
             row.setAttribute('tabindex', '1');
-            row.onclick = () => window.open(detailsLinkHref);
+            row.onclick = () => window.location = detailsLinkHref;
             table.appendChild(row);
         });
     };
@@ -83,6 +105,7 @@ export async function setupCountryFilter(props) {
         return;
     }
     const countries = await fetchFromUrl({path, errorLog});
+    const savedState = getOrSetQueryStateFromLocalStorage(errorLog);
     const groupBy = (items, category) => items.reduce(function (acc, i) {
         (acc[i[category]] = acc[i[category]] || []).push(i);
         return acc;
@@ -96,6 +119,9 @@ export async function setupCountryFilter(props) {
             const item = document.createElement('option');
             item.setAttribute('value', country.countryCode);
             item.innerHTML = country.name;
+            if(savedState && savedState.countries && savedState.countries.includes(country.countryCode)) {
+                item.setAttribute('selected', 'selected');
+            }
             group.appendChild(item);
         });
         select.appendChild(group);
@@ -116,24 +142,30 @@ export async function setupCountryFilter(props) {
     return getSelectedItems;
 }
 
-export function setupResetLink(linkSelector, formSelector, refresh) {
+export function setupResetLink(linkSelector, formSelector, refresh, errorLog) {
     const resetLink = document.querySelector(linkSelector);
     const form = document.querySelector(formSelector);
-    resetLink.onclick = () => Promise.resolve(refresh(true)).then(() => form.reset());
+    resetLink.onclick = () => Promise.resolve(refresh(true))
+        .then(() => form.reset())
+        .then(() => getOrSetQueryStateFromLocalStorage(errorLog, {}));
 }
 
 function setUpFilters(props) {
+    const savedState = getOrSetQueryStateFromLocalStorage(props.errorLog);
     const setupTextBoxFilter = (selector, name) => {
         const box = document.querySelector(selector);
         if (!box) {
             return;
+        }
+        if(savedState && savedState[name]){
+            box.value = savedState[name];
         }
         box.onchange = event => props.refreshBeers({[name]: event.target.value});
     };
     setupTextBoxFilter('#filter_abv_min', 'minAbv');
     setupTextBoxFilter('#filter_abv_max', 'maxAbv');
     setupTextBoxFilter('#filter_limit', 'limit');
-    setupResetLink('#filter_reset', '#filter_form', props.refreshBeers);
+    setupResetLink('#filter_reset', '#filter_form', props.refreshBeers, props.errorLog);
     return setupCountryFilter({selector: '#filter_country', path: '/country', ...props});
 }
 
@@ -146,6 +178,6 @@ export default async function init(mainTableSelector, errorConsoleSelector) {
         sorter: (sortParams) => refreshBeers(sortParams)
     });
     refreshBeers = (query) => getBeers(query).then(({beers, query}) => renderBeers(beers, query));
-    refreshBeers(true);
+    refreshBeers();
     await setUpFilters({errorLog, refreshBeers});
 }
