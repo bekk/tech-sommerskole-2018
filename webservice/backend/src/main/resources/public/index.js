@@ -17,13 +17,14 @@ function setUpBeerFetcher({errorLog}) {
             }
             queryState = Object.assign(queryState, newQueryParams, sortOrder);
         }
-        return fetchFromUrl({path, errorLog, params: queryState});
+        return fetchFromUrl({path, errorLog, params: queryState})
+            .then(beers => ({beers, query: queryState}));
     };
 }
 
 export function setupTableRenderer({tableSelector, sorter}) {
     const table = document.querySelector(tableSelector);
-    return function (beers) {
+    return function (beers, query) {
         table.innerHTML = '';
         if (!beers) {
             return;
@@ -41,12 +42,15 @@ export function setupTableRenderer({tableSelector, sorter}) {
         headers.forEach(function (hdr) {
             const title = hdr[0];
             const sortKey = hdr[1];
-            const className = hdr[2];
+            let className = hdr[2];
             const link = document.createElement('span');
             link.setAttribute('role', 'button');
             link.setAttribute('title', `Order by ${title}.`);
             link.innerText = title;
             link.onclick = () => sorter({sortType: sortKey});
+            if(query && query.sortType === sortKey) {
+                link.setAttribute('class', query.sortDescending ? 'order_by_desc' : 'order_by_asc');
+            }
             const cell = buildCell(link, 'th');
             headerRow.appendChild(cell);
             const col = document.createElement('col');
@@ -141,7 +145,7 @@ export default async function init(mainTableSelector, errorConsoleSelector) {
         tableSelector: mainTableSelector,
         sorter: (sortParams) => refreshBeers(sortParams)
     });
-    refreshBeers = (query) => getBeers(query).then(beers => renderBeers(beers));
+    refreshBeers = (query) => getBeers(query).then(({beers, query}) => renderBeers(beers, query));
     refreshBeers(true);
     await setUpFilters({errorLog, refreshBeers});
 }

@@ -76,6 +76,14 @@
     text-align: center;
 }
 
+.order_by_asc:after {
+    content: " ▲"
+}
+
+.order_by_desc:after {
+    content: " ▼"
+}
+
 .filter_fieldset {
     border: solid var(--row-color-2);
     padding: 1rem;
