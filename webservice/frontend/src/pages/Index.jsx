@@ -1,5 +1,5 @@
 import React from 'react';
-import BeerListing from 'components/BeerListing';
+import BeerListing from 'components/BeerCatalogue';
 
 const Index = props => (
   <React.Fragment>

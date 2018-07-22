@@ -1,17 +1,14 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Index from 'pages/Index';
 import Details from 'pages/Details';
 import ErrorPanel from 'components/ErrorPanel';
+import Navigation from 'components/Navigation';
 
 const App = () => (
   <Router>
     <React.Fragment>
-      <nav className="main_menu">
-        <Link to="/" className="main_menu_link link_home">
-          {'Home'}
-        </Link>
-      </nav>
+      <Navigation/>
       <Route exact path="/" component={Index} />
       <Route path="/beer/:id(\d+)" component={Details} />
       <ErrorPanel />

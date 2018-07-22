@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { keys, getKey } from 'utils/beerUtils';
-import './beerTable.less';
+import { getKey, keys } from 'utils/beerUtils';
+import '../styles/beerTable.less';
 
 const TableHeader = ({
   column, onSort, sortColumn, sortDirection,

@@ -44,21 +44,15 @@ module.exports = {
         test: /\.css$/,
         use: [
           'style-loader',
-          'styles-loader',
+          'css-loader',
         ],
       },
       {
         test: /\.less$/,
         use: [
           'style-loader',
-          'styles-loader',
+          'css-loader',
           'less-loader',
-        ],
-      },
-      {
-        test: /\.(png|svg|jpg|gif)$/,
-        use: [
-          'file-loader',
         ],
       },
     ],

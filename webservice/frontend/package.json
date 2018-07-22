@@ -4,7 +4,6 @@
   "description": "Beer catalogue application",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
     "watch": "webpack --watch",
     "start": "webpack-dev-server --open"
@@ -38,7 +37,6 @@
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.10.0",
-    "file-loader": "^1.1.11",
     "less": "^3.5.3",
     "less-loader": "^4.1.0",
     "react-hot-loader": "^4.3.3",

@@ -3,9 +3,9 @@ import BeerTable from 'components/BeerTable';
 import TextFilter from 'components/TextFilter';
 import { getBeers } from 'apiClient/beerRepository';
 import { compareByKey } from 'utils/arrayUtils';
-import { keys, getKey } from 'utils/beerUtils';
+import { getKey, keys } from 'utils/beerUtils';
 
-class BeerListing extends React.Component {
+class BeerCatalogue extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -62,4 +62,4 @@ class BeerListing extends React.Component {
   }
 }
 
-export default BeerListing;
+export default BeerCatalogue;
