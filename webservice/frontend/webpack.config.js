@@ -44,14 +44,14 @@ module.exports = {
         test: /\.css$/,
         use: [
           'style-loader',
-          'css-loader',
+          'styles-loader',
         ],
       },
       {
         test: /\.less$/,
         use: [
           'style-loader',
-          'css-loader',
+          'styles-loader',
           'less-loader',
         ],
       },
