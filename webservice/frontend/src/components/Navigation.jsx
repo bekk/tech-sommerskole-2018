@@ -2,9 +2,7 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import 'styles/navigation.less';
 
-const NavLink = ({
-                   path, current, className, children,
-                 }) => {
+const NavLink = ({ path, current, className, children }) => {
   const fullClassName = `main_menu_link ${className}`;
   if (path === current) {
     return (
