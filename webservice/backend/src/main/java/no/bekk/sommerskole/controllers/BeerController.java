@@ -34,10 +34,5 @@ public class BeerController {
         return beerRepository.getBeerDetails(id);
     }
 
-    @PostMapping
-    public void postBeerDetails(@ModelAttribute BeerDetailsForm beerDetailsForm, HttpServletResponse response) throws IOException {
-        beerRepository.setBeerDetails(beerDetailsForm);
-        response.sendRedirect("/details.html?id=" + beerDetailsForm.getId());
-    }
 }
 
