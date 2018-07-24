@@ -7,11 +7,11 @@ public class BeerDetailsForm {
     private int brewery;
     private String country;
     private Integer ibu;
-    private Float abv;
-    private Float kcal;
+    private Double abv;
+    private Double kcal;
     private String webpage;
 
-    public BeerDetailsForm(int id, String name, int brewery, String country, Integer ibu, Float abv, Float kcal, String webpage) {
+    public BeerDetailsForm(int id, String name, int brewery, String country, Integer ibu, Double abv, Double kcal, String webpage) {
         this.id = id;
         this.name = name;
         this.brewery = brewery;
@@ -34,7 +34,7 @@ public class BeerDetailsForm {
         return brewery;
     }
 
-    public Float getAbv() {
+    public Double getAbv() {
         return abv;
     }
 
@@ -50,7 +50,7 @@ public class BeerDetailsForm {
         return webpage;
     }
 
-    public Float getKcal() {
+    public Double getKcal() {
         return kcal;
     }
 }

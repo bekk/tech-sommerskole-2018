@@ -43,16 +43,16 @@ public class BeerControllerTest {
 
     @Test
     public void shouldFilterBeersByMinAbv() {
-        BeerFilter filter = new BeerFilter().withMinAbv(6.0F);
+        BeerFilter filter = new BeerFilter().withMinAbv(6.0);
         List<Beer> beers = beerController.getBeer(filter);
-        assertThat(beers).allMatch(beer -> beer.getAbv() >= 6.0F);
+        assertThat(beers).allMatch(beer -> beer.getAbv() >= 6.0);
     }
 
     @Test
     public void shouldFilterBeersByMaxAbv() {
-        BeerFilter filter = new BeerFilter().withMaxAbv(6.0F);
+        BeerFilter filter = new BeerFilter().withMaxAbv(6.0);
         List<Beer> beers = beerController.getBeer(filter);
-        assertThat(beers).allMatch(beer -> beer.getAbv() <= 6.0F);
+        assertThat(beers).allMatch(beer -> beer.getAbv() <= 6.0);
     }
 
     @Test
@@ -148,8 +148,8 @@ public class BeerControllerTest {
                 37,
                 "NOR",
                 123,
-                new Float(12.3),
-                new Float(3.21),
+                12.3,
+                3.21,
                 "url");
     }
 

@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BeerFilter {
-    private Float minAbv;
-    private Float maxAbv;
+    private Double minAbv;
+    private Double maxAbv;
 
     private List<String> countries = new ArrayList<>();
 
@@ -41,20 +41,20 @@ public class BeerFilter {
         return this;
     }
 
-    public Float getMinAbv() {
+    public Double getMinAbv() {
         return minAbv;
     }
 
-    public BeerFilter withMinAbv(Float minAbv) {
+    public BeerFilter withMinAbv(Double minAbv) {
         this.minAbv = minAbv;
         return this;
     }
 
-    public Float getMaxAbv() {
+    public Double getMaxAbv() {
         return maxAbv;
     }
 
-    public BeerFilter withMaxAbv(Float maxAbv) {
+    public BeerFilter withMaxAbv(Double maxAbv) {
         this.maxAbv = maxAbv;
         return this;
     }
