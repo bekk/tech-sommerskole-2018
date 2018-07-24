@@ -4,7 +4,7 @@ public class Fuzzy {
 
     public static Integer fuzzyScore(final CharSequence term, final CharSequence query) {
         if (term == null || query == null) {
-            throw new IllegalArgumentException("CharSequences must not be null");
+            return 0;
         }
 
         final String termLowerCase = term.toString().toLowerCase();
