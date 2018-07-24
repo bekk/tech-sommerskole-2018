@@ -163,4 +163,7 @@ med paging under tabellen, slik at:
 Også fint om man kan velge hvor mange rader det er per side.
 
 ## Forslag
-Lag en visning for `suggestions` som i backend-koden.
+Lag en visning for `suggestions` som i [backend-koden](http://localhost:8080/suggestions.html).
+- Lag en ny rute i `App.jsx`. 
+- Lag en ny komponent i `/pages/`.
+- Noen av komponentene brukt i `BeerCatalogue.jsx` bør kunne gjenbrukes.

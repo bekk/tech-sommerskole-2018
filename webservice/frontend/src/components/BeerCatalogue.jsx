@@ -17,7 +17,10 @@ class BeerCatalogue extends React.Component {
 
   componentDidMount() {
     getBeers().then((beers) => {
-      this.setState({ beers, allBeers: beers });
+      this.setState({
+        beers,
+        getAllBeers: () => getBeers()
+      });
     });
   }
 
@@ -29,20 +32,22 @@ class BeerCatalogue extends React.Component {
   }
 
   textFiltering({ key, value }) {
-    const { allBeers, sortColumn, sortDirection } = this.state;
+    const { getAllBeers, sortColumn, sortDirection } = this.state;
     let beers;
     if (!value) {
-      beers = allBeers;
+      beers = getAllBeers();
     } else {
       const pattern = new RegExp(value);
       const getThisKey = getKey(key);
-      beers = allBeers.filter(b => getThisKey(b).match(pattern));
+      beers = getAllBeers()
+        .then(all => all.filter(b => getThisKey(b)
+          .match(pattern)));
     }
     if (sortColumn) {
       const orderBy = compareByKey({ getKey: getKey(sortColumn), reverse: sortDirection === 'desc' });
-      beers.sort(orderBy);
+      beers = beers.then(unsorted => unsorted.sort(orderBy));
     }
-    this.setState({ beers });
+    beers.then(sortedAndFiltered => this.setState({ beers: sortedAndFiltered }));
   }
 
   render() {
