@@ -77,8 +77,9 @@ public class Beer {
         return city;
     }
 
-    public void setCity(String city) {
+    public Beer setCity(String city) {
         this.city = city;
+        return this;
     }
 
     public Double getKcal() {

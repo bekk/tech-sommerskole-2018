@@ -43,9 +43,11 @@ public class BeerRepository {
                 .column("country.code AS countryCode")
                 .column("country.title AS countryName")
                 .column("country.key AS countryKey")
+                .column("city.title AS cityName")
                 .from("main.beers AS beer")
                 .leftJoin("main.breweries AS brewery ON brewery.id = beer.brewery_id")
                 .leftJoin("main.countries As country ON beer.country_id = country.id")
+                .leftJoin("main.cities AS city ON beer.city_id = city.id")
                 .where("beer.id = :id")
                 .toString();
 
@@ -69,9 +71,11 @@ public class BeerRepository {
                 .column("country.code AS countryCode")
                 .column("country.title AS countryName")
                 .column("country.key AS countryKey")
+                .column("city.title AS cityName")
                 .from("main.beers AS beer")
                 .leftJoin("main.breweries AS brewery ON brewery.id = beer.brewery_id")
-                .leftJoin("main.countries As country ON beer.country_id = country.id");
+                .leftJoin("main.countries AS country ON beer.country_id = country.id")
+                .leftJoin("main.cities AS city ON beer.city_id = city.id");
 
         if (filter.getMaxAbv() != null) {
             selectBuilder.where("beer.abv <= :maxAbv");

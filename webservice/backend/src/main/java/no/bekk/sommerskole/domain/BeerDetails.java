@@ -10,6 +10,7 @@ public class BeerDetails {
     private Brewery brewery;
     private Double abv;
     private Country country;
+    private String city;
     private Integer ibu;
     private String webpage;
     private Double kcal;
@@ -68,6 +69,15 @@ public class BeerDetails {
 
     public BeerDetails setCountry(Country country) {
         this.country = country;
+        return this;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public BeerDetails setCity(String city) {
+        this.city = city;
         return this;
     }
 

@@ -15,7 +15,8 @@ class DBHelpers {
                 .setName(rs.getString("beerName"))
                 .setAbv(rs.getDouble("abv"))
                 .setBrewery(mapToBrewery(rs))
-                .setCountry(mapToCountry(rs));
+                .setCountry(mapToCountry(rs))
+                .setCity(rs.getString("cityName"));
     }
 
     static BeerDetails mapToBeerDetails(ResultSet rs, int rowNum) throws SQLException {
@@ -29,7 +30,8 @@ class DBHelpers {
                 .setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime())
                 .setUpdatedAt(rs.getTimestamp("updated_at").toLocalDateTime())
                 .setBrewery(mapToBrewery(rs))
-                .setCountry(mapToCountry(rs));
+                .setCountry(mapToCountry(rs))
+                .setCity(rs.getString("cityName"));
     }
 
     static Brewery mapToBrewery(ResultSet rs) throws SQLException {
