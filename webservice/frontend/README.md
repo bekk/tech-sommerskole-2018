@@ -96,7 +96,27 @@ Bygg frontend-løsningen (`npm run start`) og åpne nettleseren på <http://loca
 
 ## Oppvarmingsoppgaver
 
+## Sidetittel
+Legg til en tittel på siden som vises av nettleseren.
 
+- [ ] Rediger `index.html`: i tag-en `<head>` legges en tag for header:
+
+    ```html
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Beer catalogue</title>
+        <script src="/main.bundle.js" defer></script>
+    </head>
+    ```
+- [ ] Refresh ↻ nettleseren etterpå for å se endringene.
+
+## Favicon
+
+For å vise et lite ikon ![Øl-ikon](../backend/src/main/resources/public/images/favicon.png) 
+ved siden av sidetittelen, må vi legge inn en headertag for dette også.
+- [ ] Kopier `favicon.png` fra [backend-koden](../backend/src/main/resources/public/images/)
+  (evt en annen fil om du finner noe sømmelig på nettet)
+  til 
 
 ## Videre oppgaveforslag
 Disse oppgavene er ikke listet i en spesiell rekkefølge; de kan løses i den rekkefølgen

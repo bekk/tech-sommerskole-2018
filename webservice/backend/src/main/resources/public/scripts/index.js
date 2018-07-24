@@ -1,13 +1,14 @@
 import { fetchFromUrl, insertInNode, setupLogger } from './common.js';
 
-function getOrSetQueryStateFromLocalStorage(errorLog, state) {
+function getOrSetQueryStateFromSessionStorage(errorLog, state) {
   const storagekey = 'beer_table_query_state';
-  if (!localStorage) return false;
+  if (!sessionStorage) return false;
   if (state) {
-    localStorage.setItem(storagekey, JSON.stringify(state));
+    sessionStorage.setItem(storagekey, JSON.stringify(state));
+    return state;
   } else {
     try {
-      const stored = localStorage.getItem(storagekey);
+      const stored = sessionStorage.getItem(storagekey);
       return stored && JSON.parse(stored);
     } catch (error) {
       errorLog(error);
@@ -18,7 +19,7 @@ function getOrSetQueryStateFromLocalStorage(errorLog, state) {
 
 function setUpBeerFetcher({ errorLog }) {
   const path = '/beer';
-  let queryState = getOrSetQueryStateFromLocalStorage(errorLog) || {};
+  let queryState = getOrSetQueryStateFromSessionStorage(errorLog) || {};
   return function (query) {
     if (query && typeof query === 'boolean') {
       queryState = {};
@@ -31,7 +32,7 @@ function setUpBeerFetcher({ errorLog }) {
         }
       }
       queryState = Object.assign(queryState, newQueryParams, sortOrder);
-      getOrSetQueryStateFromLocalStorage(errorLog, queryState);
+      getOrSetQueryStateFromSessionStorage(errorLog, queryState);
     }
     return fetchFromUrl({ path, errorLog, params: queryState })
       .then(beers => ({ beers, query: queryState }));
@@ -104,7 +105,7 @@ export async function setupCountryFilter(props) {
     return;
   }
   const countries = await fetchFromUrl({ path, errorLog });
-  const savedState = getOrSetQueryStateFromLocalStorage(errorLog);
+  const savedState = getOrSetQueryStateFromSessionStorage(errorLog);
   const groupBy = (items, category) => items.reduce((acc, i) => {
     (acc[i[category]] = acc[i[category]] || []).push(i);
     return acc;
@@ -146,11 +147,11 @@ export function setupResetLink(linkSelector, formSelector, refresh, errorLog) {
   const form = document.querySelector(formSelector);
   resetLink.onclick = () => Promise.resolve(refresh(true))
     .then(() => form.reset())
-    .then(() => getOrSetQueryStateFromLocalStorage(errorLog, {}));
+    .then(() => getOrSetQueryStateFromSessionStorage(errorLog, {}));
 }
 
 function setUpFilters(props) {
-  const savedState = getOrSetQueryStateFromLocalStorage(props.errorLog);
+  const savedState = getOrSetQueryStateFromSessionStorage(props.errorLog);
   const setupTextBoxFilter = (selector, name) => {
     const box = document.querySelector(selector);
     if (!box) {
