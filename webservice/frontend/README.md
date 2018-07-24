@@ -170,11 +170,75 @@ For å vise denne må den «plugges inn» i koden.
 
 Navigasjonsmenyen (som vises øverst i siden), er definert i komponenten 
 `/components/Navigation.jsx`. Den benytter seg av rammeverket `react-router`, og
-navigasjonsstrukturen er definert i `App.jsx`. Dette gjør at man kan simulere webside-navigasjon
+navigasjonsstrukturen er definert i `App.jsx`. 
+Dette gjør at man kan simulere webside-navigasjon
 uten å forlate react-appen.
 
-For å style navigasjon, så den ser ut som i backend-løsningen, gjør vi følgende:
+- [ ] Bytt navn på linken fra "Home" til "List":
+  I filen `/components/Navigation.jsx` rediger teksten inne i `<NavLink>`-komponenten. 
 
+For å style navigasjon, så den ser ut som i backend-løsningen, gjør vi følgende:
+- [ ] Sett klassenavn på Navigation-komponenten:
+  I filen `/components/Navigation.jsx` legg til et attributt
+  på `<nav>`-elementet i linje 24 med klassenavn, så det blir:
+  ```jsx harmony
+    <nav className="main_menu" > 
+  ```
+- [ ] Erstatt innholdet i `/styles/navigation.less` med 
+  ```less
+  @import "common";
+  
+  @menu-color: #9b99dd;
+  @text-color: #626262;
+  @hover-color: #aeb8b8;
+  
+  .linkOrPlaceholder {
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    text-decoration: none;
+    position: relative;
+    padding: .2em .4em;
+    transition: top .2s;
+  }
+  
+  .main_menu {
+    position: fixed;
+    width: 100%;
+    height: 1em;
+    bottom: 0;
+    padding: .2em 3em .2em 3em;
+    background-color: @menu-color;
+    transition: height .1s ease-in-out;
+  
+    &:hover {
+      height: 2em;
+  
+      .main_menu_link {
+        border: 1px solid @text-color;
+        transition: background-color .5s;
+        top: .5em;
+  
+        &:hover {
+          background-color: @hover-color;
+        }
+      }
+      .main_menu_placeholder {
+        top: .5em;
+      }
+    }
+  
+    .main_menu_link {
+      cursor: pointer;
+      border-bottom: 1px solid @text-color;
+      transition: border-top-color 1s;
+      .linkOrPlaceholder();
+    }
+  
+    .main_menu_placeholder {
+      .linkOrPlaceholder();
+    }
+  }
+  
+  ```
 
 ## Videre oppgaveforslag
 Disse oppgavene er ikke listet i en spesiell rekkefølge; de kan løses i den rekkefølgen
