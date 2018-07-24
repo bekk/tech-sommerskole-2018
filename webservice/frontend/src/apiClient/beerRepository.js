@@ -28,7 +28,14 @@ export const refresh = async () => {
   return beers;
 };
 
-export const getBeers = async () => beers || refresh().catch(logError);
+export const getBeers = async ({ limit, offset = 0 } = {}) => {
+  const result = beers || await refresh()
+    .catch(logError);
+  if (limit) {
+    return result.slice(offset, limit + offset);
+  }
+  return result;
+};
 
 export const getBeer = async (id) => {
   const url = new URL(`beer/${id}`, config.webSvcBaseUrl);
