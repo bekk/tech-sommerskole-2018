@@ -255,7 +255,7 @@ For å style navigasjon, så den ser ut som i backend-løsningen, gjør vi følg
 ## Videre oppgaveforslag
 Disse neste oppgavene er mer åpne enn de foregående.
 Det er forventet at du må lete litt på nettet etter svar (eller spørre noen i nærheten).
-De ikke listet i en spesiell rekkefølge, så de kan løses i den rekkefølgen
+De er ikke listet i en spesiell rekkefølge, så de kan løses i den rekkefølgen
 man ønsker.
 
 Oppgavene er å forstå mer som aktivitetsforslag enn som ferdighetstester.
@@ -279,7 +279,7 @@ Om du skal ha bakgrunnsbilde på hele siden, kan du legge dette i en stil på `<
 
 1. Laste inn webfonts med webpack:
    - Kopiere inn fonter (f.eks fra [backend-koden](../backend/src/main/resources/public/fonts/))
-     til en egnet mappe (for eksempel `styles/fonts/`).
+     til en egnet mappe (for eksempel `/styles/fonts/`).
    - Legge til file-loader i løsningen for å kopiere filene over:
      ```console
      npm install file-loader --save-dev
@@ -316,7 +316,8 @@ Om du skal ha bakgrunnsbilde på hele siden, kan du legge dette i en stil på `<
 Deretter kan fonten brukes i stiler med `font-family: "Pacifico";`
 
 #### Navigasjon
-Navigasjonslinken (øverst i siden) er definert i `Navigation.jsx`og i `navigation.less`.
+Navigasjonslinken (øverst i siden) er definert i `/components/Navigation.jsx`og i 
+`/styles/navigation.less`.
 Navigasjonsrutene er definert i `App.jsx`;
 
 Forsøk å legge til en ekstern link i listen, f.eks til <https://www.bekk.no/>.
