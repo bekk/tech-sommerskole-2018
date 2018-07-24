@@ -22,7 +22,7 @@ public class BeerFilter {
         return sortType;
     }
 
-    public BeerFilter setSortType(SortType sortType) {
+    public BeerFilter withSortType(SortType sortType) {
         this.sortType = sortType;
         return this;
     }
@@ -36,7 +36,7 @@ public class BeerFilter {
         return !getSortDescending();
     }
 
-    public BeerFilter setSortDescending(Boolean sortDescending) {
+    public BeerFilter withSortDescending(Boolean sortDescending) {
         this.sortDescending = sortDescending;
         return this;
     }
@@ -45,7 +45,7 @@ public class BeerFilter {
         return minAbv;
     }
 
-    public BeerFilter setMinAbv(Float minAbv) {
+    public BeerFilter withMinAbv(Float minAbv) {
         this.minAbv = minAbv;
         return this;
     }
@@ -54,7 +54,7 @@ public class BeerFilter {
         return maxAbv;
     }
 
-    public BeerFilter setMaxAbv(Float maxAbv) {
+    public BeerFilter withMaxAbv(Float maxAbv) {
         this.maxAbv = maxAbv;
         return this;
     }
@@ -63,7 +63,7 @@ public class BeerFilter {
         return countries;
     }
 
-    public BeerFilter setCountries(List<String> countries) {
+    public BeerFilter withCountries(List<String> countries) {
         this.countries = countries;
         return this;
     }
@@ -72,7 +72,7 @@ public class BeerFilter {
         return limit;
     }
 
-    public BeerFilter setLimit(int limit) {
+    public BeerFilter withLimit(int limit) {
         this.limit = limit;
         return this;
     }

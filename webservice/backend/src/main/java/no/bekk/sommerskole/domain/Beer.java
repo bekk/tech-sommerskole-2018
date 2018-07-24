@@ -8,6 +8,17 @@ public class Beer {
     private Brewery brewery;
     private Float abv;
     private Country country;
+    private String city;
+
+
+    public Beer(int id, String name, Brewery brewery, Float abv, Country country, String city) {
+        this.id = id;
+        this.name = name;
+        this.brewery = brewery;
+        this.abv = abv;
+        this.country = country;
+        this.city = city;
+    }
 
     public Beer() {
     }
@@ -62,6 +73,15 @@ public class Beer {
         return this;
     }
 
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+
     @Override
     public String toString() {
         return "Beer{" +
@@ -89,4 +109,6 @@ public class Beer {
 
         return Objects.hash(getId(), getName(), getBrewery(), getAbv(), getCountry());
     }
+
+
 }

@@ -12,6 +12,14 @@ public class Country {
     public Country() {
     }
 
+    public Country(String countryCode, String key, String name, String continent, int numberOfBeers) {
+        this.countryCode = countryCode;
+        this.key = key;
+        this.name = name;
+        this.continent = continent;
+        this.numberOfBeers = numberOfBeers;
+    }
+
     public String getKey() {
         return key;
     }

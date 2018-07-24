@@ -11,67 +11,46 @@ public class BeerDetailsForm {
     private Float kcal;
     private String webpage;
 
-    public int getId() {
-        return id;
+    public BeerDetailsForm(int id, String name, int brewery, String country, Integer ibu, Float abv, Float kcal, String webpage) {
+        this.id = id;
+        this.name = name;
+        this.brewery = brewery;
+        this.country = country;
+        this.ibu = ibu;
+        this.abv = abv;
+        this.kcal = kcal;
+        this.webpage = webpage;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getId() {
+        return id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getBrewery() {
         return brewery;
-    }
-
-    public void setBrewery(int brewery) {
-        this.brewery = brewery;
     }
 
     public Float getAbv() {
         return abv;
     }
 
-    public void setAbv(Float abv) {
-        this.abv = abv;
-    }
-
     public String getCountry() {
         return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
     }
 
     public Integer getIbu() {
         return ibu;
     }
 
-    public void setIbu(Integer ibu) {
-        this.ibu = ibu;
-    }
-
     public String getWebpage() {
         return webpage;
     }
 
-    public void setWebpage(String webpage) {
-        this.webpage = webpage;
-    }
-
     public Float getKcal() {
         return kcal;
-    }
-
-    public void setKcal(Float kcal) {
-        this.kcal = kcal;
     }
 }

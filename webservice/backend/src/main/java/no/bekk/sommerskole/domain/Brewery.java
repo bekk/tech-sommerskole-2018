@@ -7,6 +7,11 @@ public class Brewery {
     public Brewery() {
     }
 
+    public Brewery(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }
