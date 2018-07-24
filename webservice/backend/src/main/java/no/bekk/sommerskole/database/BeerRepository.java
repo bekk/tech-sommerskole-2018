@@ -12,8 +12,6 @@ import org.springframework.stereotype.Repository;
 import javax.inject.Inject;
 import java.util.List;
 
-import static no.bekk.sommerskole.database.SQLQueries.UPDATE_BEER_DETAILS_QUERY;
-
 
 @Repository
 public class BeerRepository {
