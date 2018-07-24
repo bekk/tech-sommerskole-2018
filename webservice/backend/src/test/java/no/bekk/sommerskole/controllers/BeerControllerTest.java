@@ -36,28 +36,28 @@ public class BeerControllerTest {
 
     @Test
     public void shouldLimitNumberOfBeersReturned() {
-        BeerFilter filter = new BeerFilter().withLimit(5);
+        BeerFilter filter = new BeerFilter().setLimit(5);
         List<Beer> beers = beerController.getBeer(filter);
         assertThat(beers).hasSize(5);
     }
 
     @Test
     public void shouldFilterBeersByMinAbv() {
-        BeerFilter filter = new BeerFilter().withMinAbv(6.0);
+        BeerFilter filter = new BeerFilter().setMinAbv(6.0);
         List<Beer> beers = beerController.getBeer(filter);
         assertThat(beers).allMatch(beer -> beer.getAbv() >= 6.0);
     }
 
     @Test
     public void shouldFilterBeersByMaxAbv() {
-        BeerFilter filter = new BeerFilter().withMaxAbv(6.0);
+        BeerFilter filter = new BeerFilter().setMaxAbv(6.0);
         List<Beer> beers = beerController.getBeer(filter);
         assertThat(beers).allMatch(beer -> beer.getAbv() <= 6.0);
     }
 
     @Test
     public void shouldFilterByCountry() {
-        BeerFilter filter = new BeerFilter().withCountries(Arrays.asList("ENG", "CAN"));
+        BeerFilter filter = new BeerFilter().setCountries(Arrays.asList("ENG", "CAN"));
         List<Beer> beers = beerController.getBeer(filter);
 
         assertThat(beers).extracting(beer -> beer.getCountry().getCountryCode()).contains("CAN");
@@ -67,48 +67,48 @@ public class BeerControllerTest {
 
     @Test
     public void shouldSortByAbvAscending() {
-        BeerFilter filter = new BeerFilter().withSortType(SortType.ABV);
+        BeerFilter filter = new BeerFilter().setSortType(SortType.ABV);
         List<Beer> beers = beerController.getBeer(filter);
         assertThat(beers).extracting(Beer::getAbv).isSorted();
     }
 
     @Test
     public void shouldSortByBeerNameAscending() {
-        BeerFilter filter = new BeerFilter().withSortType(SortType.BEER_NAME);
+        BeerFilter filter = new BeerFilter().setSortType(SortType.BEER_NAME);
         List<Beer> beers = beerController.getBeer(filter);
         assertThat(beers).extracting(Beer::getName).isSorted();
     }
 
     @Test
     public void shouldSortByCountryAscending() {
-        BeerFilter filter = new BeerFilter().withSortType(SortType.COUNTRY);
+        BeerFilter filter = new BeerFilter().setSortType(SortType.COUNTRY);
         List<Beer> beers = beerController.getBeer(filter);
         assertThat(beers).extracting(beer -> beer.getCountry().getName()).isSorted();
     }
 
     @Test
     public void shouldSortByAbvDescending() {
-        BeerFilter filter = new BeerFilter().withSortType(SortType.ABV).withSortDescending(true);
+        BeerFilter filter = new BeerFilter().setSortType(SortType.ABV).setSortDescending(true);
         List<Beer> beers = beerController.getBeer(filter);
         assertThat(beers).extracting(Beer::getAbv).isSortedAccordingTo(Comparator.reverseOrder());
     }
 
     @Test
     public void shouldSortByBeerNameDescending() {
-        BeerFilter filter = new BeerFilter().withSortType(SortType.BEER_NAME).withSortDescending(true);
+        BeerFilter filter = new BeerFilter().setSortType(SortType.BEER_NAME).setSortDescending(true);
         List<Beer> beers = beerController.getBeer(filter);
         assertThat(beers).extracting(Beer::getName).isSortedAccordingTo(Comparator.reverseOrder());
     }
 
     @Test
     public void shouldSortByBreweryAscending() {
-        BeerFilter filter = new BeerFilter().withSortType(SortType.BREWERY_NAME);
+        BeerFilter filter = new BeerFilter().setSortType(SortType.BREWERY_NAME);
         List<Beer> beers = beerController.getBeer(filter);
         assertThat(beers).extracting(new BreweryNameExtractor()).isSorted();
     }
 
     @Test
-    public void postShouldUpdateAllValues() throws IOException{
+    public void postShouldUpdateAllValues() throws IOException {
         BeerDetailsForm details = createBeerDetailsForm();
 
         beerController.postBeerDetails(details, new MockHttpServletResponse());
