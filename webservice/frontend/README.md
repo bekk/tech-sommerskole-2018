@@ -8,6 +8,9 @@ Teknologi som berøres er:
 - React
 - Webpack
 
+Når det bygges kjører klienten som en _Single Page Application (SPA)_
+som kommuniserer med serveren over Rest.
+
 ## Installasjon
 
 Dette prosjektet er et klient-prosjekt som er avhengig av serveren fra 
@@ -96,7 +99,7 @@ Bygg frontend-løsningen (`npm run start`) og åpne nettleseren på <http://loca
 
 ## Oppvarmingsoppgaver
 
-## Sidetittel
+### Sidetittel
 Legg til en tittel på siden som vises av nettleseren.
 
 - [ ] Rediger `index.html`: i tag-en `<head>` legges en tag for header:
@@ -110,13 +113,68 @@ Legg til en tittel på siden som vises av nettleseren.
     ```
 - [ ] Refresh ↻ nettleseren etterpå for å se endringene.
 
-## Favicon
+### Favicon
 
-For å vise et lite ikon ![Øl-ikon](../backend/src/main/resources/public/images/favicon.png) 
-ved siden av sidetittelen, må vi legge inn en headertag for dette også.
+For å vise et lite ikon ved siden av sidetittelen, 
+må vi legge inn en headertag for dette også.
+![Øl-ikon](../backend/src/main/resources/public/images/favicon.png)
 - [ ] Kopier `favicon.png` fra [backend-koden](../backend/src/main/resources/public/images/)
   (evt en annen fil om du finner noe sømmelig på nettet)
-  til 
+  til mappen `/static/`.
+- [ ] Rediger `index.html`: i tag-en `<head>` legges en tag for header:
+
+  ```html
+  <head>
+    <meta charset="UTF-8"/>
+    <link rel="shortcut icon" type="image/png" href="favicon.png">
+    <title>Beer catalogue</title>
+    <script src="/main.bundle.js" defer></script>
+  </head>
+  ```
+- [ ] Refresh ↻ nettleseren etterpå for å se endringene.
+
+### Detaljvisning
+
+Når man klikker en rad i tabellen skal man komme til en detaljside. 
+For å vise denne må den «plugges inn» i koden.
+
+- [ ] I filen `App.jsx`, legg in referanse til siden `/pages/Details.jsx`:
+  Øverst i filen blant linjene med `import`, legg inn 
+  ```jsx harmony
+  import Details from 'pages/Details';
+  ```
+- [ ] I filen `App.jsx`, legg in detaljersiden som ny rute:
+  Under rad 11 (`<Route exact path="/" component={Index} />`) legg inn en ny linje
+  ```jsx harmony
+  <Route path="/beer/:id(\d+)" component={Details} />
+  ``` 
+- [ ] I filen `/pages/Details.jsx`, legg inn referanse til 
+  komponenten `/components/BeerDetails.jsx`:
+  Øverst i filen blant linjene med `import`, legg inn
+  ```jsx harmony
+  import BeerDetails from 'components/BeerDetails';
+  ```
+- [ ] I filen `/pages/Details.jsx`, sett inn hvor detaljene skal vises på siden:
+  Under `h1`-tagen legg inn BeerDetails-komponenten. Den returnerte objektet
+  fra `render`-metoden skal være:
+  ```jsx harmony
+  <React.Fragment>
+     <h1>
+     Details
+     </h1>
+     <BeerDetails beer={beer} />
+  </React.Fragment>
+  ```
+
+## Navigasjonsmeny
+
+Navigasjonsmenyen (som vises øverst i siden), er definert i komponenten 
+`/components/Navigation.jsx`. Den benytter seg av rammeverket `react-router`, og
+navigasjonsstrukturen er definert i `App.jsx`. Dette gjør at man kan simulere webside-navigasjon
+uten å forlate react-appen.
+
+For å style navigasjon, så den ser ut som i backend-løsningen, gjør vi følgende:
+
 
 ## Videre oppgaveforslag
 Disse oppgavene er ikke listet i en spesiell rekkefølge; de kan løses i den rekkefølgen
