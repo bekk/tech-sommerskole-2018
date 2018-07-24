@@ -1,10 +1,12 @@
 import React from 'react';
-import { subscribe, getErrors } from 'utils/errorBroker';
+import { getErrors, subscribe } from 'utils/errorBroker';
+import 'styles/errorPanel.less';
 
 class ErrorPanel extends React.Component {
   constructor(props) {
     super(props);
     this.state = { text: [] };
+    this.clear.bind(this);
   }
 
   componentDidMount() {
@@ -16,8 +18,13 @@ class ErrorPanel extends React.Component {
     });
   }
 
+  clear() {
+    this.setState({ text: [] });
+  }
+
   render() {
     const { text } = this.state;
+    if (!text || !text.length) return null;
     const errorParagraphs = text.map((e, i) => (
       // eslint-disable-next-line react/no-array-index-key
       <p key={`error_${i}`} className="error_message">
@@ -26,6 +33,12 @@ class ErrorPanel extends React.Component {
     ));
     return (
       <div className="error_panel">
+        <button
+          className="error_panel_close_button"
+          onClick={() => this.clear()}
+        >
+          x
+        </button>
         {errorParagraphs}
       </div>
     );

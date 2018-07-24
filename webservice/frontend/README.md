@@ -117,7 +117,9 @@ Legg til en tittel på siden som vises av nettleseren.
 
 For å vise et lite ikon ved siden av sidetittelen, 
 må vi legge inn en headertag for dette også.
+
 ![Øl-ikon](../backend/src/main/resources/public/images/favicon.png)
+
 - [ ] Kopier `favicon.png` fra [backend-koden](../backend/src/main/resources/public/images/)
   (evt en annen fil om du finner noe sømmelig på nettet)
   til mappen `/static/`.
@@ -139,11 +141,13 @@ Når man klikker en rad i tabellen skal man komme til en detaljside.
 For å vise denne må den «plugges inn» i koden.
 
 - [ ] I filen `App.jsx`, legg in referanse til siden `/pages/Details.jsx`:
+  
   Øverst i filen blant linjene med `import`, legg inn 
   ```jsx harmony
   import Details from 'pages/Details';
   ```
 - [ ] I filen `App.jsx`, legg in detaljersiden som ny rute:
+  
   Under rad 11 (`<Route exact path="/" component={Index} />`) legg inn en ny linje
   ```jsx harmony
   <Route path="/beer/:id(\d+)" component={Details} />
