@@ -99,6 +99,12 @@ Bygg frontend-løsningen (`npm run start`) og åpne nettleseren på <http://loca
 
 ## Oppvarmingsoppgaver
 
+De første oppgavene er nokså detaljert beskrevet, så det bør være greit å fullføre dem.
+Målet med disse er først og fremst å bli kjent med de ulike delene av løsningen og
+bli tvunget til å lese litt kode.
+
+Forsøk å forstå hvordan de ulike delne henger sammen og hvordan de er koblet til hverandre.
+
 ### Sidetittel
 Legg til en tittel på siden som vises av nettleseren.
 
@@ -121,7 +127,7 @@ må vi legge inn en headertag for dette også.
 ![Øl-ikon](../backend/src/main/resources/public/images/favicon.png)
 
 - [ ] Kopier `favicon.png` fra [backend-koden](../backend/src/main/resources/public/images/)
-  (evt en annen fil om du finner noe sømmelig på nettet)
+  (evt en annen fil om du finner noe [sømmelig på nettet](https://www.iconfinder.com/search/?q=beer&price=free))
   til mappen `/static/`.
 - [ ] Rediger `index.html`: i tag-en `<head>` legges en tag for header:
 
@@ -172,21 +178,23 @@ For å vise denne må den «plugges inn» i koden.
 
 ## Navigasjonsmeny
 
-Navigasjonsmenyen (som vises øverst i siden), er definert i komponenten 
+Navigasjonsmenyen (som nå vises øverst i siden), er definert i komponenten 
 `/components/Navigation.jsx`. Den benytter seg av rammeverket `react-router`, og
 navigasjonsstrukturen er definert i `App.jsx`. 
 Dette gjør at man kan simulere webside-navigasjon
 uten å forlate react-appen.
 
 - [ ] Bytt navn på linken fra "Home" til "List":
+
   I filen `/components/Navigation.jsx` rediger teksten inne i `<NavLink>`-komponenten. 
 
 For å style navigasjon, så den ser ut som i backend-løsningen, gjør vi følgende:
 - [ ] Sett klassenavn på Navigation-komponenten:
+
   I filen `/components/Navigation.jsx` legg til et attributt
   på `<nav>`-elementet i linje 24 med klassenavn, så det blir:
   ```jsx harmony
-    <nav className="main_menu" > 
+    <nav className="main_menu"> 
   ```
 - [ ] Erstatt innholdet i `/styles/navigation.less` med 
   ```less
@@ -245,7 +253,9 @@ For å style navigasjon, så den ser ut som i backend-løsningen, gjør vi følg
   ```
 
 ## Videre oppgaveforslag
-Disse oppgavene er ikke listet i en spesiell rekkefølge; de kan løses i den rekkefølgen
+Disse neste oppgavene er mer åpne enn de foregående.
+Det er forventet at du må lete litt på nettet etter svar (eller spørre noen i nærheten).
+De ikke listet i en spesiell rekkefølge, så de kan løses i den rekkefølgen
 man ønsker.
 
 Oppgavene er å forstå mer som aktivitetsforslag enn som ferdighetstester.
@@ -254,21 +264,15 @@ Kreative avvik fra oppgavene applauderes.
 ### Design
 Websidene ser nokså kjedelige slik de er nå.
 Ta utgangspunkt i [klientkoden i backend-prosjektet](../backend/src/main/resources/public/)
-og redesign sidene så de ligner mer på dem.
-Antagelig må den genererte html-en endres noe for å få det til.
+enten som inspirasjon eller som mal. Prøv å redesigne sidene så de ligner mer på dem.
+Antagelig må også den genererte html-en endres noe for å få det til.
 Husk at i React-kode må man bruke `className` i stedet for `class`for å angi
 klasse på et html-element.
 
-#### Bakgrunnsbilde og favicon
+#### Bakgrunnsbilde
 Filer som ligger i mappen `/static/` blir kopiert inn i `/dist/` ved bygg.
 Legg bildefiler her om de skal brukes som bakgrunnsbilder eller på andre måter i designet.
-
-Favicon kan settes i head i html-siden. Det vil vises i nettleser-tab og i lagrede snarveier.
-Legg in tag i `<HEAD>` i `index.html` og kopier inn bildefilen som skal brukes
-i static-mappen.
-```html
-<link rel="shortcut icon" type="image/png" href="./favicon.png">
-```
+Om du skal ha bakgrunnsbilde på hele siden, kan du legge dette i en stil på `<body>`-elementet.
 
 #### Webfonts
 Å bruke egne fonter kan gjøres på én av to måter:
@@ -317,8 +321,6 @@ Navigasjonsrutene er definert i `App.jsx`;
 
 Forsøk å legge til en ekstern link i listen, f.eks til <https://www.bekk.no/>.
 
-Design navigasjonen slik at den vises i bunnen, som i backend-koden.
-
 ### Detalj-visning
 Når man klikker på en øl i tabellen kommer man til en detaljvisning. Foreløpig viser
 den bare navnet på oppføringen.
@@ -326,13 +328,15 @@ den bare navnet på oppføringen.
 Implementer visning av de andre feltene.
 
 Hent inn all informasjonen om ølen fra serveren og vis også denne (inkludert bilde).
+Det er en funksjon i `/apiClient/beerRepository.js` som kan brukes for å 
+hente detaljer om en enkelt øl.
 
 Gjør det mulig å redigere informasjon om ølen og sende den tilbake til serveren.
 
 ### Søk og filter
-Det er implementert ett filter for å filtrere på navn.
+Det er implementert kun ett filter for å filtrere på navn.
 Les koden og se om du kan finne ut hvordan det fungerer.
-Implementer filtrering for de andre kolonnene.
+Implementer filtrering for de andre kolonnene også.
 
 ### Paginering
 I tabellen vises nå alle radene, noe som kan være litt upraktisk. Implementer kontroller
@@ -348,4 +352,6 @@ Lag en visning for `suggestions` som i [backend-koden](http://localhost:8080/sug
 - Noen av komponentene brukt i `BeerCatalogue.jsx` bør kunne gjenbrukes.
 
 ### Enhetstester
-Installer et testrammeverk for javascript (for eksempel [Jest](https://jestjs.io/)) og lag tester for funksjonaliteten i `/utils/`.
+Installer et testrammeverk for javascript (for eksempel [Jest](https://jestjs.io/)) og 
+lag tester for funksjonaliteten i `/utils/`. Testene skal kunne kjøres med 
+`npm run test`.
