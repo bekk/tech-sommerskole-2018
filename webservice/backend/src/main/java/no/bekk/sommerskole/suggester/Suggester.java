@@ -25,7 +25,7 @@ public class Suggester {
 
     public List<Beer> suggestBeer(List<Requirement> requirements) {
 
-        List<Beer> beers = beerRepository.getBeer(new BeerFilter().withLimit(9999));
+        List<Beer> beers = beerRepository.getBeer(new BeerFilter().setLimit(9999));
         return findTop10(requirements, beers);
     }
 
