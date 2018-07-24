@@ -13,7 +13,7 @@ class DBHelpers {
         return new Beer()
                 .setId(rs.getInt("beerId"))
                 .setName(rs.getString("beerName"))
-                .setAbv(rs.getFloat("abv"))
+                .setAbv(rs.getDouble("abv"))
                 .setBrewery(mapToBrewery(rs))
                 .setCountry(mapToCountry(rs));
     }
@@ -22,9 +22,9 @@ class DBHelpers {
         return new BeerDetails()
                 .setId(rs.getInt("beerId"))
                 .setName(rs.getString("beerName"))
-                .setAbv(rs.getFloat("abv"))
+                .setAbv(rs.getDouble("abv"))
                 .setIbu(getInteger("ibu", rs))
-                .setKcal(getFloat("kcal", rs))
+                .setKcal(getDouble("kcal", rs))
                 .setWebpage(rs.getString("web"))
                 .setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime())
                 .setUpdatedAt(rs.getTimestamp("updated_at").toLocalDateTime())
@@ -55,8 +55,8 @@ class DBHelpers {
                 .setName(rs.getString("countryName"));
     }
 
-    static Float getFloat(String field, ResultSet rs) throws SQLException {
-        float value = rs.getFloat(field);
+    static Double getDouble(String field, ResultSet rs) throws SQLException {
+        double value = rs.getDouble(field);
         return rs.wasNull() ? null : value;
     }
 

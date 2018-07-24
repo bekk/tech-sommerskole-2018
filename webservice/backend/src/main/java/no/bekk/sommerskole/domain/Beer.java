@@ -6,8 +6,19 @@ public class Beer {
     private int id;
     private String name;
     private Brewery brewery;
-    private Float abv;
+    private Double abv;
     private Country country;
+    private String city;
+    private Double kcal;
+
+    public Beer(int id, String name, Brewery brewery, Double abv, Country country, String city) {
+        this.id = id;
+        this.name = name;
+        this.brewery = brewery;
+        this.abv = abv;
+        this.country = country;
+        this.city = city;
+    }
 
     public Beer() {
     }
@@ -39,16 +50,16 @@ public class Beer {
         return this;
     }
 
-    public float getAbv() {
+    public Double getAbv() {
         return abv;
     }
 
-    public Beer setAbv(float abv) {
+    public Beer setAbv(double abv) {
         this.abv = abv;
         return this;
     }
 
-    public Beer setAbv(Float abv) {
+    public Beer setAbv(Double abv) {
         this.abv = abv;
         return this;
     }
@@ -60,6 +71,22 @@ public class Beer {
     public Beer setCountry(Country country) {
         this.country = country;
         return this;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public Double getKcal() {
+        return kcal;
+    }
+
+    public void setKcal(){
+        this.kcal = kcal;
     }
 
     @Override
@@ -86,7 +113,6 @@ public class Beer {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(getId(), getName(), getBrewery(), getAbv(), getCountry());
     }
 }

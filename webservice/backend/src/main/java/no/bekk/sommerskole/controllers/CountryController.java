@@ -16,7 +16,6 @@ public class CountryController {
 
     @Inject
     public CountryController(CountryRepository countryRepository) {
-
         this.countryRepository = countryRepository;
     }
 

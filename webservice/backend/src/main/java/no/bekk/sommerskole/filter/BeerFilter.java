@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BeerFilter {
-    private Float minAbv;
-    private Float maxAbv;
+    private Double minAbv;
+    private Double maxAbv;
 
     private List<String> countries = new ArrayList<>();
 
@@ -22,7 +22,7 @@ public class BeerFilter {
         return sortType;
     }
 
-    public BeerFilter setSortType(SortType sortType) {
+    public BeerFilter withSortType(SortType sortType) {
         this.sortType = sortType;
         return this;
     }
@@ -31,30 +31,29 @@ public class BeerFilter {
         return Boolean.TRUE.equals(sortDescending);
     }
 
-
     public Boolean getSortAscending() {
         return !getSortDescending();
     }
 
-    public BeerFilter setSortDescending(Boolean sortDescending) {
+    public BeerFilter withSortDescending(Boolean sortDescending) {
         this.sortDescending = sortDescending;
         return this;
     }
 
-    public Float getMinAbv() {
+    public Double getMinAbv() {
         return minAbv;
     }
 
-    public BeerFilter setMinAbv(Float minAbv) {
+    public BeerFilter withMinAbv(Double minAbv) {
         this.minAbv = minAbv;
         return this;
     }
 
-    public Float getMaxAbv() {
+    public Double getMaxAbv() {
         return maxAbv;
     }
 
-    public BeerFilter setMaxAbv(Float maxAbv) {
+    public BeerFilter withMaxAbv(Double maxAbv) {
         this.maxAbv = maxAbv;
         return this;
     }
@@ -63,7 +62,7 @@ public class BeerFilter {
         return countries;
     }
 
-    public BeerFilter setCountries(List<String> countries) {
+    public BeerFilter withCountries(List<String> countries) {
         this.countries = countries;
         return this;
     }
@@ -72,7 +71,7 @@ public class BeerFilter {
         return limit;
     }
 
-    public BeerFilter setLimit(int limit) {
+    public BeerFilter withLimit(int limit) {
         this.limit = limit;
         return this;
     }
