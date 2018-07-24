@@ -1,37 +1,30 @@
-package no.bekk.sommerskole.suggester;
+package no.bekk.sommerskole.controllers;
 
 import no.bekk.sommerskole.database.BeerRepository;
 import no.bekk.sommerskole.domain.Beer;
 import no.bekk.sommerskole.domain.Brewery;
 import no.bekk.sommerskole.domain.Country;
-import no.bekk.sommerskole.domain.requirements.ABVReq;
-import no.bekk.sommerskole.domain.requirements.CityReq;
-import no.bekk.sommerskole.domain.requirements.ContinentReq;
-import no.bekk.sommerskole.domain.requirements.CountryReq;
+import no.bekk.sommerskole.domain.requirements.RequirementsForm;
+import no.bekk.sommerskole.suggester.Suggester;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
 import static java.util.Arrays.asList;
-import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.atIndex;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class SuggesterTest {
-
+public class SuggesterControllerTest {
 
     private static BeerRepository beerRepository = mock(BeerRepository.class);
 
     private static Suggester suggester = new Suggester(beerRepository);
+
+    private static SuggesterController suggesterController = new SuggesterController(suggester);
 
 
     @BeforeClass
@@ -41,37 +34,37 @@ public class SuggesterTest {
 
     @Test
     public void shouldReturn10Beers() {
-        List<Beer> beers = suggester.suggestBeer(singletonList(new ABVReq(12.2, 1.1)));
+        List<Beer> beers = suggesterController.getSuggestion(new RequirementsForm().setAbvValue(12.1).setAbvWeight(1.1));
         assertThat(beers).size().isEqualTo(10);
     }
 
     @Test
     public void shouldSortTopAbvFirst() {
-        List<Beer> beers = suggester.suggestBeer(singletonList(new ABVReq(100.0, 1.0)));
+        List<Beer> beers = suggesterController.getSuggestion(new RequirementsForm()
+                .setAbvValue(100.0)
+                .setAbvWeight(1.0));
         assertThat(beers).extracting(Beer::getId).contains(6, atIndex(0));
     }
 
     @Test
-    public void shouldSortByContinent() {
-        List<Beer> beers = suggester.suggestBeer(singletonList(new ContinentReq("Continent4", 1)));
-        assertThat(beers).extracting(Beer::getId).contains(9, atIndex(0));
-    }
-
-    @Test
     public void shouldSortByCountry() {
-        List<Beer> beers = suggester.suggestBeer(singletonList(new CountryReq(asList("FFF", "AAA", "EEE"), 1)));
+        List<Beer> beers = suggesterController.getSuggestion(new RequirementsForm()
+                .setCountryValue(asList("FFF", "AAA", "EEE"))
+                .setCountryWeight(1.0));
         assertThat(beers.subList(0, 4)).extracting(Beer::getId).contains(1, 6, 11, 9);
     }
 
     @Test
-    public void shouldSortByCity(){
-        List<Beer> beers = suggester.suggestBeer(singletonList(new CityReq("City1ggg", 1)));
+    public void shouldSortByCity() {
+        List<Beer> beers = suggesterController.getSuggestion(new RequirementsForm()
+                .setCityValue("City1ggg")
+                .setCityWeight(1.0));
         assertThat(beers.subList(0, 4)).extracting(Beer::getId).contains(8, 10, 7, 1);
 
     }
 
     @Test
-    public void shouldSortByKcal(){
+    public void shouldSortByKcal() {
 
 
     }
@@ -93,5 +86,6 @@ public class SuggesterTest {
 
         );
     }
+
 
 }

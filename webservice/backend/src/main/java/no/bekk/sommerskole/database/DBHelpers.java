@@ -19,21 +19,6 @@ class DBHelpers {
                 .setCity(rs.getString("cityName"));
     }
 
-    static BeerDetails mapToBeerDetails(ResultSet rs, int rowNum) throws SQLException {
-        return new BeerDetails()
-                .setId(rs.getInt("beerId"))
-                .setName(rs.getString("beerName"))
-                .setAbv(rs.getDouble("abv"))
-                .setIbu(getInteger("ibu", rs))
-                .setKcal(getDouble("kcal", rs))
-                .setWebpage(rs.getString("web"))
-                .setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime())
-                .setUpdatedAt(rs.getTimestamp("updated_at").toLocalDateTime())
-                .setBrewery(mapToBrewery(rs))
-                .setCountry(mapToCountry(rs))
-                .setCity(rs.getString("cityName"));
-    }
-
     static Brewery mapToBrewery(ResultSet rs) throws SQLException {
         if (rs.getString("breweryId") == null) {
             return null;

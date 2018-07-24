@@ -86,8 +86,9 @@ public class Beer {
         return kcal;
     }
 
-    public void setKcal(){
+    public Beer setKcal(Double kcal){
         this.kcal = kcal;
+        return this;
     }
 
     @Override

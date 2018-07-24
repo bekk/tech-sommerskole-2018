@@ -2,9 +2,7 @@ package no.bekk.sommerskole.controllers;
 
 
 import no.bekk.sommerskole.domain.Beer;
-import no.bekk.sommerskole.domain.requirements.Requirement;
 import no.bekk.sommerskole.domain.requirements.RequirementsForm;
-import no.bekk.sommerskole.domain.requirements.RequirementsMapper;
 import no.bekk.sommerskole.suggester.Suggester;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,8 +25,7 @@ public class SuggesterController {
     @CrossOrigin(origins = "http://localhost:8081")
     @GetMapping
     public List<Beer> getSuggestion(@ModelAttribute RequirementsForm form) {
-        List<Requirement> requirements = RequirementsMapper.mapToRequirements(form);
-        return suggester.suggestBeer(requirements);
+        return suggester.suggestBeer(form);
     }
 
 }
