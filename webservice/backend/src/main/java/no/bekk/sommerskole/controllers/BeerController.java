@@ -33,6 +33,5 @@ public class BeerController {
     public BeerDetails getBeerDetails(@PathVariable("id") String id) {
         return beerRepository.getBeerDetails(id);
     }
-
 }
 
