@@ -1,5 +1,4 @@
 import React from 'react';
-import BeerDetails from 'components/BeerDetails';
 import { getBeer } from 'apiClient/beerRepository';
 
 class Details extends React.Component {
@@ -22,7 +21,7 @@ class Details extends React.Component {
         <h1>
         Details
         </h1>
-        <BeerDetails beer={beer} />
+        /*Details here...*/
       </React.Fragment>
     );
   }
