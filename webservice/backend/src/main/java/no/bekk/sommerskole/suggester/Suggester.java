@@ -44,6 +44,6 @@ public class Suggester {
     }
 
     private Double worthOfBeer(List<Requirement> requirements, Beer beer) {
-        return requirements.stream().map(req -> req.calculateCost(beer)).reduce(0.0, Double::sum);
+        return requirements.stream().map(req -> req.calculateCost(beer) * req.getWeight()).reduce(0.0, Double::sum);
     }
 }
