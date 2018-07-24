@@ -1,0 +1,26 @@
+@import "common";
+
+@error_message_color: #3e000d;
+@error_background_color: #ddddb3;
+
+.error_panel {
+  position: relative;
+  color: @error_message_color;
+  font-weight: bold;
+  padding: 2em;
+  border: .2em solid darkred;
+  margin: 2em 1em 2em 1em;
+  background-color: @error_background_color;
+  max-height: 40em;
+  overflow-y: auto;
+
+  .error_message {
+    margin-top: .5em;
+  }
+
+  .error_panel_close_button {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+  }
+}
