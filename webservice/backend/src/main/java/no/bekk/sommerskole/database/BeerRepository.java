@@ -54,23 +54,9 @@ public class BeerRepository {
     }
 
     public void setBeerDetails(BeerDetailsForm details) {
-        MapSqlParameterSource parameterSource = beerDetailsParamSource(details);
 
-        String query = UPDATE_BEER_DETAILS_QUERY;
-
-        jdbc.update(query, parameterSource);
     }
 
-    private MapSqlParameterSource beerDetailsParamSource(BeerDetailsForm details) {
-        return new MapSqlParameterSource()
-                    .addValue("id", details.getId())
-                    .addValue("name", details.getName())
-                    .addValue("breweryId", details.getBrewery())
-                    .addValue("countryCode", details.getCountry())
-                    .addValue("ibu", details.getIbu())
-                    .addValue("abv", details.getAbv())
-                    .addValue("kcal", details.getKcal())
-                    .addValue("webpage", details.getWebpage());
-    }
+
 }
 
