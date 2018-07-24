@@ -55,7 +55,6 @@ class DBHelpers {
                 .setName(rs.getString("countryName"));
     }
 
-
     static Double getDouble(String field, ResultSet rs) throws SQLException {
         double value = rs.getDouble(field);
         return rs.wasNull() ? null : value;

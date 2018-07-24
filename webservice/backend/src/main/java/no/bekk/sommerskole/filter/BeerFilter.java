@@ -31,7 +31,6 @@ public class BeerFilter {
         return Boolean.TRUE.equals(sortDescending);
     }
 
-
     public Boolean getSortAscending() {
         return !getSortDescending();
     }

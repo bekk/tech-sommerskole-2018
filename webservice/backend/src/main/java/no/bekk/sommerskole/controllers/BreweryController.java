@@ -17,7 +17,6 @@ public class BreweryController {
 
     @Inject
     BreweryController(BreweryRepository repository) {
-
         this.repository = repository;
     }
 

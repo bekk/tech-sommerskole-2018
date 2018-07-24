@@ -81,7 +81,6 @@ public class Beer {
         this.city = city;
     }
 
-
     public Double getKcal() {
         return kcal;
     }
@@ -114,7 +113,6 @@ public class Beer {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(getId(), getName(), getBrewery(), getAbv(), getCountry());
     }
 }

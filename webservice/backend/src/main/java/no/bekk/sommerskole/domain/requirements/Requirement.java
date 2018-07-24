@@ -3,10 +3,8 @@ package no.bekk.sommerskole.domain.requirements;
 import no.bekk.sommerskole.domain.Beer;
 
 public abstract class Requirement<T> {
-
-
     T val;
-    double weight;
+    private double weight;
 
     Requirement(T val, double weight) {
         this.val = val;
