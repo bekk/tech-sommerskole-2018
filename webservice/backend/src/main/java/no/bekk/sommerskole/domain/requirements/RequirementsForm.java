@@ -4,77 +4,85 @@ import java.util.List;
 
 public class RequirementsForm {
 
-    public Double abvWeight;
-    public Double abvValue;
-    public Double kcalWeight;
-    public Double kcalValue;
-    public Double cityWeight;
-    public String cityValue;
-    public Double countryWeight;
-    public List<String> countryValue;
+    private Double abvWeight;
+    private Double abvValue;
+    private Double kcalWeight;
+    private Double kcalValue;
+    private Double cityWeight;
+    private String cityValue;
+    private Double countryWeight;
+    private List<String> countryValue;
 
 
-    public Double getAbvWeight() {
+    Double getAbvWeight() {
         return abvWeight;
     }
 
-    public void setAbvWeight(Double abvWeight) {
+    public RequirementsForm setAbvWeight(Double abvWeight) {
         this.abvWeight = abvWeight;
+        return this;
     }
 
-    public Double getAbvValue() {
+    Double getAbvValue() {
         return abvValue;
     }
 
-    public void setAbvValue(Double abvValue) {
+    public RequirementsForm setAbvValue(Double abvValue) {
         this.abvValue = abvValue;
+        return this;
     }
 
-    public Double getKcalWeight() {
+    Double getKcalWeight() {
         return kcalWeight;
     }
 
-    public void setKcalWeight(Double kcalWeight) {
+    public RequirementsForm setKcalWeight(Double kcalWeight) {
         this.kcalWeight = kcalWeight;
+        return this;
     }
 
-    public Double getKcalValue() {
+    Double getKcalValue() {
         return kcalValue;
     }
 
-    public void setKcalValue(Double kcalValue) {
+    public RequirementsForm setKcalValue(Double kcalValue) {
         this.kcalValue = kcalValue;
+        return this;
     }
 
-    public Double getCityWeight() {
+    Double getCityWeight() {
         return cityWeight;
     }
 
-    public void setCityWeight(Double cityWeight) {
+    public RequirementsForm setCityWeight(Double cityWeight) {
         this.cityWeight = cityWeight;
+        return this;
     }
 
-    public String getCityValue() {
+    String getCityValue() {
         return cityValue;
     }
 
-    public void setCityValue(String cityValue) {
+    public RequirementsForm setCityValue(String cityValue) {
         this.cityValue = cityValue;
+        return this;
     }
 
-    public Double getCountryWeight() {
+    Double getCountryWeight() {
         return countryWeight;
     }
 
-    public void setCountryWeight(Double countryWeight) {
+    public RequirementsForm setCountryWeight(Double countryWeight) {
         this.countryWeight = countryWeight;
+        return this;
     }
 
-    public List<String> getCountryValue() {
+    List<String> getCountryValue() {
         return countryValue;
     }
 
-    public void setCountryValue(List<String> countryValue) {
+    public RequirementsForm setCountryValue(List<String> countryValue) {
         this.countryValue = countryValue;
+        return this;
     }
 }
