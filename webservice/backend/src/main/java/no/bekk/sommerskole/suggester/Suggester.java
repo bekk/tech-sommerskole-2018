@@ -27,8 +27,6 @@ public class Suggester {
 
         List<Beer> beers = beerRepository.getBeer(new BeerFilter().withLimit(9999));
         return findTop10(requirements, beers);
-
-
     }
 
     private List<Beer> findTop10(List<Requirement> requirements, List<Beer> beers) {
@@ -39,8 +37,6 @@ public class Suggester {
                 .limit(10)
                 .map(Map.Entry::getKey)
                 .collect(toList());
-
-
     }
 
     private Double worthOfBeer(List<Requirement> requirements, Beer beer) {

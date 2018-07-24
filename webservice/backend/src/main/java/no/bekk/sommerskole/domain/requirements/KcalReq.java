@@ -10,7 +10,8 @@ public class KcalReq extends Requirement<Double> {
 
     @Override
     public double calculateCost(Beer beer) {
-        return 0;
+        if(val == null || beer.getKcal() == null) return 0;
+        return 1/Math.abs(beer.getKcal()-val);
     }
 
 }

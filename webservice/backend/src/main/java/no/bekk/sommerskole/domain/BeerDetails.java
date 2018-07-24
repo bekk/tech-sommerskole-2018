@@ -8,11 +8,11 @@ public class BeerDetails {
     private int id;
     private String name;
     private Brewery brewery;
-    private Float abv;
+    private Double abv;
     private Country country;
     private Integer ibu;
     private String webpage;
-    private Float kcal;
+    private Double kcal;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private String image;
@@ -48,16 +48,16 @@ public class BeerDetails {
         return this;
     }
 
-    public float getAbv() {
+    public double getAbv() {
         return abv;
     }
 
-    public BeerDetails setAbv(float abv) {
+    public BeerDetails setAbv(double abv) {
         this.abv = abv;
         return this;
     }
 
-    public BeerDetails setAbv(Float abv) {
+    public BeerDetails setAbv(Double abv) {
         this.abv = abv;
         return this;
     }
@@ -89,11 +89,11 @@ public class BeerDetails {
         return this;
     }
 
-    public Float getKcal() {
+    public Double getKcal() {
         return kcal;
     }
 
-    public BeerDetails setKcal(Float kcal) {
+    public BeerDetails setKcal(Double kcal) {
         this.kcal = kcal;
         return this;
     }

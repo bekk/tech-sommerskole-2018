@@ -10,6 +10,7 @@ public class ABVReq extends Requirement<Double> {
 
     @Override
     public double calculateCost(Beer beer) {
+        if(val == null || beer.getAbv() == null) return 0;
         return val != null ? 1/Math.abs(beer.getAbv()-val) : 0;
     }
 }

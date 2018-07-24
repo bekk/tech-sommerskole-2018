@@ -11,9 +11,7 @@ public class Fuzzy {
         final String queryLowerCase = query.toString().toLowerCase();
 
         int score = 0;
-
         int termIndex = 0;
-
         int previousMatchingCharacterIndex = Integer.MIN_VALUE;
 
         for (int queryIndex = 0; queryIndex < queryLowerCase.length(); queryIndex++) {
@@ -32,7 +30,6 @@ public class Fuzzy {
                     }
 
                     previousMatchingCharacterIndex = termIndex;
-
                     termCharacterMatchFound = true;
                 }
             }

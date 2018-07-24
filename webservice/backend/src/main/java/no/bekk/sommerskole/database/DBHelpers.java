@@ -24,7 +24,7 @@ class DBHelpers {
                 .setName(rs.getString("beerName"))
                 .setAbv(rs.getFloat("abv"))
                 .setIbu(getInteger("ibu", rs))
-                .setKcal(getFloat("kcal", rs))
+                .setKcal(getDouble("kcal", rs))
                 .setWebpage(rs.getString("web"))
                 .setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime())
                 .setUpdatedAt(rs.getTimestamp("updated_at").toLocalDateTime())
@@ -57,6 +57,11 @@ class DBHelpers {
 
     static Float getFloat(String field, ResultSet rs) throws SQLException {
         float value = rs.getFloat(field);
+        return rs.wasNull() ? null : value;
+    }
+
+    static Double getDouble(String field, ResultSet rs) throws SQLException {
+        double value = rs.getDouble(field);
         return rs.wasNull() ? null : value;
     }
 
