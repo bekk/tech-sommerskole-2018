@@ -3,7 +3,7 @@ import { setupCountryFilter, setupResetLink, setupTableRenderer } from './index.
 
 
 function setUpBeerFetcher({ errorLog }) {
-  const path = '/suggestor';
+  const path = '/suggester';
   return function ({ payload }) {
     return fetchFromUrl({ path, errorLog, params: payload });
   };
