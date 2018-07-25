@@ -346,7 +346,7 @@ med paging under tabellen, slik at:
     - Knapper der man kan gå til de forrige eller de neste 20 radene.
 Også fint om man kan velge hvor mange rader det er per side.
 
-### Forslag
+### Ølforslag
 Lag en visning for `suggestions` som i [backend-koden](http://localhost:8080/suggestions.html).
 - Lag en ny rute i `App.jsx`. 
 - Lag en ny komponent i `/pages/`.
@@ -356,3 +356,27 @@ Lag en visning for `suggestions` som i [backend-koden](http://localhost:8080/sug
 Installer et testrammeverk for javascript (for eksempel [Jest](https://jestjs.io/)) og 
 lag tester for funksjonaliteten i `/utils/`. Testene skal kunne kjøres med 
 `npm run test`.
+
+### Rate Beer
+
+[RateBeer](https://www.ratebeer.com/) er en online database med mengder av data om mengder av øl.
+De tilbyr en [API](https://www.ratebeer.com/api-documentation.asp) for å søke i dataene, om man
+har en API-nøkkel. Formatet på spørringene er [GraphQL](https://graphql.org/).
+
+Vis detaljer om en øl fra RateBeer på detaljer-siden, eller på en egen side.
+
+Du trenger en API-nøkkel. For å unngå å legge hemmeligheter i kildekoden, 
+sett _environment variable_ `rate_beer_api_key` til denne verdien i stedet. Denne plukkes opp av
+Webpack og settes i `/config/common.js`. (Du kan også sette verdien rett i denne filen, men da bør du ikke
+gjøre en commit av koden.)
+
+På Mac kan du gjøre det på denne måten:
+```console
+launchctl setenv rate_beer_api_key "api key" #setter variabelen globalt
+launchctl getenv rate_beer_api_key           #henter verdien fra variabelen
+launchctl unsetenv rate_beer_api_key         #sletter variabelen
+``` 
+
+Kall til tjenesten håndteres i `/apiClient/rateBeerClient.js`. Du kan bruke komponenten
+`/components/RateBeerInfo.jsx` som utgangspunkt for å vise informasjonen, eller lage din egen
+komponent.
