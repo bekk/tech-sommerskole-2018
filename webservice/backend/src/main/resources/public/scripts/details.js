@@ -1,8 +1,9 @@
 import {
-  fetchFromUrl, insertInNode, setHeadingAndPageTitleTooBeerName, setupLogger,
+  fetchFromUrl, insertInNode, setHeadingAndPageTitleTooBeerName, setupLogger, setClassName
 } from './common.js';
 
-function writeToOrRemoveInfoNode(selector, content) {
+
+function writeToOrRemoveInfoNode(selector, content, className) {
   const node = document.querySelector(selector);
   if (!node) {
     return false;
@@ -10,8 +11,11 @@ function writeToOrRemoveInfoNode(selector, content) {
   if (!content) {
     node.remove();
   } else {
-    const infoNode = document.querySelector(`${selector} .beer_info`);
+    const parent = node.parentNode;
+    const infoNode = document.createElement('dd');
     insertInNode(infoNode, content);
+    parent.insertBefore(infoNode, node.nextSibling);
+    setClassName(infoNode, className);
   }
 }
 
@@ -32,7 +36,7 @@ function updateImage(selector, src, alt) {
 async function fetchWikipedia(beer, errorLog) {
   const apiAddress = 'https://en.wikipedia.org/w/api.php';
   const searchUrl = new URL(apiAddress);
-  const searchParams = searchUrl.searchParams;
+  const {searchParams} = searchUrl;
   searchParams.append('action', 'query');
   searchParams.append('list', 'search');
   searchParams.append('utf8', '');
@@ -80,7 +84,7 @@ function writeInfo(beer) {
   writeToOrRemoveInfoNode('#beer_brewery', (beer.brewery || {}).name);
   writeToOrRemoveInfoNode('#beer_country', (beer.country || {}).name);
   writeToOrRemoveInfoNode('#beer_ibu', beer.ibu);
-  writeToOrRemoveInfoNode('#beer_abv', beer.abv);
+  writeToOrRemoveInfoNode('#beer_abv', beer.abv, 'percentage');
   writeToOrRemoveInfoNode('#beer_kcal', beer.kcal);
   writeToOrRemoveInfoNode('#beer_lastUpdate', beer.updatedAt);
   let webPage;

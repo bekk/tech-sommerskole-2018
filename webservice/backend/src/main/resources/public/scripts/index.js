@@ -1,4 +1,4 @@
-import { fetchFromUrl, insertInNode, setupLogger } from './common.js';
+import { fetchFromUrl, insertInNode, setupLogger, setClassName } from './common.js';
 
 function getOrSetQueryStateFromSessionStorage(errorLog, state) {
   const storagekey = 'beer_table_query_state';
@@ -49,7 +49,11 @@ export function setupTableRenderer({ tableSelector, sorter }) {
     const colGroup = document.createElement('colgroup');
     table.appendChild(colGroup);
     const headerRow = document.createElement('tr');
-    const buildCell = (content, tag = 'td') => insertInNode(document.createElement(tag), content);
+    const buildCell = (content, className, tag = 'td') => {
+      const element = document.createElement(tag);
+      setClassName(element, className);
+      return insertInNode(element, content);
+    };
     const headers = [
       ['Name', 'BEER_NAME', 'column_wide'],
       ['Brewery', 'BREWERY_NAME', 'column_wide'],
@@ -66,12 +70,12 @@ export function setupTableRenderer({ tableSelector, sorter }) {
       link.innerText = title;
       link.onclick = () => sorter({ sortType: sortKey });
       if (query && query.sortType === sortKey) {
-        link.setAttribute('class', query.sortDescending ? 'order_by_desc' : 'order_by_asc');
+        setClassName(link, query.sortDescending ? 'order_by_desc' : 'order_by_asc');
       }
-      const cell = buildCell(link, 'th');
+      const cell = buildCell(link, null, 'th');
       headerRow.appendChild(cell);
       const col = document.createElement('col');
-      col.setAttribute('class', className);
+      setClassName(col, className);
       colGroup.appendChild(col);
     });
     table.appendChild(headerRow);
@@ -85,7 +89,7 @@ export function setupTableRenderer({ tableSelector, sorter }) {
       nameWithLink.innerHTML = beer.name;
       row.appendChild(buildCell(nameWithLink));
       row.appendChild(buildCell(brewery.name));
-      row.appendChild(buildCell(beer.abv));
+      row.appendChild(buildCell(beer.abv, 'percentage'));
       row.appendChild(buildCell(country.name));
       row.setAttribute('role', 'link');
       row.setAttribute('href', detailsLinkHref);

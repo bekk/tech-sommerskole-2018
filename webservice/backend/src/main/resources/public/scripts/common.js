@@ -10,6 +10,12 @@ export function setupLogger(selector) {
   };
 }
 
+export function setClassName(node, className) {
+  if(className) {
+    node.setAttribute('class', className);
+  }
+  return node;
+}
 
 export function fetchFromUrl({
   path, errorLog, params, urlObject, fetchParams,
