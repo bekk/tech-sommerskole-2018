@@ -27,13 +27,15 @@ When scoring “X” indicates a strike, “/” indicates a spare, “-” indi
    00000000000000000000
 2. One pin down in each roll, (score = 20)
    11111111111111111111
-3. Spare in first roll, one pin down in each other roll, (score = 10 + 1 + 18 = 29)
+3. Almost spare in every frame, (score = 90)
+   90182736459018273645
+4. Spare in first roll, one pin down in each other roll, (score = 10 + 1 + 18 = 29)
    9/111111111111111111
-4. Spare in last roll, one pin down in each other roll, (score = 18 + 10 + 1 = 29)
+5. Spare in last roll, one pin down in each other roll, (score = 18 + 10 + 1 = 29)
    1111111111111111111/1
-5. Strike in first roll, one pin down in each other roll, (score = 10 + 1 + 1 + 18 = 30)
+6. Strike in first roll, one pin down in each other roll, (score = 10 + 1 + 1 + 18 = 30)
    X111111111111111111
-6. Strike in last roll, one pin down in each other roll, (score = 18 + 10 + 1 + 1 = 30)
+7. Strike in last roll, one pin down in each other roll, (score = 18 + 10 + 1 + 1 = 30)
    111111111111111111X11
-7. Golden game = all strikes (score = 300)
+8. Golden game = all strikes (score = 300)
    XXXXXXXXXXXX
