@@ -32,6 +32,7 @@ module.exports = {
     new CopyWebpackPlugin(['static']),
     new CleanWebpackPlugin(['dist']),
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.EnvironmentPlugin({ rate_beer_api_key: '' }),
   ],
   module: {
     rules: [

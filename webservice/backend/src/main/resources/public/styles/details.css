@@ -1,31 +1,24 @@
 @import url("common.css");
 
 .beer_info_group{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-items: center;
-    margin-left: 5em;
-    margin-right: 5em;
+    margin-left: 1em;
+    margin-right: 1em;
+    font-size: 3em;
 }
 
-.beer_info_wrapper{
-    font-size: 1.5em;
-    width: 30em;
-    position: relative;
-}
-
-.beer_label {
-    color: var(--label-text-color);
+.beer_info_group dt {
     font-family: var(--font-labels);
-    width: 6em;
-    text-align: right;
-    margin-right: .2em;
-    display: inline-block;
+    color: var(--label-text-color);
+    font-size: .7em;
+}
+.beer_info_group dt:after {
+    content: ": ";
 }
 
-.beer_info {
-    font-family: "Roboto medium";
+.beer_info_group dd {
+    font-family: "Roboto light";
+    margin-bottom: 1em;
+    margin-top: 0;
 }
 
 .beer_image_main {

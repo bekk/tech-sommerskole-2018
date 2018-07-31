@@ -20,7 +20,8 @@ const queryService = async (url) => {
 const queryBeers = async () => {
   const url = new URL('beer', config.webSvcBaseUrl);
   url.searchParams.append('limit', 100000);
-  return queryService(url);
+  return queryService(url)
+    .catch(logError);
 };
 
 export const refresh = async () => {
@@ -39,5 +40,6 @@ export const getBeers = async ({ limit, offset = 0 } = {}) => {
 
 export const getBeer = async (id) => {
   const url = new URL(`beer/${id}`, config.webSvcBaseUrl);
-  return queryService(url);
+  return queryService(url)
+    .catch(logError);
 };
