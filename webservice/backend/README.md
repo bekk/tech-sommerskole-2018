@@ -42,7 +42,7 @@ og kjøring av testsuiten ved å kjøre "mvn clean install" i rotmappen til back
 For å starte applikasjonen kan du navigere til `./src/main/java/no/bekk/sommerskole/Application.class`.
 Åpne opp filen og trykk på `Run \ Run 'Application'` i menylinjen øverst. Du vil da se at det nederst i vinduet dukker 
 opp masse logger. Denne skal slutte med `Started Application in...` som betyr at applikasjonen nå kjører. Prøv å åpne opp
- <http://localhost:8080/beer.html> i nettleseren, og se om du får opp en liste over øl og data om dem.
+ <http://localhost:8080/beer> i nettleseren, og se om du får opp en liste over øl og data om dem.
 
 #### Spring
 Backenden vår er bygget rundt et rammeverk kalt Spring, spesifikt Spring Boot. Denne hjelper oss å enkelt sette opp 
