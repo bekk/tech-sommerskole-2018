@@ -14,7 +14,7 @@ public class RequirementsForm {
     private List<String> countryValue;
 
 
-    Double getAbvWeight() {
+    public Double getAbvWeight() {
         return abvWeight;
     }
 
@@ -23,7 +23,7 @@ public class RequirementsForm {
         return this;
     }
 
-    Double getAbvValue() {
+    public Double getAbvValue() {
         return abvValue;
     }
 
@@ -32,7 +32,7 @@ public class RequirementsForm {
         return this;
     }
 
-    Double getKcalWeight() {
+    public Double getKcalWeight() {
         return kcalWeight;
     }
 
@@ -41,7 +41,7 @@ public class RequirementsForm {
         return this;
     }
 
-    Double getKcalValue() {
+    public Double getKcalValue() {
         return kcalValue;
     }
 
@@ -50,7 +50,7 @@ public class RequirementsForm {
         return this;
     }
 
-    Double getCityWeight() {
+    public Double getCityWeight() {
         return cityWeight;
     }
 
@@ -59,7 +59,7 @@ public class RequirementsForm {
         return this;
     }
 
-    String getCityValue() {
+    public String getCityValue() {
         return cityValue;
     }
 
@@ -68,7 +68,7 @@ public class RequirementsForm {
         return this;
     }
 
-    Double getCountryWeight() {
+    public Double getCountryWeight() {
         return countryWeight;
     }
 
@@ -77,7 +77,7 @@ public class RequirementsForm {
         return this;
     }
 
-    List<String> getCountryValue() {
+    public List<String> getCountryValue() {
         return countryValue;
     }
 
