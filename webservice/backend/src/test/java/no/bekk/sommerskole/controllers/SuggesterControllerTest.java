@@ -39,11 +39,19 @@ public class SuggesterControllerTest {
     }
 
     @Test
-    public void shouldSortTopAbvFirst() {
+    public void shouldSortTopAbvFirstIfHighABVTarget() {
         List<Beer> beers = suggesterController.getSuggestion(new RequirementsForm()
                 .setAbvValue(100.0)
                 .setAbvWeight(1.0));
-        assertThat(beers).extracting(Beer::getId).contains(6, atIndex(0));
+        assertThat(beers.subList(0, 4)).extracting(Beer::getId).contains(6, 11, 7, 10);
+    }
+
+    @Test
+    public void shouldSortBottomAbVFirstIfLowABVTarget() {
+        List<Beer> beers = suggesterController.getSuggestion(new RequirementsForm()
+                .setAbvValue(0.0)
+                .setAbvWeight(1.0));
+        assertThat(beers.subList(0, 4)).extracting(Beer::getId).contains(3, 4, 8, 2);
     }
 
     @Test
@@ -55,6 +63,17 @@ public class SuggesterControllerTest {
     }
 
     @Test
+    public void ifLowWeightCountryShouldNotMatter() {
+        List<Beer> beers = suggesterController.getSuggestion(new RequirementsForm()
+                .setAbvValue(100.0)
+                .setAbvWeight(1.0)
+                .setCountryValue(asList("FFF"))
+                .setCountryWeight(0.00001));
+        assertThat(beers.subList(0, 4)).extracting(Beer::getId).contains(6, 11, 7, 10);
+    }
+
+
+    @Test
     public void shouldSortByCity() {
         List<Beer> beers = suggesterController.getSuggestion(new RequirementsForm()
                 .setCityValue("City1ggg")
@@ -64,9 +83,13 @@ public class SuggesterControllerTest {
     }
 
     @Test
-    public void shouldSortByKcal() {
-
-
+    public void ifLowWeightCityShouldNotMatter() {
+        List<Beer> beers = suggesterController.getSuggestion(new RequirementsForm()
+                .setCityValue("City1ggg")
+                .setCityWeight(0.00001)
+                .setAbvValue(100.0)
+                .setAbvWeight(1.0));
+        assertThat(beers.subList(0, 4)).extracting(Beer::getId).contains(6, 11, 7, 10);
     }
 
 
