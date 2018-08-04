@@ -20,13 +20,13 @@ class BeerCatalogue extends React.Component {
   componentDidMount() {
     getBeers().then((beers) => {
       this.setState({
-        beers
+        beers,
       });
     });
   }
 
   getAllBeers() {
-    return getBeers();
+    return this.getBeers();
   }
 
   sorting({ column, direction }) {
@@ -45,8 +45,12 @@ class BeerCatalogue extends React.Component {
       const pattern = new RegExp(value);
       const getThisKey = getKey(key);
       beers = this.getAllBeers()
-        .then(all => all.filter(b => getThisKey(b)
-          .match(pattern)));
+        .then(all => all.filter(
+          (b) => {
+            const beerValue = getThisKey(b);
+            return typeof (beerValue) !== 'undefined' && beerValue.match(pattern);
+          },
+        ));
     }
     if (sortColumn) {
       const orderBy = compareByKey({ getKey: getKey(sortColumn), reverse: sortDirection === 'desc' });
