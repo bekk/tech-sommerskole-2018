@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8"/>
     <link rel="shortcut icon" type="image/png" href="images/favicon.png">
@@ -9,11 +10,14 @@
         Details
     </title>
 </head>
+
 <body class="earth_background">
 
 <section class="mainContent">
     <h1 class="mainHeader" id="title_beerName">Loading...</h1>
     <div class="beer_info_group">
+        <!-- These elements are refered in the javascript ny id or class, and populated with data -->
+        <!-- the data in the form elements (input) are sent to the server when the submit button is clicked -->
         <form id="main_form" action="/beer" method="post">
             <input name="id" type="hidden">
             <div id="beer_name" class="beer_info_wrapper">
@@ -56,16 +60,20 @@
         </form>
     </div>
 </section>
+
 <nav class="navigation_links" id="footer">
     <a href="/" title="To beer list">&#x261C; Back</a>
     <a href="/suggestions.html" title="To suggestions">Suggestions</a>
 </nav>
 
 <div id="error_console"></div>
+
 <script type="module">
     import init from './scripts/edit.js';
 
     init('#error_console');
 </script>
+
 </body>
+
 </html>

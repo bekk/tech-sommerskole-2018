@@ -1,5 +1,6 @@
-import { fetchFromUrl, insertInNode, setupLogger, setClassName } from './common.js';
+import { fetchFromUrl, insertInNode, setupLogger, setClassName } from './common.js'; //Import functions from another file.
 
+//This function uses sessionstorage (if supported by browser) too persist filter and sorting data between page loads
 function getOrSetQueryStateFromSessionStorage(errorLog, state) {
   const storagekey = 'beer_table_query_state';
   if (!sessionStorage) return false;
@@ -17,6 +18,7 @@ function getOrSetQueryStateFromSessionStorage(errorLog, state) {
   }
 }
 
+//This function builds a function to be called to query the server for data.
 function setUpBeerFetcher({ errorLog }) {
   const path = '/beer';
   let queryState = getOrSetQueryStateFromSessionStorage(errorLog) || {};
@@ -39,21 +41,38 @@ function setUpBeerFetcher({ errorLog }) {
   };
 }
 
+//This function builds a function to create the rows and columns in the table from beer data.
 export function setupTableRenderer({ tableSelector, sorter }) {
   const table = document.querySelector(tableSelector);
+
   return function (beers, query) {
+    //Start by clearing the content of the existing table
     table.innerHTML = '';
     if (!beers) {
+      //If there are no data, just return.
       return;
     }
-    const colGroup = document.createElement('colgroup');
-    table.appendChild(colGroup);
-    const headerRow = document.createElement('tr');
-    const buildCell = (content, className, tag = 'td') => {
+    const buildElement = (parent, className, tag) => {
+      //This is a utility function to create elements, used below.
+      //HTML-elements are created with a function on document, before they are inserted in the DOM.
       const element = document.createElement(tag);
-      setClassName(element, className);
+      if (className) {
+        setClassName(element, className);
+      }
+      if (parent) {
+        parent.appendChild(element);
+      }
+      return element;
+    };
+    const buildCell = (content, className, tag = 'td') => {
+      const element = buildElement(null, className, tag);
+      //An imported function is used to append element as a child to another node.
       return insertInNode(element, content);
     };
+    const colGroup = buildElement(table, null, 'colgroup');
+    const headerRow = buildElement(table, null, 'tr');
+
+    //Build headers and columns
     const headers = [
       ['Name', 'BEER_NAME', 'column_wide'],
       ['Brewery', 'BREWERY_NAME', 'column_wide'],
@@ -74,11 +93,10 @@ export function setupTableRenderer({ tableSelector, sorter }) {
       }
       const cell = buildCell(link, null, 'th');
       headerRow.appendChild(cell);
-      const col = document.createElement('col');
-      setClassName(col, className);
-      colGroup.appendChild(col);
+      const col = buildElement(colGroup, className, 'col');
     });
-    table.appendChild(headerRow);
+
+    //Insert one row per beer
     beers.forEach((beer) => {
       const brewery = beer.brewery || {};
       const country = beer.country || {};
@@ -99,22 +117,33 @@ export function setupTableRenderer({ tableSelector, sorter }) {
   };
 }
 
+//This function builds a function to filter beer by the columns
 export async function setupCountryFilter(props) {
+
+  //Destructuring of the props-parameter to get the inner properties
   const {
     selector, errorLog, refreshBeers, path,
   } = props;
+
+  //Get the html element
   const select = document.querySelector(selector);
+
   if (!select) {
     return;
   }
+
   const countries = await fetchFromUrl({ path, errorLog });
   const savedState = getOrSetQueryStateFromSessionStorage(errorLog);
+
   const groupBy = (items, category) => items.reduce((acc, i) => {
     (acc[i[category]] = acc[i[category]] || []).push(i);
     return acc;
   }, {});
+
   select.innerHTML = '';
+
   const countriesWithBeers = countries.filter(c => typeof c.numberOfBeers === 'undefined' || c.numberOfBeers > 0);
+
   Object.entries(groupBy(countriesWithBeers, 'continent')).forEach((continent) => {
     const group = document.createElement('optgroup');
     group.setAttribute('label', continent[0]);
@@ -129,6 +158,7 @@ export async function setupCountryFilter(props) {
     });
     select.appendChild(group);
   });
+
   const getSelectedItems = () => {
     const result = [];
     const options = select && select.options;
@@ -145,6 +175,7 @@ export async function setupCountryFilter(props) {
   return getSelectedItems;
 }
 
+//This function arms the reset link on the page to reset all filters (form fields)
 export function setupResetLink(linkSelector, formSelector, refresh, errorLog) {
   const resetLink = document.querySelector(linkSelector);
   const form = document.querySelector(formSelector);
@@ -153,6 +184,7 @@ export function setupResetLink(linkSelector, formSelector, refresh, errorLog) {
     .then(() => getOrSetQueryStateFromSessionStorage(errorLog, {}));
 }
 
+//This function enables all the filter elements
 function setUpFilters(props) {
   const savedState = getOrSetQueryStateFromSessionStorage(props.errorLog);
   const setupTextBoxFilter = (selector, name) => {
@@ -172,6 +204,7 @@ function setUpFilters(props) {
   return setupCountryFilter({ selector: '#filter_country', path: '/country', ...props });
 }
 
+// This function is called from the web page, referencing all the functions above.
 export default async function init(mainTableSelector, errorConsoleSelector) {
   let refreshBeers;
   const errorLog = setupLogger(errorConsoleSelector);

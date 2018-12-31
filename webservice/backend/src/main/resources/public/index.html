@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8"/>
     <title>Beer catalogue</title>
     <link rel="shortcut icon" type="image/png" href="images/favicon.png">
     <link href="styles/index.css" rel="stylesheet">
 </head>
+
 <body class="earth_background">
 
 <section class="mainContent">
     <h1 class="mainHeader">Beers of the world</h1>
     <div class="tableFilters">
         <form id="filter_form">
+            <!-- This element contains the filter controllers above the table -->
             <fieldset class="filter_fieldset">
                 <legend>Filter: (<span role="button" id="filter_reset" tabindex="1" class="reset_button">Reset</span>)</legend>
                 <div class="labelGroup">
@@ -38,17 +41,22 @@
         </form>
     </div>
     <table id="main_table" class="beerTable">
-
+        <!-- This table is manipulated by javascript bt inserting elements representing the data received from the server -->
     </table>
 </section>
+
 <nav class="navigation_links" id="footer">
     <a href="/suggestions.html" title="To suggestions">Suggestions</a>
 </nav>
 
 <div id="error_console"></div>
+
 </body>
+
+<!-- After fetching the markup, we import and run the javascript -->
 <script type="module">
     import init from './scripts/index.js';
     init('#main_table', '#error_console');
 </script>
+
 </html>

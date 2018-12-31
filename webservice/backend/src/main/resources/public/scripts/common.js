@@ -1,3 +1,6 @@
+//All functions in this file are exported, to be imported in the other files.
+
+//This function returns a function that may be used to log a text string
 export function setupLogger(selector) {
   const error_console = document.querySelector(selector);
   return function (txt) {
@@ -17,6 +20,7 @@ export function setClassName(node, className) {
   return node;
 }
 
+//This function builds a function to be used to query the server for data.
 export function fetchFromUrl({
   path, errorLog, params, urlObject, fetchParams,
 }) {

@@ -33,6 +33,7 @@ function updateImage(selector, src, alt) {
   return image;
 }
 
+//This function queries Wikipedia.org using a string (beer name) and returns the first article (if any).
 async function fetchWikipedia(beer, errorLog) {
   const apiAddress = 'https://en.wikipedia.org/w/api.php';
   const searchUrl = new URL(apiAddress);
@@ -77,6 +78,7 @@ function getCountryFlagUrl(country) {
   return `http://www.countryflags.io/${key}/flat/64.png`;
 }
 
+//This function updates the html page with data from the server.
 function writeInfo(beer) {
   if (!beer) {
     return false;
@@ -114,6 +116,7 @@ function writeInfo(beer) {
   }
 }
 
+//This function updates the link url parameter with the id of the current beer
 function updateEditLink(id) {
   const link = document.querySelector('#link_edit');
   if (!link) {
@@ -125,6 +128,7 @@ function updateEditLink(id) {
   link.removeAttribute('hidden');
 }
 
+//This function updates the html page with the data from the wikipedia query.
 async function getAndRenderWikiContent(beer, selector, errorLog) {
   const node = document.querySelector(selector);
   if (!node) {
@@ -144,6 +148,7 @@ async function getAndRenderWikiContent(beer, selector, errorLog) {
   node.innerHTML = textWithQualifiedUrls;
 }
 
+//This function is called from the web page
 export default async function init(errorConsoleSelector) {
   const errorLog = setupLogger(errorConsoleSelector);
   const searchParams = new URLSearchParams(document.location.search);
