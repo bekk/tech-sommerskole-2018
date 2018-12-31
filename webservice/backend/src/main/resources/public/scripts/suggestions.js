@@ -42,6 +42,7 @@ async function setupFilters(props) {
   inputs.forEach(i => i.formControl.onchange = fetchRecommendation);
 }
 
+//This function is called from the web page.
 export default async function init(mainTableSelector, formSelector, errorConsoleSelector) {
   const errorLog = setupLogger(errorConsoleSelector);
   const getBeers = setUpBeerFetcher({ errorLog });

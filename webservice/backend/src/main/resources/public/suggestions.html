@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8"/>
     <link rel="shortcut icon" type="image/png" href="images/favicon.png">
@@ -8,6 +9,7 @@
         Suggestions
     </title>
 </head>
+
 <body class="earth_background">
 
 <section class="mainContent">
@@ -45,20 +47,26 @@
             </fieldset>
         </form>
     </div>
+
     <div class="beerTable_wrapper">
         <table id="main_table" class="beerTable">
         </table>
     </div>
+
 </section>
+
 <nav class="navigation_links" id="footer">
     <a href="/" title="To beer list">&#x261C; Back</a>
 </nav>
 
 <div id="error_console"></div>
+
 <script type="module">
     import init from './scripts/suggestions.js';
 
     init('#main_table', '#filter_form', '#error_console');
 </script>
+
 </body>
+
 </html>

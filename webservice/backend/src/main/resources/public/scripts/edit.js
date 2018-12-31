@@ -40,7 +40,7 @@ function populateForm(beer, errorLog) {
   fillSelect('brewery', breweries, brewery => brewery.id, brewery => beer.brewery && brewery.id === beer.brewery.id);
 }
 
-
+//This function is called from the web page
 export default async function init(errorConsoleSelector) {
   const errorLog = setupLogger(errorConsoleSelector);
   const searchParams = new URLSearchParams(document.location.search);
