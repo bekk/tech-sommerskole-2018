@@ -28,7 +28,7 @@ npm version
 NPM vil se etter filen `package.json` som beskriver prosjektet. 
 Denne inneholder metadata og beskrivelse av avhengigheter.
 
-For å installere alle avhengigheter på maskinen skriver man 
+For å installere alle avhengigheter i prosjektet skriver man 
 ```console
 npm install
 ```
@@ -106,7 +106,7 @@ bli tvunget til å lese litt kode.
 Forsøk å forstå hvordan de ulike delne henger sammen og hvordan de er koblet til hverandre.
 
 ### Sidetittel
-Legg til en tittel på siden som vises av nettleseren.
+Legg til en tittel på siden som vises av nettleseren (i tab/vindu/snarvei etc.).
 
 - [ ] Rediger `index.html`: i tag-en `<head>` legges en tag for header:
 
@@ -146,13 +146,18 @@ må vi legge inn en headertag for dette også.
 Når man klikker en rad i tabellen skal man komme til en detaljside. 
 For å vise denne må den «plugges inn» i koden.
 
+> Routing er navnet vi bruker på konseptet som knytter url mot visning. Dette skjer både på server og på klient. Det er nesten alltid en del av en web-løsning.
+> I dette tilfelle er det et bibliotek (react-router) som hjelper oss med dette.
+> En rute [route] er en visning representert ved en url, og som derfor kan nås ved å klikke en lenke.
+> Dette kan man bruke for å enkelt lage en navigasjonsmeny (se oppgaven under).
+
 - [ ] I filen `App.jsx`, legg in referanse til siden `/pages/Details.jsx`:
   
   Øverst i filen blant linjene med `import`, legg inn 
   ```jsx harmony
   import Details from 'pages/Details';
   ```
-- [ ] I filen `App.jsx`, legg in detaljersiden som ny rute:
+- [ ] I filen `App.jsx`, legg in detaljer-siden som ny rute:
   
   Under rad 11 (`<Route exact path="/" component={Index} />`) legg inn en ny linje
   ```jsx harmony
@@ -179,7 +184,7 @@ For å vise denne må den «plugges inn» i koden.
 ## Navigasjonsmeny
 
 Navigasjonsmenyen (som nå vises øverst i siden), er definert i komponenten 
-`/components/Navigation.jsx`. Den benytter seg av rammeverket `react-router`, og
+`/components/Navigation.jsx`. Den benytter seg av biblioteket `react-router`, og
 navigasjonsstrukturen er definert i `App.jsx`. 
 Dette gjør at man kan simulere webside-navigasjon
 uten å forlate react-appen.
@@ -200,6 +205,7 @@ For å style navigasjon, så den ser ut som i backend-løsningen, gjør vi følg
   ```less
   @import "common";
   
+  // Variabler brukt nedenfor
   @menu-color: #9b99dd;
   @text-color: #626262;
   @hover-color: #aeb8b8;
@@ -212,6 +218,8 @@ For å style navigasjon, så den ser ut som i backend-løsningen, gjør vi følg
     transition: top .2s;
   }
   
+  // Disse bestemmer utseendet på elementer som har korresponderende
+  // klassenavn.
   .main_menu {
     position: fixed;
     width: 100%;
@@ -221,6 +229,8 @@ For å style navigasjon, så den ser ut som i backend-løsningen, gjør vi følg
     background-color: @menu-color;
     transition: height .1s ease-in-out;
   
+    // Dette bestemmer utseendet når musepekeren peker på elementet.
+    // em er en enhet som er relativ til skrifthøyden.
     &:hover {
       height: 2em;
   
@@ -269,15 +279,33 @@ Antagelig må også den genererte html-en endres noe for å få det til.
 Husk at i React-kode må man bruke `className` i stedet for `class`for å angi
 klasse på et html-element.
 
+Mer konkrete foraslag:
+
 #### Bakgrunnsbilde
+> Alle elementer i html har en bakgrunn-egenskap. Dette kan være en farge eller et bilde.
+> Om du vil ha en bakgrunn på hele siden, kan du legge det på body-elementet.
+
 Filer som ligger i mappen `/static/` blir kopiert inn i `/dist/` ved bygg.
 Legg bildefiler her om de skal brukes som bakgrunnsbilder eller på andre måter i designet.
 Om du skal ha bakgrunnsbilde på hele siden, kan du legge dette i en stil på `<body>`-elementet.
 
 #### Webfonts
+> Tradisjonelt var det utfordrende å bruke ulike skrifttyper [fonter] på web,
+> fordi man var avhengig av at brukerne hadde font-filene installert på sin maskin.
+> Nå har vi muligheten til å ha skrifttyper lastet ned som en del av siden.
+
 Å bruke egne fonter kan gjøres på én av to måter:
 
-1. Laste inn webfonts med webpack:
+1. Referere til en font som ligger på en server.
+   For eksempel har [Google fonts](https://fonts.google.com/) en rekke skrifttyper tilgjengelig for bruk.
+   Importer en css fra Google inn i et stylesheet. Legg til &file=.css til slutt i url-en:
+   ```less
+   @import url("https://fonts.googleapis.com/css?family=Pacifico&file=.css");
+   ```
+   
+   Deretter kan fonten brukes i stiler med `font-family: "Pacifico";`
+
+2. Laste inn webfonts med webpack:
    - Kopiere inn fonter (f.eks fra [backend-koden](../backend/src/main/resources/public/fonts/))
      til en egnet mappe (for eksempel `/styles/fonts/`).
    - Legge til file-loader i løsningen for å kopiere filene over:
@@ -306,16 +334,10 @@ Om du skal ha bakgrunnsbilde på hele siden, kan du legge dette i en stil på `<
        font-style: normal;
      }
      ```
-2. Referere til en font som ligger på en server.
-   For eksempel har [Google fonts](https://fonts.google.com/) en rekke skrifttyper tilgjengelig for bruk.
-   Importer en css fra Google inn i et stylesheet. Legg til &file=.css til slutt i url-en:
-   ```less
-   @import url("https://fonts.googleapis.com/css?family=Pacifico&file=.css");
-   ```
-   
-Deretter kan fonten brukes i stiler med `font-family: "Pacifico";`
 
-#### Navigasjon
+   
+
+### Navigasjon
 Navigasjonslinken (øverst i siden) er definert i `/components/Navigation.jsx`og i 
 `/styles/navigation.less`.
 Navigasjonsrutene er definert i `App.jsx`;
