@@ -17,11 +17,11 @@ public class BreweryRepository {
     }
 
     public List<Brewery> getBreweries() {
+
+        // Opg 1: Vi mangler noe her...
         String query = "select " +
-                "brewery.id AS breweryId, " +
-                "brewery.title as breweryName " +
-                "from main.breweries as brewery " +
-                "order by brewery.title";
+                "brewery.id AS breweryId " +
+                "from main.breweries as brewery ";
 
 
         return jdbc.query(query, DBHelpers::mapToBreweries);
