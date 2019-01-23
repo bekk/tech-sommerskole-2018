@@ -18,16 +18,13 @@ public class CountryRepository {
         this.jdbc = jdbc;
     }
 
+    // Oppgave 2: Vi mangler noe her...
     public List<Country> getCountries() {
         String query = "SELECT " +
                 "countries.code, " +
                 "countries.title, " +
-                "countries.key, " +
-                "continents.title AS continent, " +
-                "COUNT(beers.id) AS beerCount " +
+                "countries.key " +
                 "from countries " +
-                "LEFT JOIN continents on countries.continent_id = continents.id " +
-                "LEFT JOIN beers on countries.id = beers.country_id " +
                 "GROUP BY countries.code, countries.title " +
                 "ORDER BY countries.title";
 
