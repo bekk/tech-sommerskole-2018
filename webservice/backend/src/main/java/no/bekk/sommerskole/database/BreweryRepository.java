@@ -1,6 +1,5 @@
 package no.bekk.sommerskole.database;
 
-import ca.krasnay.sqlbuilder.SelectBuilder;
 import no.bekk.sommerskole.domain.Brewery;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -18,11 +17,13 @@ public class BreweryRepository {
     }
 
     public List<Brewery> getBreweries() {
-        SelectBuilder query = new SelectBuilder()
-                .column("brewery.id AS breweryId")
-                .column("brewery.title AS breweryName")
-                .from("main.breweries AS brewery")
-                .orderBy("brewery.title");
-        return jdbc.query(query.toString(), DBHelpers::mapToBreweries);
+        String query = "select " +
+                "brewery.id AS breweryId, " +
+                "brewery.title as breweryName " +
+                "from main.breweries as brewery " +
+                "order by brewery.title";
+
+
+        return jdbc.query(query, DBHelpers::mapToBreweries);
     }
 }
