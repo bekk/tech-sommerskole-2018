@@ -1,7 +1,7 @@
 package no.bekk.sommerskole.domain.requirements;
 
 import no.bekk.sommerskole.domain.Beer;
-import no.bekk.sommerskole.logic.Fuzzy;
+import no.bekk.sommerskole.logic.Levensthein;
 
 public class CityReq extends Requirement<String> {
 
@@ -11,6 +11,6 @@ public class CityReq extends Requirement<String> {
 
     @Override
     public double calculateCost(Beer beer) {
-        return Fuzzy.fuzzyScore(val, beer.getCity());
+        return -1 * Levensthein.calculate(val, beer.getCity());
     }
 }

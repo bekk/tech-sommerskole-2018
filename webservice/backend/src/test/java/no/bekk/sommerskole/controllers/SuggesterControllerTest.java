@@ -76,16 +76,16 @@ public class SuggesterControllerTest {
     @Test
     public void shouldSortByCity() {
         List<Beer> beers = suggesterController.getSuggestion(new RequirementsForm()
-                .setCityValue("City1ggg")
+                .setCityValue("Chicago")
                 .setCityWeight(1.0));
-        assertThat(beers.subList(0, 4)).extracting(Beer::getId).contains(8, 10, 7, 1);
+        assertThat(beers.subList(0, 4)).extracting(Beer::getId).contains(5, 6, 4, 3);
 
     }
 
     @Test
     public void ifLowWeightCityShouldNotMatter() {
         List<Beer> beers = suggesterController.getSuggestion(new RequirementsForm()
-                .setCityValue("City1ggg")
+                .setCityValue("random")
                 .setCityWeight(0.00001)
                 .setAbvValue(100.0)
                 .setAbvWeight(1.0));
@@ -95,17 +95,17 @@ public class SuggesterControllerTest {
 
     private static List<Beer> testBeers() {
         return asList(
-                new Beer(1, "Beer1", new Brewery(1, "Brewery1"), 4.5, new Country("AAA", "1", "aaa", "Continent1", 3), "City1aa"),
-                new Beer(2, "Beer2", new Brewery(1, "Brewery1"), 4.0, new Country("BBB", "2", "bbb", "Continent1", 3), "City2bb"),
-                new Beer(3, "Beer3", new Brewery(1, "Brewery2"), 3.1, new Country("BBB", "2", "bbb", "Continent1", 3), "City3cc"),
-                new Beer(4, "Beer4", new Brewery(1, "Brewery2"), 3.2, new Country("CCC", "3", "ccc", "Continent2", 3), "City4dd"),
-                new Beer(5, "Beer5", new Brewery(1, "Brewery3"), 5.3, new Country("CCC", "3", "ccc", "Continent2", 3), "City4ee"),
-                new Beer(6, "Beer6", new Brewery(1, "Brewery3"), 12.1, new Country("AAA", "1", "aaa", "Continent1", 3), "City5ff"),
-                new Beer(7, "Beer7", new Brewery(1, "Brewery4"), 8.1, new Country("DDD", "4", "ddd", "Continent3", 1), "City1gh"),
-                new Beer(8, "Beer8", new Brewery(1, "Brewery5"), 3.7, new Country("BBB", "2", "bbb", "Continent1", 3), "City1ggg"),
-                new Beer(9, "Beer9", new Brewery(1, "Brewery6"), 5.4, new Country("EEE", "5", "eee", "Continent4", 1), "City6aa"),
-                new Beer(10, "Beer10", new Brewery(1, "Brewery7"), 6.7, new Country("CCC", "3", "ccc", "Continent2", 3), "City1gg"),
-                new Beer(11, "Beer11", new Brewery(1, "Brewery7"), 8.3, new Country("AAA", "1", "aaa", "Continent1", 3), "City2hh")
+                new Beer(1, "Beer1", new Brewery(1, "Brewery1"), 4.5, new Country("AAA", "1", "aaa", "Continent1", 3), "Cologne"),
+                new Beer(2, "Beer2", new Brewery(1, "Brewery1"), 4.0, new Country("BBB", "2", "bbb", "Continent1", 3), "Porto Alegre"),
+                new Beer(3, "Beer3", new Brewery(1, "Brewery2"), 3.1, new Country("BBB", "2", "bbb", "Continent1", 3), "Champigo"),
+                new Beer(4, "Beer4", new Brewery(1, "Brewery2"), 3.2, new Country("CCC", "3", "ccc", "Continent2", 3), "Chigugo"),
+                new Beer(5, "Beer5", new Brewery(1, "Brewery3"), 5.3, new Country("CCC", "3", "ccc", "Continent2", 3), "Chicago"),
+                new Beer(6, "Beer6", new Brewery(1, "Brewery3"), 12.1, new Country("AAA", "1", "aaa", "Continent1", 3), "Chacago"),
+                new Beer(7, "Beer7", new Brewery(1, "Brewery4"), 8.1, new Country("DDD", "4", "ddd", "Continent3", 1), "Kharkiv"),
+                new Beer(8, "Beer8", new Brewery(1, "Brewery5"), 3.7, new Country("BBB", "2", "bbb", "Continent1", 3), "Johannesburg"),
+                new Beer(9, "Beer9", new Brewery(1, "Brewery6"), 5.4, new Country("EEE", "5", "eee", "Continent4", 1), "Warsaw"),
+                new Beer(10, "Beer10", new Brewery(1, "Brewery7"), 6.7, new Country("CCC", "3", "ccc", "Continent2", 3), "Prague"),
+                new Beer(11, "Beer11", new Brewery(1, "Brewery7"), 8.3, new Country("AAA", "1", "aaa", "Continent1", 3), "Busan")
 
         );
     }
