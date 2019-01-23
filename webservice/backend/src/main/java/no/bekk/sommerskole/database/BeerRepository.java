@@ -77,29 +77,6 @@ public class BeerRepository {
                 "left join main.countries as country on country.id = beer.country_id " +
                 "left join main.cities as city on beer.city_id = city.id";
 
-        ArrayList<String> whereClauses = new ArrayList<>();
-
-        if (filter.getMaxAbv() != null) {
-            whereClauses.add("beer.abv <= :maxAbv");
-        }
-
-        if (filter.getMinAbv() != null) {
-            whereClauses.add("beer.abv >= :minAbv");
-        }
-
-        if (filter.getCountries().size() > 0) {
-            whereClauses.add("country.code IN (:countries)");
-        }
-
-        if (whereClauses.size() > 0) {
-            query += " where " + whereClauses.stream().reduce((a, b) -> a + " AND " + b).get();
-        }
-
-
-        if (filter.getSortType() != null) {
-            query += " ORDER BY " + filter.getSortType().sql + (filter.getSortDescending() ? " DESC" : "");
-        }
-
         query += " LIMIT :limit;";
         return jdbc.query(query, parameterSource, DBHelpers::mapToBeer);
     }
