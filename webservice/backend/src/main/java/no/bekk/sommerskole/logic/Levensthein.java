@@ -5,11 +5,12 @@ import java.util.Arrays;
 public class Levensthein {
 
     public static int calculate(String x, String y) {
-        if (x.isEmpty()) {
+        if(x == null && y == null) return 0;
+        if (x == null || x.isEmpty()) {
             return y.length();
         }
 
-        if (y.isEmpty()) {
+        if (y == null || y.isEmpty()) {
             return x.length();
         }
 
