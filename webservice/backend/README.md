@@ -76,6 +76,10 @@ F: Funksjoner som tar en en property og regner ut score-kontribusjonen til prope
 
 property: En egenskap til en øl, om det er byen, alkoholinnhold eller bryggeriet
  
+#### Oppgaven: 
+I Suggester-klassen finner du en tom funksjon som returnerer en tom liste. I SuggesterControllerTest-filen finner du testene for denne oppgaven. Kjør alle testene. 
+
+Som forventet... ingen fungerte. Prøv å returner variabelen "beer" istedet for Emptylist, gikk dette bedre? Jobb deg nedover testene og fyll kravene for hver property.
 
 ##### ABV
 Scoren skal baseres lineært på hvor nærme en øl sitt ABV-innhold er ABV-propertien
@@ -93,38 +97,38 @@ Han har lest om en "Levenshein distance"-algoritme i et IT-magasin han synes hø
 Scoren baseres på den negative scoren til en Levensthein-distance algoritme.
 https://en.wikipedia.org/wiki/Levenshtein_distance
 
-### Country Repository
-Klassen CountryRepository har en getCountries()-funksjon. I denne funksjonen skal dere ta i bruk databasen som ligger i klassen
-og gjøre et kall for å hente informasjon om landene i databasen.
+### SQL-Oppgaver
 
-##### Code, key, name
-Hent listen over alle landene, samt deres landkode, landnøkkel(key) og navn(title). Populer en liste med Country-objekter og returner denne.
-Dra gjerne inspirasjon fra lignende operasjoner andre steder i programmet. 
-##### Continent
-Gjør en join med continents-tabellen for å hente ut navnet på kontinentet landet ligger i og legg dette til objektene
-##### Antall øl i landet
-Prøv å finne ut hvor mange øl hvert land har, dette kan gjøres direkte i SQL-spørringen om ønskelig
+#### Opg 1: GetBreweries
+La oss se hva som er feil: Kjør applikasjonen og åpne websiden på port 8080. Klikk på en tilfeldig øl i listen slik at du ser bildet og detaljene. Nederst på denne siden finner du "Back" "Edit beer" og "Suggestions". Trykk på "Edit beer". Her ser du en mulighet for å endre hvilket bryggeri en øl hører til. Men om du trykker på nedtrekslisten er den tom! La oss fikse dette. 
 
-### Filtere på getBeer
-I beer repository finnes det en getBeer(Filter)-funksjon. Filteret beskriver et sett med måter å filtrere ølen på.
-Skriv om funksjonen, så den har hensyn til filteret. Husk at du kan bygge opp SQL-spørringen enten som konkatinerte strenger,
- eller med builderen.
- 
-### Get beer details
-getBeerDetails henter også øl, men denne gangen ønsker vi å populere med mer informasjon, for bruk i en detalj-side.
-Ta utgangspunkt i BeerDetails-klassen og populer feltene i denne klassen for ølen det blir spurt om(id'en).
-Her er det viktig å holde tunga rett i munnen, og det kan være nyttig å ta i bruk alias'er i SQL-spørringen("this AS that")
+Nederst på denne samme siden kan du også se noen feilmeldinger. Den ene snakker om countries, den skal vi ta senere. Men den andre som snakker om breweries er vårt første clue. Åpne filen BreweryRepository og se om du kan finne ut hva som mangler i SQL-spørringen. Du kan finne flere clues i klassen Brewery(som vi prøver å fylle) og funksjonen "mapToBreweries" i DBHelpers.
 
-### Set beer details
-Vi ønsker også muligheten for å oppdatere informasjonen vi har om ølen.
-Desverre mangler vi endepunktet i BeerController
 
-##### Endepunkt 
-Implementer et endepunkt for å motta informasjon og skrive til serveren. Hva slags HTTP-header trenger vi?
-Endepunktet skal ta et BeerDetailsForm-objekt i http-headeren.
-Du kan teste endepunktet ved å kjøre opp front-enden, klikke deg inn på en øl og velge "edit beer" nede til venstre.
+#### Opg 2: GetCountries
+Nå som du vet hvordan man henter ut spesifikke kolonner fra databasen og putter dem inn i Java-objekter, la oss se hvordan man heter informasjon fra flere tables i samme spørring. Husker du feilmeldingen om countries fra sist oppgave i "Edit beer"? Den burde fortsatt være der. Vi kan også se at det ikke er noen land i nedtrekslisten.
 
-##### Oppdatere databasen
-Skriv en funksjon i BeerRepository som oppdaterer databasen og kall på denne fra kontrolleren.
+Opg a) Se på feilmeldingen, den burde si noe om at vi mangler continents. Prøv å finne dette i databasen. Bruk så LEFT JOIN statementet for å hente informasjon fra flere tabeller
+
+Opg b) Countries har også en beerCount verdi som nå mangler. SQL har en fin statement for å telle antall rader man får i svaret(mao, antall øl). Populer beerCount med antall øl i hvert land.
+
+Om alt gikk bra burde du nå ha listen over land.
+
+#### Opg 3: 
+La oss gå tilbake til forsiden. Legg merke til at vi nå har en liste med land(oooh og kontinenter!) til høyre vi kan filtrere på. Men om vi trykker på dem skjer det ingenting. Vi har også felter for "Min abv" og "Max abv", endrer vi på disse skjer det heller ingenting. I klassen BeerRepository i funksjonen getBeer har vi en nesten helt ferdig spørring, den fungerer, men den bruker ikke filteret som kommer inn i funksjonen.
+
+Opg a) Legg til mulighet for å filtrere på verdiene max/min abv og countries. Husk at du kan konkatinere SQL-strenger. 
+
+Opg b) Tilbake på forsiden: Legg merke til at du kan trykke øverst i tabellen, på "Name", "Brewery" osv, og det kommer opp piler som peker opp eller ned. Implementer en sortering basert på filteret sin "sort type". Hint: Legg merke til at sortType har en "sql"-verdi, denne kan være nyttig.
+
+Du burde nå kunne filtrere på min/max abv, countries og sortere resultatet på det du ønsker.
+
+#### Opg 4:
+Nå har vi lest nok fra databasen. La oss prøve å endre den litt! Husker du Edit Beer siden på hver øl? La oss prøve å submitte en endring. Velg en øl, endre landet og klikk "Submit". Fikk du en feilmelding? 
+
+
+Opg a) Feilmeldingen sier at "Request method POST not supported". Åpne filen "BeerController". Her er alle HTTP-endepunktene vi har som omhandler øl. Leggg merke til at vi alerede har 2 GET-funksjoner på request-mappingen "beer". Lag et POST-endepunkt, som tar BeerDetailsForm inn som en ModelAttribute og kjør funksjonen "setBeerDetails" i BeerRepository med denne formen.
+
+Opg b) I setBeerDetails har vi en tom SQL-streng. Skriv nå en full update-streng, som bruker verdiene som ligger i formen og populerer den korrekte ølen i databasen. Hint: country_id kommer fra countries-tabellen, visste du at du kan skrive SQL-statements INNI SQL-statements? Whoaaaa.
 
 
