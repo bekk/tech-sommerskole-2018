@@ -1,6 +1,5 @@
 package no.bekk.sommerskole.database;
 
-import ca.krasnay.sqlbuilder.SelectBuilder;
 import no.bekk.sommerskole.domain.Beer;
 import no.bekk.sommerskole.domain.BeerDetails;
 import no.bekk.sommerskole.domain.BeerDetailsForm;
@@ -23,38 +22,82 @@ public class BeerRepository {
         this.jdbc = jdbc;
     }
 
-    public BeerDetails getBeerDetails(String id) {
-        return null;
-    }
-
     public List<Beer> getBeer(BeerFilter filter) {
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         parameterSource
+                .addValue("minAbv", filter.getMinAbv())
+                .addValue("maxAbv", filter.getMaxAbv())
+                .addValue("countries", filter.getCountries())
                 .addValue("limit", filter.getLimit());
 
-        SelectBuilder selectBuilder = new SelectBuilder()
-                .column("beer.id AS beerId")
-                .column("beer.title AS beerName")
-                .column("beer.abv AS abv")
-                .column("brewery.id AS breweryId")
-                .column("brewery.title AS breweryName")
-                .column("country.code AS countryCode")
-                .column("country.title AS countryName")
-                .column("country.key AS countryKey")
-                .column("city.title AS cityName")
-                .from("main.beers AS beer")
-                .leftJoin("main.breweries AS brewery ON brewery.id = beer.brewery_id")
-                .leftJoin("main.countries AS country ON beer.country_id = country.id")
-                .leftJoin("main.cities AS city ON beer.city_id = city.id");
 
-        String query = selectBuilder.toString() + " LIMIT :limit";
+        String query = "SELECT " +
+                "beer.title as beerName, " +
+                "beer.id as beerId, " +
+                "beer.abv as abv, " +
+                "brewery.id as breweryId, " +
+                "brewery.title as breweryName, " +
+                "country.code as countryCode, " +
+                "country.title as countryName, " +
+                "country.key as countryKey, " +
+                "city.title as cityName " +
+                "from main.beers as beer " +
+                "left join main.breweries as brewery on brewery.id = beer.brewery_id " +
+                "left join main.countries as country on country.id = beer.country_id " +
+                "left join main.cities as city on beer.city_id = city.id";
+
+        // Oppgave 3: Vi mangler noe her...
+
+
+        query += " LIMIT :limit;";
         return jdbc.query(query, parameterSource, DBHelpers::mapToBeer);
     }
 
-    public void setBeerDetails(BeerDetailsForm details) {
+    public BeerDetails getBeerDetails(String id) {
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue("id", id);
 
+        String query = "SELECT " +
+                "beer.id as beerId, " +
+                "beer.title as beerName, " +
+                "beer.abv as abv, " +
+                "beer.kcal as kcal, " +
+                "beer.ibu as ibu, " +
+                "beer.web as web, " +
+                "beer.updated_at as updated_at, " +
+                "beer.created_at as created_at, " +
+                "brewery.id as breweryId, " +
+                "brewery.title as breweryName, " +
+                "country.code as countryCode, " +
+                "country.title as countryName, " +
+                "country.key as countryKey, " +
+                "city.title as cityName " +
+                "from main.beers as beer " +
+                "left join main.breweries as brewery on brewery.id = beer.brewery_id " +
+                "left join main.countries as country on country.id = beer.country_id " +
+                "left join main.cities as city on city.id = beer.city_id " +
+                "WHERE beer.id = :id";
+
+        return jdbc.queryForObject(query, parameterSource, DBHelpers::mapToBeerDetails);
     }
 
+    public void setBeerDetails(BeerDetailsForm details) {
+        MapSqlParameterSource parameterSource = beerDetailsParamSource(details);
 
+        String query = "";
+
+        jdbc.update(query, parameterSource);
+    }
+
+    private MapSqlParameterSource beerDetailsParamSource(BeerDetailsForm details) {
+        return new MapSqlParameterSource()
+                .addValue("id", details.getId())
+                .addValue("name", details.getName())
+                .addValue("breweryId", details.getBrewery())
+                .addValue("countryCode", details.getCountry())
+                .addValue("ibu", details.getIbu())
+                .addValue("abv", details.getAbv())
+                .addValue("kcal", details.getKcal())
+                .addValue("webpage", details.getWebpage());
+    }
 }
-

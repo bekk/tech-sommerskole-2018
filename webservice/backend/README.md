@@ -54,7 +54,7 @@ REST-endepunktene, ta i bruk Spring sitt inversion of control system og interfac
 
 ### The Suggester
 Vår produkteier, Herr Von Gluggenheimer har lenge ment at vi burde gi brukerene våre
-en mulighet til å få anbefalte øl basert på sine preferanser, og hvor viktig det er for dem.
+en mulighet til å få anbefalte øl basert på sine preferanser, og hvor viktig hver preferanse er for dem.
 Han har derfor bedt oss om å implementere en slik funksjonalitet i applikasjonen vår.
 
 
@@ -89,8 +89,9 @@ Hvor scoren er 1 om ølen er brygget i landet, og 0 om den ikke er det
 Herr Gluggenheimer mener at sannsynligheten for at vi har en øl brygget i nøyaktig brukeren sin ønskede by er liten, 
 dette er et problem, da brukeren vil bli skuffet over vårt dårlige utvalg.
 Han har dermed ønsket seg en matching-algoritme som git en score basert på hvor likt bynavnet er den ønskede byen. 
-Han har lest om en "fuzzy matching algorithm" i et IT-magasin han synes høres perfekt ut.
-Scoren baseres direkte på scoren til en fuzzy-matching algoritme.
+Han har lest om en "Levenshein distance"-algoritme i et IT-magasin han synes høres perfekt ut.
+Scoren baseres på den negative scoren til en Levensthein-distance algoritme.
+https://en.wikipedia.org/wiki/Levenshtein_distance
 
 ### Country Repository
 Klassen CountryRepository har en getCountries()-funksjon. I denne funksjonen skal dere ta i bruk databasen som ligger i klassen

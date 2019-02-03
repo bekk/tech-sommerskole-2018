@@ -1,6 +1,5 @@
 package no.bekk.sommerskole.database;
 
-import ca.krasnay.sqlbuilder.SelectBuilder;
 import no.bekk.sommerskole.domain.Country;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -8,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import javax.inject.Inject;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -20,9 +18,25 @@ public class CountryRepository {
         this.jdbc = jdbc;
     }
 
+    // Oppgave 2: Vi mangler noe her...
     public List<Country> getCountries() {
-        return Collections.emptyList();
+        String query = "SELECT " +
+                "countries.code, " +
+                "countries.title, " +
+                "countries.key " +
+                "from countries " +
+                "GROUP BY countries.code, countries.title " +
+                "ORDER BY countries.title";
+
+        return jdbc.query(query, CountryRepository::mapToCountry);
     }
 
-
+    private static Country mapToCountry(ResultSet rs, int rowNum) throws SQLException {
+        return new Country()
+                .setCountryCode(rs.getString("code"))
+                .setKey(rs.getString("key"))
+                .setName(rs.getString("title"))
+                .setContinent(rs.getString("continent"))
+                .setNumberOfBeers(rs.getInt("beerCount"));
+    }
 }
