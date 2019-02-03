@@ -33,6 +33,12 @@ public class SuggesterControllerTest {
     }
 
     @Test
+    public void shouldReturnAtLeastOneBeer() {
+        List<Beer> beers = suggesterController.getSuggestion(new RequirementsForm().setAbvValue(12.1).setAbvWeight(1.1));
+        assertThat(beers).size().isBetween(1, 11);
+    }
+
+    @Test
     public void shouldReturn10Beers() {
         List<Beer> beers = suggesterController.getSuggestion(new RequirementsForm().setAbvValue(12.1).setAbvWeight(1.1));
         assertThat(beers).size().isEqualTo(10);
