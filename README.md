@@ -1,2 +1,2 @@
-# tech-sommerskole-2018
+# tech-vinterskole
 Introkurs til software-utvikling
